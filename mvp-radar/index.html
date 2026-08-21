@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>PlugNX MVP Radar</title>
+<style>
+:root{--blue:#0066cc;--focus:#0071e3;--ink:#1d1d1f;--muted:#7a7a7a;--canvas:#fff;--paper:#f5f5f7;--dark:#272729;--line:#e0e0e0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--canvas);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,system-ui,sans-serif;letter-spacing:-.374px}a{color:inherit;text-decoration:none}
+.topbar{position:sticky;top:0;z-index:5;background:rgba(245,245,247,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(0,0,0,.08)}.topbar-inner{max-width:1120px;margin:auto;height:52px;padding:0 24px;display:flex;align-items:center;justify-content:space-between}.brand{font-size:17px;font-weight:700}.brand i{font-style:normal;color:var(--blue)}.meta{font-size:12px;color:var(--muted)}
+.hero{max-width:1120px;margin:auto;padding:88px 24px 78px}.eyebrow,.section-head p{font-size:12px;letter-spacing:.12em;color:var(--blue);font-weight:700}.hero h1{font-size:clamp(40px,6vw,64px);line-height:1.07;letter-spacing:-1.8px;margin:18px 0 22px;font-weight:600}.hero h1 em{font-style:normal;color:var(--blue)}.hero>p{font-size:21px;line-height:1.45;max-width:760px;color:#333;margin:0}.hero-actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}.primary,.secondary{display:inline-block;padding:11px 22px;border-radius:9999px;font-size:17px}.primary{background:var(--blue);color:#fff}.secondary{border:1px solid var(--blue);color:var(--blue)}.primary:active,.secondary:active{transform:scale(.95)}.primary:focus,.secondary:focus{outline:2px solid var(--focus);outline-offset:2px}
+.answer-grid{max-width:1120px;margin:0 auto 80px;padding:0 24px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}.answer-grid article{background:#fff;padding:24px}.answer-grid span{font-size:12px;color:var(--blue);font-weight:700}.answer-grid p{font-size:17px;line-height:1.47;margin:10px 0 0}
+.section{padding:80px max(24px,calc((100vw - 1072px)/2))}.section.light{background:var(--paper)}.section.dark{background:var(--dark);color:#fff}.section-head{max-width:720px;margin-bottom:36px}.section-head h2{font-size:40px;line-height:1.1;letter-spacing:-1px;font-weight:600;margin:12px 0 0}.dark .section-head p{color:#2997ff}
+.signal-grid,.candidate-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}.signal{background:#fff;padding:24px;min-height:220px}.signal-meta{display:flex;gap:8px;flex-wrap:wrap}.signal-meta span,.pill{font-size:12px;border:1px solid var(--line);border-radius:9999px;padding:5px 9px;color:var(--muted)}.signal h3{font-size:21px;line-height:1.25;font-weight:600;margin:24px 0 12px}.signal p{font-size:17px;line-height:1.47;margin:0 0 16px}.signal small{font-size:12px;line-height:1.45;color:var(--muted)}
+.candidate-grid{background:#3b3b3d}.candidate{background:var(--dark);padding:28px;min-height:460px;display:flex;flex-direction:column}.candidate.recommended{box-shadow:inset 0 3px 0 #2997ff}.candidate-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.candidate .pill{border-color:#555;color:#ccc}.candidate .recommend{color:#2997ff;border-color:#2997ff}.candidate h3{font-size:28px;line-height:1.15;margin:24px 0 10px;font-weight:600}.candidate .one{color:#ccc;font-size:17px;line-height:1.47;margin:0 0 20px}.candidate dl{margin:0}.candidate dt{font-size:12px;color:#999;margin-top:14px}.candidate dd{font-size:14px;line-height:1.5;margin:4px 0 0;color:#eee}.score{margin-top:auto;padding-top:22px;color:#2997ff;font-size:17px;font-weight:700}.why-not{margin-top:12px;color:#bbb;font-size:12px;line-height:1.45}
+.history{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}.history li{display:grid;grid-template-columns:120px 1fr auto;gap:18px;padding:18px 0;border-bottom:1px solid var(--line);font-size:14px}.history time,.history b{color:var(--muted);font-weight:400}.notice{max-width:1120px;margin:0 auto;padding:40px 24px 72px}.notice strong{font-size:14px}.notice p{font-size:12px;line-height:1.55;color:var(--muted)}.empty{padding:120px 24px;text-align:center}
+@media(max-width:820px){.answer-grid,.signal-grid,.candidate-grid{grid-template-columns:1fr}.section-head h2{font-size:32px}.history li{grid-template-columns:1fr;gap:6px}.meta{display:none}}
+</style></head><body>
+<nav class="topbar"><div class="topbar-inner"><a class="brand" href="../">PLUG<i>nx</i></a><div class="meta">MVP RADAR · 2026-08-09 · 후보 3개</div></div></nav>
+
+<section class="hero">
+  <div class="eyebrow">DAILY OPPORTUNITY INTELLIGENCE</div>
+  <h1>뉴스를 읽고 끝내지 않고,<br><em>검증 가능한 MVP</em>로 바꿉니다.</h1>
+  <p>첫 별도 MVP는 다국어 교육 이수와 위험작업 배치 로그를 묶는 SafetyPass가 적합하다.</p>
+  <div class="hero-actions"><a class="primary" href="#candidates">오늘의 후보 보기</a><a class="secondary" href="../">뉴스룸으로</a></div>
+</section>
+<section class="answer-grid">
+  <article><span>SO WHAT</span><p>2주 동안 제조기업 안전·인사 담당자의 증빙 업무와 지불의사를 먼저 검증하고, 코드 범위는 확인 링크·타임스탬프·CSV 내보내기로 제한한다.</p></article>
+  <article><span>CONFIDENCE</span><p>중간 — 반복 사고와 기록 공백은 확인됐지만 별도 예산과 구매 주체는 고객 인터뷰 전이다.</p></article>
+</section>
+<section class="section light"><div class="section-head"><p>01 · SIGNALS</p><h2>신호는 정책 단계와 출처 상태까지 확인합니다.</h2></div><div class="signal-grid"><article class='signal'><div class='signal-meta'><span>Investigate</span><span>정책 아님</span></div><h3>외국인 근로자 안전사고가 반복됐지만 교육 이수와 위험작업 배치 기록은 분절돼 있다</h3><p>번역 콘텐츠보다 개인별 이수·배치·확인 로그를 남기는 증빙 원장으로 진입할 수 있다.</p><small>사고 기사만으로 특정 법적 의무나 기업 책임을 단정하면 안 된다.</small></article><article class='signal'><div class='signal-meta'><span>Investigate</span><span>공식 원문 확인 필요</span></div><h3>전세사기 피해 외국인이 정책 주거지원에서 제외돼 별도 적격 확인 절차 논의가 시작됐다</h3><p>체류·거주·소득 서류를 사실 대조하는 정책주거 준비 체크리스트와 기관용 표준 스키마를 검증할 수 있다.</p><small>지자체 건의는 시행이 아니며 적격 여부를 PlugNX가 결정하는 것처럼 표현하면 안 된다.</small></article><article class='signal'><div class='signal-meta'><span>Investigate</span><span>정책 아님</span></div><h3>외국인 금융 규모와 부실 신호가 함께 커져 고용주 확인 재직·임금 신호의 가치가 높아졌다</h3><p>개별 신용점수를 만들지 않고 사용자가 동의한 고용 이력을 제출용 증빙으로 정리하는 데이터 제품을 검증할 수 있다.</p><small>언론 보도 수치를 금융사 실무 데이터처럼 단정하거나 대출 결과를 예측하면 안 된다.</small></article></div></section>
+<section class="section dark" id="candidates"><div class="section-head"><p>02 · MVP CANDIDATES</p><h2>코드보다 지불 주체와 데이터 해자를 먼저 봅니다.</h2></div><div class="candidate-grid"><article class="candidate recommended">
+<div class="candidate-top"><span class="pill">Now · 중간</span><span class='pill recommend'>추천</span></div>
+<h3>SafetyPass</h3><p class="one">다국어 안전교육 이수와 위험작업 배치 확인을 타임스탬프로 남기는 외국인 근로자 증빙 원장</p>
+<dl><dt>지불 주체</dt><dd>기업 안전·인사 담당 부서</dd><dt>해자</dt><dd>데이터 · 채널 · 전환비용</dd><dt>2주 MVP</dt><dd>다국어 교육 확인 링크 · 근로자 본인 확인 · 교육·배치 타임스탬프 · 기업 CSV 내보내기</dd><dt>성공 기준</dt><dd>기업 인터뷰 5곳 중 3곳이 실제 명단으로 파일럿을 진행하겠다고 답한다 [목표·가정]</dd></dl>
+<div class="score">31/35 · RTW 4/5</div>
+<p class="why-not"><b>반증:</b> 기존 안전교육 사업자가 같은 로그 기능을 빠르게 붙이거나 기업이 현재 서명부로 충분하다고 판단할 수 있다.</p></article><article class="candidate">
+<div class="candidate-top"><span class="pill">Now · 중간</span></div>
+<h3>WorkCredential</h3><p class="one">고용주가 확인한 직무·근속·급여·교육 이력을 근로자 동의로 재사용하는 제출용 고용이력 패스포트</p>
+<dl><dt>지불 주체</dt><dd>금융사 상품·리스크 부서 또는 대형 고용기업</dd><dt>해자</dt><dd>데이터 · 채널 · 전환비용</dd><dt>2주 MVP</dt><dd>더미 고용이력 업로드 · 근로자 동의 화면 · 제출용 고용이력 리포트 · 조회 로그</dd><dt>성공 기준</dt><dd>금융·렌탈 파트너 인터뷰 3곳 중 1곳이 샘플 데이터 계약과 PoC 필드 협의를 요청한다 [목표·가정]</dd></dl>
+<div class="score">30/35 · RTW 5/5</div>
+<p class="why-not"><b>반증:</b> 금융사는 자체 서류 확인으로 충분하다고 보거나 개인정보·신용정보 검토 때문에 조달 주기가 길어질 수 있다.</p></article><article class="candidate">
+<div class="candidate-top"><span class="pill">Next · 중간</span></div>
+<h3>HousingReady</h3><p class="one">외국인이 정책주거 상담 전에 체류·거주·소득 준비 항목을 확인하고 기관이 동일한 스키마로 받는 체크리스트</p>
+<dl><dt>지불 주체</dt><dd>지자체 또는 주거지원기관</dd><dt>해자</dt><dd>정책 · 데이터 · 전환비용</dd><dt>2주 MVP</dt><dd>지원제도 준비 항목 화면 · 기관별 서류 체크리스트 · 상담용 요약 리포트</dd><dt>성공 기준</dt><dd>지자체·지원기관 3곳이 공통 접수 항목 5개 이상에 합의한다 [목표·가정]</dd></dl>
+<div class="score">26/35 · RTW 4/5</div>
+<p class="why-not"><b>반증:</b> 법 개정 건의가 실제 시행으로 이어지지 않을 수 있고 공공 영업주기가 2주 MVP보다 길다.</p></article></div></section>
+<section class="section light"><div class="section-head"><p>03 · HISTORY</p><h2>아이디어보다 검증 기록이 해자가 됩니다.</h2></div><ul class="history"><li><time>2026-08-09</time><span>첫 별도 MVP는 다국어 교육 이수와 위험작업 배치 로그를 묶는 SafetyPass가 적합하다.</span><b>3개 후보</b></li></ul></section>
+<section class="notice"><strong>참고용 안내</strong><p>비자·노무·세무·금융 관련 내용은 법적 효력이 없는 참고 정보이며, 제품화 전에 전문가와 최신 1차 출처 확인이 필요합니다. 기사 기반 정책 신호는 발표·건의와 시행을 구분해야 합니다.</p></section>
+
+</body></html>
