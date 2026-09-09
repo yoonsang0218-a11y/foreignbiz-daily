@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>PlugNX AI Agent 서비스 랩</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fbfbfa;color:#1d1d1f;font-family:'Noto Serif KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+.top{background:#16171a;color:#fff;padding:36px 0 30px;border-bottom:3px solid #0f6e56}
+.top .eyebrow{font-size:11.5px;letter-spacing:.18em;color:#7fd6bb;font-weight:700;margin-bottom:10px}
+.top h1{margin:0 0 10px;font-size:30px;line-height:1.25;font-weight:700}
+.top h1 em{font-style:normal;color:#7fd6bb}
+.top p{margin:0;max-width:760px;color:#d6d6d6;font-size:15px}
+.top .meta{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:#a9a9a9}
+.top .meta span{border:1px solid #3a3c40;border-radius:999px;padding:4px 11px}
+.top .back{display:inline-block;margin-top:16px;font-size:13px;color:#7fd6bb;text-decoration:none;border-bottom:1px solid #2f6a58;padding-bottom:2px}
+.sec{padding:38px 0 6px}
+.sec-h{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid #1d1d1f;padding-bottom:8px;margin-bottom:18px;flex-wrap:wrap}
+.sec-h h2{margin:0;font-size:20px}
+.sec-h span{font-size:12px;color:#7a7a7a}
+.ansbar{margin-top:20px;background:#fff;border:1px solid #e5e5e3;border-left:4px solid #0f6e56;border-radius:6px;padding:14px 18px 12px}
+.ab-lead{font-size:15.5px;line-height:1.55;font-weight:600;color:#1c1a17;margin-bottom:9px}
+.ab-chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.rchip{background:#0f6e56;color:#fff;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:11px}
+.dchip{font-size:11px;font-weight:700;padding:3px 9px;border-radius:11px;background:#eef1ef;color:#40584f}
+.dchip.d-now{background:#e4f2ec;color:#0f6e56}
+.dchip.d-next{background:#f3efe4;color:#7a6320}
+.dchip.d-later{background:#eeeeec;color:#6b675e}
+.cchip{font-size:11px;font-weight:700;padding:3px 9px;border-radius:11px;background:#f5f0f2;color:#7a4a5e}
+.ab-more{margin-top:10px;border-top:1px dashed #e5e5e3;padding-top:8px}
+.ab-more summary{cursor:pointer;font-size:12px;color:#0f6e56;font-weight:700;list-style:none}
+.ab-more summary::-webkit-details-marker{display:none}
+.ab-more summary::before{content:"▸ ";font-size:11px}
+.ab-more[open] summary::before{content:"▾ "}
+.ab-full{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+.ab-full .method{grid-column:1/-1}
+@media(max-width:860px){.ab-full{grid-template-columns:1fr}}
+.ans{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px;margin-top:22px}
+.ans article,.ab-full article{background:#fbfbfa;border:1px solid #e5e5e3;border-top:3px solid #0f6e56;border-radius:6px;padding:12px 14px}
+.ab-full b{display:block;font-size:10.5px;letter-spacing:.1em;color:#0f6e56;margin-bottom:5px}
+.ab-full p{margin:0;font-size:12.8px;line-height:1.6}
+.ans b{display:block;font-size:11px;letter-spacing:.1em;color:#0f6e56;margin-bottom:6px}
+.ans p{margin:0;font-size:14px}
+table.board{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e5e5e3;font-size:13.5px}
+table.board th{text-align:left;font-size:11.5px;letter-spacing:.06em;color:#6b6b6b;padding:10px 12px;border-bottom:1px solid #e5e5e3;font-weight:700;white-space:nowrap}
+table.board td{padding:11px 12px;border-bottom:1px solid #f0f0ee;vertical-align:top}
+table.board tr:last-child td{border-bottom:none}
+.pp-label{font-weight:700}
+.pp-stage{display:inline-block;font-size:11px;color:#0f6e56;background:#eaf5f1;border-radius:3px;padding:1px 7px;margin-left:6px;vertical-align:1px}
+.pp-who{display:block;font-size:11.5px;color:#8a8a8a;margin-top:2px}
+.bar{position:relative;height:9px;background:#eee;border-radius:5px;min-width:90px}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:#0f6e56;border-radius:5px}
+.heat-n{font-size:12px;color:#555;margin-left:7px}
+.mom{font-weight:700;font-size:12.5px}
+.mom.상승{color:#b3261e}.mom.하락{color:#3f6ea8}.mom.유지{color:#7a7a7a}.mom.신규{color:#0f6e56}.mom.정체{color:#9a9a9a}.mom.비교불가{color:#b0b0b0}
+.ev{font-size:12px;color:#6b6b6b}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.cand{background:#fff;border:1px solid #e5e5e3;border-radius:8px;padding:18px 20px;border-top:4px solid #c8c8c6}
+.cand.Now{border-top-color:#0f6e56}.cand.Next{border-top-color:#c98a1e}.cand.Later{border-top-color:#8a8a8a}.cand.Drop{border-top-color:#b3261e}
+.cand .badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:3px;background:#1d1d1f;color:#fff}
+.cand.Now .badge{background:#0f6e56}.cand.Next .badge{background:#c98a1e}.cand.Drop .badge{background:#b3261e}
+.cand .pick{margin-left:8px;font-size:11px;color:#0f6e56;font-weight:700;border:1px solid #0f6e56;border-radius:3px;padding:2px 8px}
+.cand h3{margin:10px 0 4px;font-size:18px;line-height:1.3}
+.cand .one{margin:0 0 12px;font-size:13.5px;color:#3d3d3d}
+.kv{display:grid;grid-template-columns:78px 1fr;gap:5px 10px;font-size:12.7px;margin-bottom:12px}
+.kv dt{color:#8a8a8a}
+.kv dd{margin:0}
+.agent{background:#f6f7f6;border-left:3px solid #0f6e56;padding:11px 13px;border-radius:0 5px 5px 0;font-size:12.7px;margin-bottom:12px}
+.agent b{display:block;font-size:11px;letter-spacing:.08em;color:#0f6e56;margin-bottom:6px}
+.agent ol{margin:6px 0 6px 17px;padding:0}
+.agent li{margin-bottom:3px}
+.agent .rail{color:#8a4b1e;margin-top:6px}
+.scores{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:11px}
+.scores span{font-size:11px;border:1px solid #e0e0de;border-radius:3px;padding:2px 7px;color:#555}
+.scores .tot{border-color:#0f6e56;color:#0f6e56;font-weight:700}
+.gono{font-size:12.5px;border-top:1px dotted #ddd;padding-top:9px}
+.gono p{margin:0 0 4px}
+.gono .kill{color:#b3261e}
+.srcs{margin-top:9px;font-size:11.5px}
+.srcs a{color:#3f6ea8;text-decoration:none;margin-right:9px}
+.srcs a:hover{text-decoration:underline}
+.hist{list-style:none;margin:0;padding:0;background:#fff;border:1px solid #e5e5e3;border-radius:6px}
+.hist li{display:flex;gap:14px;padding:11px 14px;border-bottom:1px solid #f0f0ee;font-size:13px;align-items:baseline}
+.hist li:last-child{border-bottom:none}
+.hist time{color:#0f6e56;font-weight:700;white-space:nowrap;font-size:12.5px}
+.hist b{margin-left:auto;color:#8a8a8a;font-weight:400;font-size:12px;white-space:nowrap}
+.notice{margin:34px 0 60px;background:#fff;border:1px solid #e5e5e3;border-left:4px solid #c98a1e;border-radius:0 6px 6px 0;padding:14px 16px;font-size:12.5px;color:#5a5a5a}
+.notice strong{display:block;color:#8a4b1e;margin-bottom:4px;font-size:12px;letter-spacing:.05em}
+.method{font-size:12px;color:#8a8a8a;margin:12px 0 0}
+.empty{padding:60px 0;text-align:center;color:#8a8a8a}
+@media(max-width:860px){.cards{grid-template-columns:1fr}.ans{grid-template-columns:1fr}table.board{font-size:12.5px}}
+</style></head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="eyebrow">CUMULATIVE PAINPOINT → AI AGENT SERVICE</div>
+  <h1>하루치 뉴스가 아니라,<br><em>반복되는 페인포인트</em>에서 서비스를 설계합니다.</h1>
+  <p>누적 브리핑·정책·경쟁 신호를 고정 택소노미로 집계해 반복성과 지불 주체를 먼저 확인하고, 그 위에서만 AI Agent 서비스를 기획합니다.</p>
+  <div class="meta"><span>기준일 2026-09-08</span><span>누적 브리핑 55일 (2026-07-12~2026-09-08)</span><span>신호 907건</span><span>페인포인트 16종</span><span>후보 3건</span></div>
+  <a class="back" href="../">← 뉴스룸으로</a>
+</div></header>
+
+<div class="wrap">
+  
+  <div class="ansbar">
+    <div class="ab-main">
+      <div class="ab-lead">우리가 파는 것은 설명이 아니라 감사 가능한 기록이며, 오늘 그 값을 지불할 기관이 두 곳에서 동시에 확인됐다</div>
+      <div class="ab-chips">
+        <span class="rchip">추천 Deadline Sentinel</span>
+        <span class="dchip d-later">Later 1</span><span class="dchip d-now">Now 2</span>
+        <span class="cchip c-중간">확신도 중간</span>
+      </div>
+    </div>
+    <details class="ab-more">
+      <summary>전문 보기</summary>
+      <div class="ab-full">
+        <article><b>CONCLUSION</b><p>우리가 파는 것은 설명이 아니라 감사 가능한 기록이며, 오늘 그 값을 지불할 기관이 두 곳에서 동시에 확인됐다. 첫째는 대학이다 — 법무부가 2019~2025년 입학 유학생 53만557명과 졸업생 15만명의 입학–졸업–취업–정주–출국을 처음으로 종단 추적해 공개했고(전북 졸업생 61.2% 출국, 제주 신규 입학 -54%), 같은 날 교육부가 중도탈락률·불법체류율을 대학 평가 필수지표로 넣겠다고 밝혔다. 두 사실이 겹치는 순간 대학은 &#x27;유학생을 지원했다&#x27;가 아니라 &#x27;우리 졸업생이 어떤 자격으로 어디에 정착했는지&#x27;를 숫자로 증빙해야 하는 주체가 된다. 지원 예산과 감사 대응 예산은 다른 지갑이고, 후자가 우리 지갑이다. 둘째는 지방은행이다 — 전북은행이 외국인 금융을 비대면 대출과 함께 &#x27;지역 밖 성장축&#x27;으로 명시했고 JB금융은 외국인 전용 신용대출과 별도 신용평가모형을 이미 운영 중이다. 누적 집계에서도 신용평가 공백·여신 접근 페인포인트가 heat 133.05 로 2위이자 상승 중이고, 실명 주체 중 JB(전북·광주)가 여신·신용평가 레이어 1위(24건)다. 즉 &#x27;판정을 해야 하는데 입력값이 없는 기관&#x27;이 미래형이 아니라 현재형으로 존재한다. 두 후보는 이 두 지갑에 각각 붙는다 — Deadline Sentinel 은 고용주·기관의 준법 증빙에, Field Schema Broker 는 은행 심사의 입력값 정규화에. 오늘 확정한 문장은 하나다: 우리는 없는 기록을 만들지 않고, 끊긴 기록을 제3자가 받아들이는 형식으로 잇는다.</p></article>
+        <article><b>SO WHAT</b><p>recommended 는 Deadline Sentinel 유지(총점 32). 오늘 근거가 하나 늘었다 — 안철수 의원이 고용허가제에서 사업주에게 제공되는 외국인근로자 정보를 국적·나이·한국어 능력에서 경력·근로조건까지 확대하는 법안을 발의했고, 통과되면 고용주가 관리·증빙해야 할 항목이 늘어 준법 파수꾼의 대상 필드가 넓어진다. Field Schema Broker 는 Now 유지(31)이며 오늘 처음으로 구매자가 실명으로 특정됐다 — JB금융 계열은 자체 신용평가모형을 이미 돌리고 있으므로 &#x27;모형이 없다&#x27;가 아니라 &#x27;모형에 넣을 필드가 회사마다 다르다&#x27;는 우리 문제 정의가 그대로 검증 질문이 된다. 1개월차 접촉 순서를 인터넷은행 3사보다 JB금융 계열 앞으로 옮긴다. Route Index 는 Later 유지(21) — 오늘도 모집·송출 브로커 신호(heat 40.45)는 있었으나 지불 주체가 특정되지 않았다.</p></article>
+        <article><b>CONFIDENCE</b><p>중간. 대학 지갑 가설의 핵심 연결고리(법무부 종단 데이터 → 교육부 평가지표 → 대학 예산 항목)에서 마지막 두 칸은 아직 개편안이 확정되지 않아 추정이다 [확인필요]. 은행 지갑 쪽은 &#x27;이미 판정하고 있다&#x27;는 사실만 확실하고 외부 신호를 살 것인지는 모형 입력변수·연체율이 비공개라 알 수 없다 — 다만 알 수 없다는 사실 자체가 접촉 사유다. heat 는 언급 빈도의 대리지표이지 시장 크기가 아니며, 오늘 데스크 추세는 전 계열 &#x27;하강&#x27;으로 나왔는데 이는 집계 창 끝단의 절단 효과일 가능성이 크다.</p></article>
+        <p class='method'><b>직전 대비 변화</b> 직전 회차 대비 세 가지가 바뀌었다. (1) 구매자가 실명으로 특정됐다 — 어제까지 Field Schema Broker 의 구매자는 &#x27;외국인 여신을 시작할 은행&#x27;이라는 미래형이었는데, 오늘 전북은행이 외국인 금융을 지역 밖 성장축으로 명시하고 JB금융이 외국인 전용 신용대출과 별도 신용평가모형을 이미 운영 중임이 확인되면서 현재형 구매자가 생겼다. payer 와 mvp_2weeks 의 접촉 대상을 인터넷은행 3사보다 JB금융 계열 앞으로 옮겼다. (2) Deadline Sentinel 의 대상 필드가 넓어질 근거가 붙었다 — 안철수 의원의 고용허가제 정보 확대 법안이 통과되면 사업주가 관리·증빙해야 할 근로자 정보 항목이 늘고, 그만큼 놓치는 건도 늘어 파수꾼의 값이 커진다. why 와 repeat_evidence 에 반영했다. (3) 판매 문장이 한 겹 더 정교해졌다 — 어제 &#x27;기록의 부재가 아니라 단절&#x27;로 옮긴 문장에 오늘 &#x27;감사 가능한 형식&#x27;이라는 조건을 더했다. 법무부가 유학생 종단 데이터를 직접 보유·분석한다는 사실이 확인되면서, 데이터를 잇는 것만으로는 원천 보유자에게 대체될 수 있고 제3자가 그대로 받아들이는 형식(시점 고정·서명 이력)이 붙어야 대체되지 않는다는 점이 분명해졌다. 세 후보 모두 guardrails 와 moat 서술에 이 조건을 반영했다. 누적 집계에서는 정주·가족·교육 통합이 heat 142.05 로 1위를 유지했고 신용평가 공백·여신 접근(133.05)과 계좌·송금·결제 인프라(103.7)가 상승했다. 후보 수와 decision 은 변경하지 않았다 — 매일 새 후보를 만들지 않는다는 원칙을 유지한다.</p>
+      </div>
+    </details>
+  </div>
+  <section class="sec">
+    <div class="sec-h"><h2>01 · 누적 페인포인트 보드</h2>
+      <span>브리핑 55일 누적 · 최근 30일 가중</span></div>
+    <table class="board">
+      <thead><tr><th>#</th><th>페인포인트</th><th>heat</th><th>언급</th><th>모멘텀</th><th>최근 신호</th></tr></thead>
+      <tbody><tr><td>1</td><td><span class='pp-label'>정주·가족·교육 통합</span><span class='pp-stage'>사회통합</span><span class='pp-who'>근로자·가족·지자체</span></td><td><div class='bar'><i style='width:100%'></i></div><span class='heat-n'>142.05</span></td><td>191건 · 51일</td><td><span class='mom 유지'>유지</span><br><span class='ev'>일평균 3.52 ↔ 3.42</span></td><td class='ev'>법무부가 유학생 53만명의 입학–졸업–취업–정주를 처음으로 끝까지 추적했다<br>2026-09-08</td></tr><tr><td>2</td><td><span class='pp-label'>신용평가 공백·여신 접근</span><span class='pp-stage'>금융</span><span class='pp-who'>근로자·금융사</span></td><td><div class='bar'><i style='width:94%'></i></div><span class='heat-n'>133.05</span></td><td>160건 · 49일</td><td><span class='mom 상승'>상승</span><br><span class='ev'>일평균 3.83 ↔ 1.88</span></td><td class='ev'>전북은행이 &#x27;외국인 금융&#x27;을 지역 밖 성장축으로 명시했다 — 지방은행의 탈지역 카드<br>2026-09-08</td></tr><tr><td>3</td><td><span class='pp-label'>계좌·송금·결제 인프라</span><span class='pp-stage'>금융</span><span class='pp-who'>근로자·금융사</span></td><td><div class='bar'><i style='width:73%'></i></div><span class='heat-n'>103.7</span></td><td>118건 · 44일</td><td><span class='mom 상승'>상승</span><br><span class='ev'>일평균 3.17 ↔ 1.0</span></td><td class='ev'>한패스 주가가 공모가의 27% 수준이다 — 외국인 송금 프런트엔드에 시장이 매긴 값<br>2026-09-08</td></tr><tr><td>4</td><td><span class='pp-label'>임금체불·근로조건 분쟁</span><span class='pp-stage'>근로</span><span class='pp-who'>근로자</span></td><td><div class='bar'><i style='width:43%'></i></div><span class='heat-n'>61.55</span></td><td>83건 · 41일</td><td><span class='mom 유지'>유지</span><br><span class='ev'>일평균 1.52 ↔ 1.5</span></td><td class='ev'>제1야당 원내대표가 &#x27;사회보험 상호주의&#x27;를 연설에 넣었고, 무비자 폐지 청원은 2만을 넘겼다<br>2026-09-08</td></tr><tr><td>5</td><td><span class='pp-label'>비자 전환·숙련인력 승급 병목</span><span class='pp-stage'>체류·자격</span><span class='pp-who'>근로자·고용주</span></td><td><div class='bar'><i style='width:40%'></i></div><span class='heat-n'>56.3</span></td><td>75건 · 33일</td><td><span class='mom 유지'>유지</span><br><span class='ev'>일평균 1.41 ↔ 1.31</span></td><td class='ev'>법무부가 유학생 53만명의 입학–졸업–취업–정주를 처음으로 끝까지 추적했다<br>2026-09-08</td></tr><tr><td>6</td><td><span class='pp-label'>고용주 준법·행정 부담</span><span class='pp-stage'>근로</span><span class='pp-who'>고용주</span></td><td><div class='bar'><i style='width:39%'></i></div><span class='heat-n'>55.8</span></td><td>69건 · 33일</td><td><span class='mom 상승'>상승</span><br><span class='ev'>일평균 1.55 ↔ 0.92</span></td><td class='ev'>제1야당 원내대표가 &#x27;사회보험 상호주의&#x27;를 연설에 넣었고, 무비자 폐지 청원은 2만을 넘겼다<br>2026-09-08</td></tr><tr><td>7</td><td><span class='pp-label'>도입규모·쿼터·거버넌스</span><span class='pp-stage'>입국·모집</span><span class='pp-who'>정부·산업</span></td><td><div class='bar'><i style='width:37%'></i></div><span class='heat-n'>53.0</span></td><td>64건 · 33일</td><td><span class='mom 상승'>상승</span><br><span class='ev'>일평균 1.52 ↔ 0.77</span></td><td class='ev'>유학생 접점이 무료 툴과 연 3만원 구독으로 먼저 채워지고 있다 — 코메이트 16개 대학, 자블리 K-TAG<br>2026-09-07</td></tr><tr><td>8</td><td><span class='pp-label'>출국·정산·환급 공백</span><span class='pp-stage'>출국·정산</span><span class='pp-who'>근로자·지자체·금융사</span></td><td><div class='bar'><i style='width:35%'></i></div><span class='heat-n'>49.65</span></td><td>59건 · 27일</td><td><span class='mom 상승'>상승</span><br><span class='ev'>일평균 1.45 ↔ 0.65</span></td><td class='ev'>제1야당 원내대표가 &#x27;사회보험 상호주의&#x27;를 연설에 넣었고, 무비자 폐지 청원은 2만을 넘겼다<br>2026-09-08</td></tr><tr><td>9</td><td><span class='pp-label'>모집·송출·브로커 투명성</span><span class='pp-stage'>입국·모집</span><span class='pp-who'>근로자·지자체·송출기관</span></td><td><div class='bar'><i style='width:28%'></i></div><span class='heat-n'>40.45</span></td><td>52건 · 29일</td><td><span class='mom 상승'>상승</span><br><span class='ev'>일평균 1.07 ↔ 0.81</span></td><td class='ev'>자블리가 베트남 국민앱 안에서 유학생을 잡는다 — 우리와 같은 통찰, 더 앞선 접점<br>2026-09-06</td></tr><tr><td>10</td><td><span class='pp-label'>신원확인·KYC 공백</span><span class='pp-stage'>정착</span><span class='pp-who'>근로자·금융사·플랫폼</span></td><td><div class='bar'><i style='width:26%'></i></div><span class='heat-n'>36.45</span></td><td>48건 · 27일</td><td><span class='mom 유지'>유지</span><br><span class='ev'>일평균 0.93 ↔ 0.81</span></td><td class='ev'>소액해외송금 1호 이나인페이가 개인 송금으로 닦은 망을 B2B 축으로 돌린다 — 영업이익률 36.7%<br>2026-09-07</td></tr><tr><td>11</td><td><span class='pp-label'>산재·안전·의료 접근</span><span class='pp-stage'>근로</span><span class='pp-who'>근로자·고용주</span></td><td><div class='bar'><i style='width:24%'></i></div><span class='heat-n'>34.8</span></td><td>48건 · 29일</td><td><span class='mom 유지'>유지</span><br><span class='ev'>일평균 0.83 ↔ 0.92</span></td><td class='ev'>건강보험이 없으면 같은 병원에서 다른 진료비 기준이 적용된다<br>2026-09-08</td></tr><tr><td>12</td><td><span class='pp-label'>사업장 이동·이탈 관리</span><span class='pp-stage'>근로</span><span class='pp-who'>고용주</span></td><td><div class='bar'><i style='width:21%'></i></div><span class='heat-n'>29.9</span></td><td>42건 · 24일</td><td><span class='mom 하락'>하락</span><br><span class='ev'>일평균 0.69 ↔ 0.85</span></td><td class='ev'>서비스업은 쿼터의 절반도 못 채웠다 — E-9 역대 최대의 반대편에 &#x27;매칭 실패&#x27;가 있다<br>2026-09-02</td></tr></tbody>
+    </table>
+    <p class="method">카드·인사이트 전문을 고정 택소노미 키워드로 매칭(2회 이상 적중 우선), 최근 30일 1.0 / 31~60일 0.45 / 그 이전 0.2 가중 합계를 heat 로 쓴다. heat 는 언급 빈도의 대리지표이며 시장 규모나 수익성의 증거가 아니다. [추정] 모멘텀은 브리핑 발행일수로 정규화한 일평균 언급 비교이며, 이전 창의 발행일이 5일 미만이면 &#x27;비교불가&#x27;로 표시한다.</p>
+  </section>
+  <section class="sec">
+    <div class="sec-h"><h2>02 · AI Agent 서비스 후보</h2>
+      <span>반복 문제 · 지불 주체 · 에이전트 동작 · 중단 기준까지 함께 본다</span></div>
+    <div class="cards">
+<article class="cand Now">
+  <div><span class="badge">Now</span><span class='pick'>오늘의 선택</span></div>
+  <h3>Deadline Sentinel — 제도 개정과 고용 원장을 매일 대조하는 기한·준법 파수꾼</h3>
+  <p class="one">매일 바뀌는 고시·의결문을 읽고 우리 회사 외국인 고용 원장에서 오늘 새로 예외가 된 줄만 골라 근거 조문과 함께 본사 준법 담당자에게 올린다.</p>
+  <dl class="kv">
+    <dt>반복 근거</dt><dd>55일 창(2026-07-12~2026-09-08) 907건 집계에서 고용주 준법·행정 부담 heat 55.8, 임금체불·근로조건 분쟁 61.55, 체류기한·자격 만료 리스크 29.15, 사업장 이동·이탈 관리 29.9 가 각각 30일 이상 서로 다른 날짜에 관측됐다. 오늘 새로 붙은 근거는 두 개다 — ① 안철수 의원이 고용허가제에서 사업주에게 제공되는 외국인근로자 정보를 국적·나이·한국어 능력에서 경력·근로조건까지 확대하는 법안을 발의했다(관리·증빙 대상 필드 확대). ② 임금 보증보험이 의무화돼 있는데도 임금 미수령 상태로 출국하면 권리 구제가 사실상 어렵다는 사실이 다시 확인됐다(제도는 배치됐고 집행에서 샌다 — 파수꾼이 겨냥하는 정확한 형태의 실패다).</dd>
+    <dt>겪는 주체</dt><dd>외국인 근로자를 여러 사업장·현장에 두고 노무·준법 담당이 1~2명인 제조사와 건설사의 본사 담당자. 고용허가제 근로자의 80%가 제조업에 있으므로 1순위는 제조사다.</dd>
+    <dt>현 대체재</dt><dd>엑셀 만기표 + 행정사 전화 확인 + 하이코리아·고용노동부 고시 눈으로 훑기 + 현장 소장 구두 보고. 개정이 있을 때마다 사람이 표를 다시 짠다.</dd>
+    <dt>지불 주체</dt><dd>고용주(제조사·건설사 본사 준법·인사 부서). 2027년 3월 고용제한 처분 기준이 사업장 단위에서 사업주 단위로 바뀌면 단일 현장의 위반이 법인 전체의 고용 제한으로 번지므로 예산 유인이 본사에 생긴다. · 사업장 수 기준 월 구독 [목표·가정]. 단가는 미검증이며 90일 검증에서 &#x27;행정사 자문료 + 담당자 시간&#x27;의 현재 지출액을 먼저 실측한다.</dd>
+    <dt>해자</dt><dd>데이터 · 정책 · 전환비용</dd>
+  </dl>
+  <div class="agent">
+    <b>AGENT DESIGN</b>
+    트리거 ① 법무부·고용노동부·외국인력정책위원회 고시·의결 게시(수시) ② 원장 내 체류기한 만료 D-90/60/30 ③ 사업장 변경·현장 이동 신고 발생 ④ 신규 고용허가 신청 착수 시점 ⑤ 광역지자체 지역특화형 비자 공고 개정 — 오늘 전남광주 사례처럼 완화 폭이 TOPIK 한 급수 단위라 &#x27;어제는 안 됐는데 오늘은 되는&#x27; 근로자가 한꺼번에 생긴다.<br>입력 고용주가 동의 범위 안에서 제공하는 외국인 고용 원장(체류자격·만료일·배치 현장·고용허가 번호) / 법무부·고용노동부·외국인력정책위원회 공개 고시·의결문·시행규정 텍스트 / 광역지자체 지역특화형 비자 공고(요건이 광역별로 갈라지는 부분) / 현장·협력사 계약 구조(누구의 위반이 우리 법인의 처분 사유가 되는지 판정하기 위한 관계 데이터)
+    <ol><li>매일 고시·의결문과 광역지자체 공고를 수집해 개정된 조항을 추출하고, 그 조항이 원장의 어느 필드를 건드리는지 매핑한다.</li><li>영향받는 원장 행을 골라 &#x27;오늘부터 위반&#x27;, &#x27;유예 기간 내&#x27;, &#x27;영향 없음&#x27;, &#x27;새로 자격 충족&#x27;으로 분류하고 근거 조문을 함께 붙인다 — 오늘 전남광주 요건 완화처럼 규제가 풀리는 방향의 변경도 놓치면 승급 기회를 잃는다.</li><li>하도급·협력사 구조를 대조해 그 위반이 우리 법인의 처분 사유가 되는 범위인지 판정한다. 조직도 조회가 아니라 계약 관계 해석이며 이 단계가 에이전트 필연성의 핵심이다.</li><li>본사 담당자에게 &#x27;조치 필요 항목&#x27;만 우선순위와 마감일로 제시하고, 필요한 사내 준비 서식을 조립한다.</li><li>담당자 확인·승인 후 처리 이력을 G1 전자서명으로 고정해 사후 감사와 처분 대응에 쓸 수 있는 기록으로 남긴다.</li></ol>
+    사람 개입 위반 판정 결과를 근로자·현장에 통보하거나 인사 조치로 연결하기 전에 반드시 본사 준법 담당자가 확인·승인한다. 에이전트는 &#x27;이 줄을 보십시오&#x27;까지만 하고 조치 여부를 결정하지 않는다. 하도급 범위 판정은 계약서 해석이 개입하므로 초기 3개월간 전 건을 사람이 검토하고, 검토 결과는 학습 데이터가 아니라 규칙 교정 근거로만 쓴다. 근로자 개인에게 불이익이 갈 수 있는 판정(자격 상실·계약 종료 사유 해당)은 담당자 승인 없이는 화면 밖으로 나가지 않는다.<br>산출 일일 &#x27;조치 필요&#x27; 목록 — 근로자 식별자, 해당 조문, 마감일, 권고 조치 순으로 정렬 / 개정 요약 브리프 — 오늘 무엇이 바뀌었고 우리 원장의 몇 줄이 영향을 받는지 한 장 / 사내 준비 서식 묶음(제출은 담당자가 한다) / 처리 이력 대장 — 누가 언제 무엇을 확인·승인했는지 전자서명으로 고정
+    <div class="rail">가드레일 행정사법 경계 — 신청서를 대신 작성·제출하지 않는다. 서식 조립까지만 하고 제출 주체는 고용주 또는 근로자 본인이다. · 노무사법 경계 — 개별 근로관계에 대한 법률 판단이나 분쟁 대응 조언을 제공하지 않는다. &#x27;이 조문이 이 줄에 걸린다&#x27;는 대조 사실까지만 제시한다. · 개인정보보호법 — 고용 원장은 고용주가 제공하는 범위 안에서만 처리하고, 근로자 개인에게 재사용하려면 별도 동의를 받는다. 목적 외 이용 금지를 계약서에 명시한다. · 결과 확정 표현 금지 — &#x27;처분을 받습니다&#x27;가 아니라 &#x27;이 조문에 해당할 수 있으니 확인이 필요합니다&#x27;로만 출력한다.</div>
+  </div>
+  <div class="scores"><span>pain 5</span><span>frequency 5</span><span>wtp 4</span><span>right_to_win 4</span><span>policy_fit 5</span><span>buildability 5</span><span>agent_fit 4</span><span class="tot">합계 ?/35</span></div>
+  <div class="gono">
+    <p><b>2주 MVP</b> 제조사 1곳의 실제 고용 원장(익명화)을 받아 최근 6개월치 고시·의결문·광역 공고와 대조하고, &#x27;그 기간에 담당자가 놓쳤던 항목&#x27;을 사후적으로 몇 건 잡아내는지 센다. 개정 수집·매핑·분류까지만 만들고 하도급 판정과 서식 조립은 이번 범위에서 뺀다.</p>
+    <p><b>성공</b> 제조사 1곳의 6개월 원장에서 담당자가 인지하지 못했던 영향 항목을 3건 이상 잡아낸다 [목표·가정]. 그리고 담당자가 &#x27;이건 우리가 놓쳤던 게 맞다&#x27;고 서면으로 확인한다.</p>
+    <p class="kill"><b>중단</b> ① 3개 사업장의 6개월 원장에서 놓친 항목이 각각 1건 미만이면 중단한다 — 문제가 우리 생각만큼 자주 발생하지 않는 것이다. ② 담당자들이 &#x27;행정사에게 물으면 된다&#x27;고 답하고 현재 자문료가 월 구독 예상가보다 낮으면 가격이 성립하지 않으므로 재설계한다. ③ 고용노동부·법무부가 고용주용 개정 알림 서비스를 무료로 제공하면 즉시 재검토한다. ④ 2027년 3월 처분 기준 전환이 유예·철회되면 핵심 why_now 가 사라지므로 재검토한다.</p>
+    <p><b>반증</b> 고용주가 이 문제를 비용으로 인식하지 않을 수 있다 — 지금까지 놓쳐도 처분을 안 받았다면 &#x27;운이 좋았다&#x27;가 아니라 &#x27;문제가 없다&#x27;고 해석할 가능성이 높다. 또한 원장 자체가 부실한 사업장이 많고, 그런 곳이 정확히 우리가 도와야 할 대상인데 입력값이 없다. 대기업 제조사는 이미 사내 법무·노무 인력이 있어 아쉬움이 작고, 영세 사업장은 지불 능력이 없어 중간 규모에만 시장이 있을 수 있다 — 그 중간층의 크기는 실측되지 않았다. [14회차 추가] 오늘 통계는 이 후보에도 반증을 던진다 — 고용보험 당연가입 27만3,000명이라는 것은 고용주가 이미 4대보험 신고 체계 안에서 기한 관리를 어느 정도 하고 있다는 뜻이고, 그렇다면 &#x27;기한을 놓친다&#x27;는 전제 자체가 과장일 수 있다. 반박은 가능하다: 고용보험 신고 기한과 체류자격·고용허가 기한은 관할 부처가 달라 같은 시스템에서 관리되지 않으며, 오늘 산재 판정 사례가 보여주듯 신고가 됐다고 준법이 된 것은 아니다. 그러나 이 반박은 아직 사례이지 데이터가 아니므로, 파일럿에서 &#x27;고용보험은 제때 신고했으나 체류·고용허가 기한은 놓친&#x27; 사업장 비율을 반드시 측정한다 — 이 숫자가 낮으면 후보 자체를 재검토한다.</p>
+    <p><b>규제</b> 중간 — 행정사법·노무사법 경계가 핵심이다. 서식 조립과 대조 사실 제시까지는 정보 제공이지만, &#x27;이렇게 하면 처분을 피할 수 있다&#x27;는 조언으로 넘어가면 선을 넘는다. 고용 원장에 담긴 근로자 개인정보의 처리 근거(고용주의 정당한 이익인지 근로자 동의인지)도 계약 단계에서 확정해야 한다 [확인필요].</p>
+    <div class="srcs"><a href='https://n.news.naver.com/mnews/article/011/0004659662?sid=102' target='_blank' rel='noopener'>2026-09-08 E-9·H-2 사업주 임금 보증보험 의무에도 임</a><a href='https://weekly.hankooki.com/news/articleView.html?idxno=7183058' target='_blank' rel='noopener'>2026-09-08 체류 외국인 278만·증가분 86%가 장기체류자</a><a href='https://n.news.naver.com/mnews/article/016/0002694391?sid=102' target='_blank' rel='noopener'>2026-09-08 교육부, 경영위기 대학 &#x27;비자 정밀심사</a></div>
+  </div>
+</article>
+<article class="cand Now">
+  <div><span class="badge">Now</span></div>
+  <h3>Field Schema Broker — 회사마다 다른 급여 원장을 심사용 4필드로 정규화하는 에이전트</h3>
+  <p class="one">사업장마다 서식이 다른 급여명세·근로계약·체류 기록을 동의 범위 안에서 읽어, 금융기관이 실제로 쓸 수 있는 네 개 필드(체류 잔여기간·고용계약 실재성·급여 수취 연속성·수취 단절 이력)로 정규화해 전달한다.</p>
+  <dl class="kv">
+    <dt>반복 근거</dt><dd>55일 창 집계에서 신용평가 공백·여신 접근이 heat 133.05 로 전체 2위이자 상승 추세이고 49일에 걸쳐 160건 관측됐다. 계좌·송금·결제 인프라(103.7·44일)와 신원확인·KYC 공백(36.45)도 함께 반복된다. 오늘 결정적으로 달라진 것은 구매자가 미래형에서 현재형이 됐다는 점이다 — 전북은행이 외국인 금융을 지역 밖 성장축으로 명시했고 JB금융은 별도 신용평가모형을 이미 운영 중이다. &#x27;모형이 없어서 판정을 못 한다&#x27;가 아니라 &#x27;모형에 넣을 필드가 회사마다 다르다&#x27;는 우리 문제 정의가 그대로 첫 검증 질문이 된다.</dd>
+    <dt>겪는 주체</dt><dd>국내 금융이력이 얇아 여신·계좌 심사에서 등급이 나오지 않는 E-9·E-7 근로자와, 그들을 심사해야 하는 금융기관 실무자. 겪는 쪽과 내는 쪽이 분리된다.</dd>
+    <dt>현 대체재</dt><dd>은행 자행 거래 실적(하나은행 &#x27;하나더이지 적금&#x27;처럼 해외송금·급여이체 실적으로 우대금리를 주는 방식)만 보고 판정하거나, 아예 판정하지 않고 거절한다. 근로자 쪽은 통장 거래내역 캡처와 종이 급여명세서를 창구에 들고 간다.</dd>
+    <dt>지불 주체</dt><dd>1차: 외국인 여신을 이미 취급하며 자체 신용평가모형을 운영하는 은행 — [15회차 실명 특정] JB금융 계열(전북은행·광주은행). 실명 주체 집계에서 여신·신용평가 레이어 1위(24건)이고 외국인 전용 신용대출·별도 신용평가모형·다국어 상담을 이미 돌린다. 2차: 4분기에 계좌·송금·체크카드로 진입한 뒤 여신을 붙일 인터넷은행 3사. 3차: 보증기관. 근로자에게는 과금하지 않는다 — 근로·급여 층 판정이 &#x27;B2C 무료 획득 → B2B·B2G 과금 필수&#x27;이고 당사자 과금 정황은 5%다. · 금융기관 대상 건별 조회 또는 연간 구독 [목표·가정]. 단가 미검증. 신용점수를 산출해 파는 것이 아니라 동의 기반 사실 필드를 전달하는 구조여야 신용평가업 본허가를 피한다.</dd>
+    <dt>해자</dt><dd>데이터 · 정책 · 전환비용</dd>
+  </dl>
+  <div class="agent">
+    <b>AGENT DESIGN</b>
+    트리거 ① 근로자가 여신·계좌 신청 과정에서 명시적으로 동의를 제출하는 시점 ② 매월 급여일 이후 원장 갱신 시점 ③ 금융기관이 기존 고객의 재심사를 요청하는 시점(동의 유효기간 내) ④ 수취 단절 발생 시점(체불·지연 지급).<br>입력 근로자가 동의 범위 안에서 제출하는 급여명세서·근로계약서·통장 거래내역 / 고용주가 동의한 경우 사업장 급여 지급 이력(PayProof 고용주 측면과 공유) / 체류자격·만료일 등 본인이 제출하는 체류 정보 / 최저임금·수당·4대보험 공제 규정 등 검산에 필요한 공개 기준 텍스트
+    <ol><li>서식이 제각각인 급여명세서(사진·손글씨·다국어 혼재)를 읽어 지급 항목과 공제 항목을 추출하고 공개 기준으로 검산한다.</li><li>월별 수취 사실을 시계열로 배열해 &#x27;연속 수취 개월수&#x27;와 &#x27;단절 발생 시점·사유(지연/미지급/사업장 변경)&#x27;를 분리 판정한다 — 신용위험과 수취위험을 가르는 이 구분이 이 후보의 존재 이유이며, 오늘 대지급금 96% 급증이 그 필요를 재정 숫자로 증명했다.</li><li>근로계약서와 체류 정보를 대조해 계약 실재성과 체류 잔여기간을 확정하고, 불일치가 있으면 필드를 채우지 않고 &#x27;확인 불가&#x27;로 남긴다 — 추정으로 채우지 않는다.</li><li>네 개 필드를 금융기관이 요구한 스키마로 변환한다. 기관마다 필드 정의가 다르면 매핑 표를 유지하고, 변환 과정에서 원본 사실을 훼손하지 않는다.</li><li>근로자에게 &#x27;무엇이 누구에게 전달되는지&#x27;를 모국어로 보여주고 동의를 받은 뒤에만 전달하며, 전달 사실을 G1 전자서명으로 고정한다.</li></ol>
+    사람 개입 전달 직전에 근로자 본인이 필드 값과 수신 기관을 확인하고 명시적으로 승인한다. 승인 없이는 어떤 필드도 나가지 않는다. 검산 결과가 근로자에게 불리하게 작용할 수 있는 항목(수취 단절 이력)은 반드시 근로자가 먼저 보고 소명 메모를 붙일 기회를 준 뒤 전달한다. 금융기관 쪽에서는 심사역이 필드를 참고 자료로 쓰되 우리 출력만으로 자동 거절이 이뤄지지 않도록 계약서에 명시한다.<br>산출 금융기관용 4필드 요약(체류 잔여기간·고용계약 실재성·급여 수취 연속성·수취 단절 이력) + 각 필드의 근거 시점 / 근로자용 모국어 급여 검산 결과(무료 획득 기능) / 동의·전달 이력 대장 — 누가 언제 무엇에 동의해 어디로 보냈는가 / 필드 매핑 표(기관별 스키마 차이 관리용, 내부 자산)
+    <div class="rail">가드레일 신용평가업 경계 — 점수·등급을 산출하지 않는다. 사실 필드와 그 시점만 전달하고 판정은 금융기관이 한다. · 신용정보법·개인정보보호법 — 동의 없이는 어떤 필드도 전달하지 않고, 동의 범위·기간·수신자를 건별로 특정한다. 포괄 동의를 받지 않는다. · 결과 확정 표현 금지 — &#x27;대출이 됩니다/안 됩니다&#x27;로 말하지 않는다. 우리는 필드를 전달할 뿐 승인 여부를 예측하지 않는다. · 선택 편향 고지 — 급여명세서를 발급하지 않는 사업장의 근로자는 이 데이터에 들어오지 않는다는 사실을 금융기관에 먼저 알린다. 편향을 숨기면 신뢰를 잃는다.</div>
+  </div>
+  <div class="scores"><span>pain 5</span><span>frequency 4</span><span>wtp 4</span><span>right_to_win 5</span><span>policy_fit 5</span><span>buildability 3</span><span>agent_fit 5</span><span class="tot">합계 ?/35</span></div>
+  <div class="gono">
+    <p><b>2주 MVP</b> 제조 사업장 3곳에서 실제 급여명세서 서식을 수집해 4필드 추출 정확도를 측정한다. 서식 다양성이 어느 정도인지, 자동 추출이 몇 %에서 깨지는지를 재는 것이 목적이며 금융기관 연동은 이번 범위에서 뺀다.</p>
+    <p><b>성공</b> 3개 사업장 서식에서 4필드 중 3개 이상을 사람 개입 없이 추출한 비율이 70%를 넘는다 [목표·가정]. 이 수치가 buildability 3 을 4로 올릴지 판단하는 유일한 근거다.</p>
+    <p class="kill"><b>중단</b> ① 자동 추출 성공률이 50% 미만이면 사람이 붙어야 하고, 그러면 단가가 회수액을 넘으므로 중단한다. ② 금융기관 3곳에서 &#x27;동의 기반 외부 기록은 심사에 쓸 수 없다&#x27;는 답이 나오면 중단한다 — 신용정보법상 활용 근거가 막히면 이 후보 전체가 성립하지 않는다. ③ 새마을금고·SCB 은행들이 외국인용 입력값을 자체적으로 만들기 시작하면 즉시 재검토한다. ④ 은행이 외국인 고객에게 마이데이터를 개방해 타행 급여이체 기록을 직접 끌어올 수 있게 되면 우리 차별의 절반이 사라지므로 재검토한다 [확인필요 — 외국인 고객의 마이데이터 가입 가능 여부].</p>
+    <p><b>반증</b> buildability 3 이 이 후보를 막고 있고 오늘 신호로도 낮아지지 않았다 — 급여명세서 서식은 사업장마다 다르고 사진·손글씨·다국어가 섞여 있으며, 그것을 정규화하는 일은 제도 근거가 강해진다고 쉬워지지 않는다. 두 번째 반증은 지불 주체의 실제 행동이다. 금융기관이 &#x27;외국인 심사가 필요하다&#x27;고 말하는 것과 &#x27;외부 데이터에 예산을 배정한다&#x27;는 것은 다른 문제이며, 지금까지 어느 기관도 외국인용 외부 데이터를 산 사례가 확인되지 않았다. 세 번째는 선택 편향 — 급여명세서를 주지 않는 사업장의 근로자가 데이터에 안 들어오는데, 그 층이 정확히 리스크가 높은 층일 가능성이 크다. 그러면 우리 데이터는 &#x27;이미 안전한 사람&#x27;만 보여주는 도구가 되고 금융기관 입장의 증분 가치가 작아진다. [14회차 추가] 두 개의 새 반증이 붙는다. (a) 논거 반박 — 고용보험 당연가입자 27만3,000명이라는 사실 때문에 &#x27;외국인 근로 기록이 없어 정규화할 원본이 없다&#x27;는 서술은 오늘부터 반박 가능하다. 정확한 서술은 &#x27;원본은 존재하나 층위가 다르고(고용 사실만 있고 지급 사실이 없다) 접근 경로가 끊겨 있다&#x27;이며, 대외 자료를 전량 이 문장으로 교체하지 않으면 첫 미팅에서 신뢰를 잃는다. (b) 수요 시점 후퇴 — 인터넷은행 3사의 4분기 진입에 여신이 빠져 있어 심사 근거 수요는 여신 도입 이후에야 발생한다. 첫 실수요를 2027년 상반기로 재추정하며 [추정], 이는 buildability 3 과 함께 추천 보류를 유지하는 두 번째 근거다.</p>
+    <p><b>규제</b> 중간 — 신용평가업 본허가 회피가 설계의 전제다 — 점수를 산출하지 않고 동의 기반 사실 필드만 전달하는 구조를 유지해야 한다. 다만 &#x27;사실 필드&#x27;와 &#x27;평가&#x27;의 경계가 실무에서 어디인지는 감독당국 해석에 달려 있고 사전 확인이 필요하다 [확인필요]. 신용정보법상 개인신용정보의 제3자 제공 근거도 건별 동의로 충분한지 법률 검토가 선행돼야 한다 [확인필요].</p>
+    <div class="srcs"><a href='https://www.greened.kr/news/articleView.html?idxno=349464' target='_blank' rel='noopener'>2026-09-08 전북은행, 비대면 대출과 외국인 금융으로 지역 </a><a href='https://dealsite.co.kr/articles/167974' target='_blank' rel='noopener'>2026-09-08 JB금융, 외국인 전용 신용대출에서 출발해 별도</a><a href='https://weekly.hankooki.com/news/articleView.html?idxno=7183058' target='_blank' rel='noopener'>2026-09-08 체류 외국인 278만·증가분 86%가 장기체류자</a></div>
+  </div>
+</article>
+<article class="cand Later">
+  <div><span class="badge">Later</span></div>
+  <h3>Route Index — 송출 경로에 붙은 보이지 않는 부채를 기록으로 만드는 에이전트</h3>
+  <p class="one">입국 전 송출국에서 발생한 수수료·차입·중개 약정을 근로자 동의 아래 기록으로 남겨, 입국 후 임금에서 빠져나가는 돈의 출처를 설명 가능하게 만든다.</p>
+  <dl class="kv">
+    <dt>반복 근거</dt><dd>모집·송출·브로커 투명성(heat 40.45), 사업장 이동·이탈 관리(heat 29.9), 임금체불·근로조건 분쟁(heat 58.55)이 53일 창에서 반복 관측됐다. 오늘 직접 근거는 없으나 인접 관측이 하나 있다 — 이나인페이의 개인 송금 영업이익률이 7%대(한패스 10%대)로 보도되며 이 경로의 마진이 얇다는 사실이 다시 확인됐다.</dd>
+    <dt>겪는 주체</dt><dd>송출국에서 중개 수수료를 부담하고 입국한 E-9 근로자와, 그 부채 때문에 사업장 변경·이탈 압력을 받는 당사자. 고용주는 이탈의 결과만 보고 원인을 모른다.</dd>
+    <dt>현 대체재</dt><dd>구두 약정, 본국 가족을 통한 상환, 커뮤니티 구전. 기록이 남지 않으므로 분쟁 시 증명할 방법이 없다.</dd>
+    <dt>지불 주체</dt><dd>불명확하다 — 이것이 Later 인 이유다. 당사자는 지불 능력이 없고(소득의 56.5%가 이미 송금으로 나간다), 고용주는 입국 전 일에 예산을 쓸 유인이 약하며, 송출국 기관은 우리 계약 상대가 될 수 있는지 불확실하다. 국제기구·정부 ODA 예산이 가설이나 근거가 없다 [추정]. · 미정. 지불 주체가 확정되기 전에는 가격을 설계하지 않는다.</dd>
+    <dt>해자</dt><dd>데이터 · 채널</dd>
+  </dl>
+  <div class="agent">
+    <b>AGENT DESIGN</b>
+    트리거 ① 송출국 사전교육(입국 전) 시점 ② 입국 후 최초 급여 수령 시점 ③ 사업장 변경 신청 시점 ④ 귀국 정산 시점.<br>입력 근로자가 동의 범위 안에서 제출하는 송출 관련 영수증·약정서·송금 기록 / 공개된 송출국별 표준 수수료 상한 규정 / 고용허가제 절차별 공식 비용 항목 / 근로자 본인의 급여 수취 기록(PayProof·Field Schema 와 공유 가능한 부분)
+    <ol><li>근로자가 제출한 영수증·약정서를 읽어 항목별 금액과 수취인을 추출한다.</li><li>공식 비용 항목·상한 규정과 대조해 &#x27;규정 내&#x27;, &#x27;상한 초과&#x27;, &#x27;근거 불명&#x27;으로 분류한다.</li><li>입국 후 급여에서 빠져나가는 금액과 대조해 상환 흐름을 시계열로 그린다.</li><li>근로자에게 모국어로 &#x27;무엇을 얼마나 냈고 얼마가 남았는가&#x27;를 보여주고, 분쟁이 필요한 경우 사실관계를 시점 고정 기록으로 남긴다.</li></ol>
+    사람 개입 이 후보는 특정 브로커나 송출기관을 지목하는 판정으로 이어질 수 있어 human_in_the_loop 가 특히 중요하다. &#x27;상한 초과&#x27;·&#x27;근거 불명&#x27; 분류 결과는 근로자 본인에게만 표시하고, 제3자(고용주·기관·언론)에게 전달하려면 근로자의 개별 승인과 법률 검토를 함께 거친다. 초기에는 전 건을 사람이 검토한다.<br>산출 근로자용 모국어 비용 내역서와 잔여 상환액 / 시점 고정 사실관계 기록(분쟁 대비) / 익명 집계 — 송출 경로별 비용 분포(개별 주체를 특정하지 않는 형태)
+    <div class="rail">가드레일 명예훼손·업무방해 경계 — 특정 브로커·기관을 위법으로 단정하지 않고 &#x27;공식 상한과의 차이&#x27;라는 사실만 표시한다. · 개인정보 국외이전 — 송출국 데이터가 관련되면 국외이전 동의와 현지 법령 검토가 선행돼야 한다 [확인필요]. · 대행 오인 금지 — 분쟁 제기·진정을 대신 하지 않는다. 기록을 남길 뿐이다. · 근로자 안전 — 브로커 관련 기록이 노출되면 당사자가 보복 위험에 놓일 수 있으므로 기본값을 비공개로 두고 공유는 명시적 승인으로만 한다.</div>
+  </div>
+  <div class="scores"><span>pain 4</span><span>frequency 3</span><span>wtp 1</span><span>right_to_win 3</span><span>policy_fit 4</span><span>buildability 3</span><span>agent_fit 3</span><span class="tot">합계 ?/35</span></div>
+  <div class="gono">
+    <p><b>2주 MVP</b> 만들지 않는다. Later 이므로 2주 범위는 &#x27;지불 주체 가설 검증&#x27; 하나로 제한한다 — 국제기구·ODA·송출국 정부 중 이 문제에 예산을 집행한 사례가 실재하는지 공개 자료로 확인한다.</p>
+    <p><b>성공</b> 지불 주체 후보 중 최소 한 곳에서 유사 문제에 예산을 집행한 실제 사례를 문서로 찾는다 [목표·가정]. 못 찾으면 Later 를 유지한다.</p>
+    <p class="kill"><b>중단</b> ① 지불 주체 가설 검증에서 예산 집행 사례를 하나도 못 찾으면 다음 분기까지 동결한다. ② 근로자 안전 위험(보복)이 실무자 인터뷰에서 반복 지적되면 설계를 근본적으로 다시 하거나 폐기한다. ③ 90일 안에 heat 가 30 아래로 내려가면 후보에서 뺀다.</p>
+    <p><b>반증</b> 지불 주체가 없다는 것이 결정적이다. 당사자는 소득의 56.5%를 이미 송금에 쓰고 있어 과금할 수 없고, 고용주는 입국 전 발생한 일에 예산을 쓸 이유가 없으며, 송출국 기관은 오히려 이 기록으로 불이익을 받는 쪽이라 협조 유인이 반대 방향이다. 문제가 중요하다는 것과 사업이 된다는 것은 다르며, 이 후보는 전자만 충족한다.</p>
+    <p><b>규제</b> 중간 — 명예훼손·업무방해 리스크와 개인정보 국외이전 문제가 겹친다. 특히 특정 송출기관의 수수료가 상한을 넘었다는 판정을 외부에 표시하는 순간 법적 분쟁 가능성이 생기므로, 기본값을 근로자 본인 열람으로 제한하는 설계가 필수다 [확인필요 — 송출국별 개인정보 법령].</p>
+    <div class="srcs"><a href='https://news.unn.net/news/articleView.html?idxno=597086' target='_blank' rel='noopener'>2026-09-08 법무부, 유학생 53만557명 입학–졸업–취업–</a><a href='https://weekly.hankooki.com/news/articleView.html?idxno=7183058' target='_blank' rel='noopener'>2026-09-08 체류 외국인 278만·증가분 86%가 장기체류자</a><a href='https://n.news.naver.com/mnews/article/011/0004659662?sid=102' target='_blank' rel='noopener'>2026-09-08 E-9·H-2 사업주 임금 보증보험 의무에도 임</a></div>
+  </div>
+</article></div>
+  </section>
+  <section class="sec">
+    <div class="sec-h"><h2>03 · 기획 이력</h2><span>판단의 변화가 기록으로 남는다</span></div>
+    <ul class="hist"><li><time>2026-09-08</time><span>우리가 파는 것은 설명이 아니라 감사 가능한 기록이며, 오늘 그 값을 지불할 기관이 두 곳에서 동시에 확인됐다. 첫째는 대학이다 — 법무부가 2019~2025년 입학 유학생 53만557명과 졸업생 15만명의 입학–졸업–취업–정주–출국을 처음으로 종단 추적해 공개했고(전북 졸업생 61.2% 출국, 제주 신규 입학 -54%), 같은 날 교육부가 중도탈락률·불법체류율을 대학 평가 필수지표로 넣겠다고 밝혔다. 두 사실이 겹치는 순간 대학은 &#x27;유학생을 지원했다&#x27;가 아니라 &#x27;우리 졸업생이 어떤 자격으로 어디에 정착했는지&#x27;를 숫자로 증빙해야 하는 주체가 된다. 지원 예산과 감사 대응 예산은 다른 지갑이고, 후자가 우리 지갑이다. 둘째는 지방은행이다 — 전북은행이 외국인 금융을 비대면 대출과 함께 &#x27;지역 밖 성장축&#x27;으로 명시했고 JB금융은 외국인 전용 신용대출과 별도 신용평가모형을 이미 운영 중이다. 누적 집계에서도 신용평가 공백·여신 접근 페인포인트가 heat 133.05 로 2위이자 상승 중이고, 실명 주체 중 JB(전북·광주)가 여신·신용평가 레이어 1위(24건)다. 즉 &#x27;판정을 해야 하는데 입력값이 없는 기관&#x27;이 미래형이 아니라 현재형으로 존재한다. 두 후보는 이 두 지갑에 각각 붙는다 — Deadline Sentinel 은 고용주·기관의 준법 증빙에, Field Schema Broker 는 은행 심사의 입력값 정규화에. 오늘 확정한 문장은 하나다: 우리는 없는 기록을 만들지 않고, 끊긴 기록을 제3자가 받아들이는 형식으로 잇는다.</span><b>3건</b></li><li><time>2026-09-07</time><span>오늘 통계 하나가 우리 판매 문장을 바꿨다 — 근거는 &#x27;기록이 없다&#x27;가 아니라 &#x27;기록이 끊겨 있다&#x27;여야 한다. 8월 고용보험 통계에서 제조업 가입자가 15개월 만에 증가로 돌아섰는데, 고용허가제 외국인(27만3,000명·+1만2,000명·90.1%가 제조업)을 제외하면 제조업은 오히려 1만명 감소한다. 두 가지가 동시에 따라 나온다. 첫째, 이 층은 더 이상 한계 노동공급이 아니라 국가 통계의 부호를 결정하는 기저 공급이며, 은행이 외국인 차주를 &#x27;모집단이 작은 예외&#x27;로 다루는 인식은 통계와 어긋난다. 둘째, 그리고 이쪽이 더 중요한데, 고용보험 당연가입자라는 사실은 이들의 근로 사실이 이미 국가 데이터베이스 안에 있다는 뜻이다. 그러므로 &#x27;AI 에이전트가 없는 기록을 만들어 준다&#x27;는 서사는 오늘부터 은행 담당자에게 즉시 반박당한다. 남는 자리는 정확히 두 겹이다 — 고용보험은 &#x27;고용됐다&#x27;만 말하고 &#x27;얼마를 언제 실제로 받았는가&#x27;는 말하지 않으며, 그 데이터는 고용노동부 안에 있어 심사역 화면에 오지 않고 당사자 동의로 꺼내는 경로 외에는 연결되지 않는다. Deadline Sentinel 과 Field Schema Broker 두 후보 모두 이 &#x27;단절&#x27; 위에 서 있으므로 설계는 유지하되 서술은 전량 교체한다. 추천은 Deadline Sentinel 유지다 — 오늘 인터넷은행 3사의 4분기 외국인 진입(계좌·송금·체크카드)에 여신이 빠져 있다는 사실이 확인되면서, Field Schema Broker 의 수요 시점이 여신 도입 이후로 한 단계 더 밀렸다.</span><b>3건</b></li><li><time>2026-09-06</time><span>Field Schema Broker 가 팔릴 이유는 오늘 국가 재정 숫자로 증명됐지만 추천은 옮기지 않는다 — 막고 있는 것은 여전히 수요가 아니라 buildability 3 이다. 오늘 두 숫자가 이 후보의 존재 이유를 처음으로 정량화했다. 하나는 정부가 대신 갚은 외국인 임금체불 대지급금이 402억원에서 791억원으로 1년 만에 96% 급증했다는 사실이고, 다른 하나는 비전문취업 외국인이 소득 사용액의 56.5%를 송금에 쓰고 국내 생활비·주거비에는 23.1%만 쓴다는 사실이다. 앞의 숫자는 이 층의 사고가 신용사고가 아니라 수취 실패라는 것을 보여주고, 뒤의 숫자는 왜 금융위 SCB나 새마을금고 용역 같은 매출·상권 기반 모형이 이 층에서 원리적으로 작동하지 않는지를 설명한다. 즉 &#x27;외국인용 심사 필드를 아무도 안 만들었다&#x27;는 것은 게으름이 아니라 구조였고, 그 구조가 바로 이 후보의 시장이다. 지불 주체도 오늘 한 곳 늘었다 — 새마을금고중앙회가 신파일러 대안신용평가 체계 구축 용역을 진행 중이며 전국 3,198개 점포가 외국인 밀집지역에 실재해 시중은행보다 접점이 가깝다. 그럼에도 추천은 Deadline Sentinel 을 유지한다. 회사마다 다른 급여 원장을 심사용 4필드로 정규화하는 난이도는 오늘 신호로 조금도 낮아지지 않았고, 수요가 증명됐다고 해서 만들 수 있게 되는 것은 아니다.</span><b>3건</b></li><li><time>2026-09-04</time><span>Field Schema Broker 의 지불 주체가 오늘 제도로 확정됐는데도 추천은 옮기지 않는다 — 막고 있는 것이 수요가 아니라 buildability 3 이기 때문이다. 9월 2일 금융위가 소상공인 특화 신용평가(SCB) 8개 은행 시범운영을 개시하고 9월 3일 BNK부산은행이 지방은행 최초로 도입하면서, &#x27;기존 신용평가사 점수로 등급이 안 나오는 차주를 비금융 데이터로 판정한다&#x27;는 방식이 감독당국 주도 제도가 됐다. 이 후보가 팔려면 필요했던 전제 — 금융기관이 점수 밖 필드를 심사에 쓴다 — 가 제도로 성립한 것이다. 같은 날 인터넷은행 3사가 4분기 외국인 계좌·해외송금·체크카드 진입을 예고했고, 카드사들은 외국인 카드결제 역대 최대 상황에서도 &#x27;국내 금융거래 이력이 부족한 점&#x27;을 제약으로 직접 지목했다. 그럼에도 추천은 Deadline Sentinel 을 유지한다. SCB 의 입력값은 매출·상권정보라 사업자등록 있는 층에서만 나오고, 외국인 임금근로자용 필드를 회사마다 다른 급여 원장에서 정규화하는 난이도는 오늘 신호로 조금도 낮아지지 않았다.</span><b>3건</b></li><li><time>2026-09-03</time><span>&#x27;허가는 났는데 사람이 안 붙는다&#x27;가 처음 숫자로 나왔고, 이것이 Field Schema Broker 를 Deadline Sentinel 위로 밀어 올릴 첫 근거다 — 다만 이번 회차에는 아직 추천을 옮기지 않는다. 9월 2일 고용노동부 자료 기반 보도에서 고용허가제 E-9 근로자는 28만7,424명으로 역대 최대인데 제조업이 22만9,844명(80.0%), 서비스업은 1,410명(0.5%)이고, 서비스업은 배정된 쿼터 대비 실제 고용이 10명 중 4명 수준에 그친다. 총량이 아니라 매칭이 실패하고 있다는 뜻이며, 매칭 실패는 상담 인력으로 풀리지 않고 자격·직무·사업장 조건을 필드 단위로 정규화해야 풀린다. 그것이 Field Schema Broker 가 하는 일이다. 그럼에도 이번 회차 추천은 Deadline Sentinel 을 유지한다 — 지불 주체와 계약 단위가 확인된 쪽은 여전히 고용주이고, 매칭 실패의 지불 주체는 아직 &#x27;쿼터를 못 채운 사업장&#x27;인지 &#x27;충원을 알선하는 협회&#x27;인지 확인되지 않았다.</span><b>3건</b></li><li><time>2026-09-02</time><span>정부가 2027년 예산으로 외국인 노동 상담을 AI에 맡기기로 하면서, 이 랩의 세 후보 중 &#x27;설명&#x27;에 기대던 부분이 전부 무료화 위험에 들어갔고 &#x27;대조와 기록&#x27;에 기대던 부분만 남았다. 어제 발표된 고용노동부 2027년도 예산안(38조9,000억원)은 &#x27;AI 노동법 상담 서비스&#x27; 예산을 28억원에서 44억원으로 늘리면서 대응 범위에 직장 내 괴롭힘과 외국인노동자 처우를 명시했고, 같은 예산서에서 외국인노동자지원센터를 19곳에서 26곳으로 늘렸다. 이것은 세 후보에 서로 다르게 작용한다. Deadline Sentinel 은 영향이 가장 작다 — 이 후보가 파는 것은 근로자 대상 상담이 아니라 고용주 원장과 개정 조문의 대조이며, 공공 상담이 늘어도 &#x27;우리 회사 원장의 어느 줄이 오늘부터 위반인가&#x27;를 답해 주는 주체는 생기지 않는다. Field Schema Broker 는 영향이 없다 — 지불 주체가 은행이고 산출물이 심사용 4필드 정규화다. Route Index 는 영향이 가장 크다 — 송출 경로 정보 제공이 공공 상담 확대와 직접 겹치므로 Later 유지의 근거가 하나 더 늘었다. 동시에 Deadline Sentinel 의 시장 크기가 어제 처음 숫자로 확정됐다. 고용허가제 E-9 근로자 28만7,424명 중 건설업은 6,724명(2.3%)이고 제조업이 22만9,844명(80.0%)이다. 이 분포는 두 방향으로 읽힌다 — 나쁜 쪽은 사업주 단위 처분 전환이 겨눈 1차 시장이 예상보다 훨씬 좁다는 것이고, 좋은 쪽은 그 좁음 덕분에 5곳 인터뷰로 시장 전체의 지불 의사를 가늠할 수 있게 됐다는 것이다. kill_criteria ① 의 1차 문서 확인 기한(9월 1주)이 이번 주 안이며, 문서를 못 구하더라도 인터뷰 대체 경로가 실행 가능해졌다는 점을 반영해 검정 방법을 하나 추가한다.</span><b>3건</b></li><li><time>2026-09-01</time><span>Deadline Sentinel 추천을 유지하되, 어제 이 후보의 근거가 &#x27;규제가 그렇게 바뀐다&#x27;에서 &#x27;그 규제가 겨눈 사고가 이미 났다&#x27;로 한 칸 올라섰다. 8/31 보도로 대구 지역 3위 건설사가 부도났고, 같은 보도에서 국내 건설현장 인력의 3명 중 1명이 외국인이며 건설업 외국인 근로자는 40세 미만이 과반이라는 구조가 확인됐다. 이 두 사실이 겹치는 지점이 이 후보의 존재 이유다 — 원청 부도는 하도급 단계의 외국인 근로자에게 임금체불로 먼저 전가되고, 2027년 3월부터 그 체불은 해당 현장이 아니라 사업주 전체의 외국인 고용을 멈춘다. 지금까지 본사에 던지던 질문은 &#x27;제도가 바뀌면 어떻게 대비하시겠습니까&#x27;라는 가정법이었는데, 이제 &#x27;협력사 한 곳이 무너지면 귀사의 모든 현장 외국인 고용이 멈춥니다&#x27;라는 직설로 바꿀 수 있다. 다만 확신도는 올리지 않는다. 승급 근거인 &#x27;임금체불이 사업주 단위 고용제한의 처분 사유&#x27;는 여전히 언론 요약에 의존하며 제49차 외국인력정책위원회 의결문서와 고용노동부 시행규정을 확인하지 못했다 — 9월 1주 확인이 미뤄지면 WTP 를 5에서 4로 되돌린다. Field Schema Broker 는 어제 지불 주체 층이 넓어졌다. 신협·새마을금고까지 신파일러 대안신용평가를 도입했고 12월부터 청년·외국인 신용카드 발급에 대안평가가 적용되는데, 현행 대안데이터 변수군(통신·유통·매출·공과금·4대보험)에 체류자격 잔여기간·고용계약 실재성·사업장 변경 이력이 전혀 들어 있지 않다는 것이 같은 날 확인됐다. 즉 모형은 늘어나는데 넣을 필드는 그대로 비어 있다. Route Index 는 Later 유지다.</span><b>3건</b></li><li><time>2026-08-31</time><span>Deadline Sentinel 추천 유지 — 어제 이 후보의 지불 유인이 처음으로 규제로 못박혔다. 2027년 3월부터 건설업 E-9 고용제한 처분 기준이 &#x27;사업장(현장)&#x27;에서 &#x27;사업주(건설사)&#x27; 단위로 바뀌고, 처분을 부르는 위반 사유에 임금체불 등 노동관계법 위반이 포함된다. 지금까지 이 후보가 반복해서 걸린 질문은 &#x27;고용주가 왜 기한 감시에 돈을 쓰겠는가&#x27;였고, 답은 늘 &#x27;벌점 몇 점&#x27; 수준이라 약했다. 이제 한 현장의 위반이 그 건설사가 시행하는 모든 현장의 외국인 고용을 막는다. 같은 날 건설 현장 인력의 상당 비중이 외국인이며 &#x27;외국인 없이는 현장이 돌아가지 않는 구조&#x27;라는 보도가 겹쳐, 막혔을 때 대체할 인력이 없다는 점까지 확인됐다. 누적 집계에서도 고용주 준법·행정 부담은 heat 44.4(48일 창, 16종 중 6위)로 유지되며, 체류기한·자격 만료(23.25)와 사업장 이동·이탈(34.5)이 같은 후보의 입력으로 붙는다. 두 번째 후보 Field Schema Broker 도 근거가 보강됐다 — JB금융이 거래 데이터 기반 외국인 전용 신용평가모형과 100명 이상·16개국어 상담 인력을 공개했는데, 이는 자행 거래가 있는 사람만 모형이 보고 나머지는 사람이 대면 판단한다는 자백이며, 8월 14일 2분기 연체율 급등이 그 조합의 확장 실패를 실증했다. 다만 오늘 랩이 스스로 정리해야 할 것은 수렴이다 — MVP Radar 의 오늘 1순위 Rule Sentinel, 신규진입 랩의 승격 아이템 PayProof, 그리고 이 후보가 모두 같은 규제 하나에 기대게 됐다. 세 축이 같은 트리거를 공유하는 것은 신호의 강도를 뜻하지만 같은 제품을 세 번 세는 것이기도 하므로, 이번 회차에서 Deadline Sentinel 의 급여 검산 기능을 PayProof 로 넘기고 이 후보를 &#x27;기한·제도 개정 대조&#x27;로만 좁힌다.</span><b>3건</b></li><li><time>2026-08-30</time><span>추천은 Deadline Sentinel 로 유지하되, 오늘 처음으로 우리와 같은 문제를 파는 회사가 시장에 등장했다 — AI 정착 케어 플랫폼 &#x27;네스티아&#x27;(운영사 야와비)가 &#x27;정보 부족으로 체류자격 변경 기한을 놓치거나 비자별 근무 제한을 위반해 미등록이 되는 외국인 유학생 연 3만 4,000여 명&#x27;을 문제로 잡고, 그 비용을 유학생이 아니라 대학에 청구한다. 이 한 줄이 오늘 랩의 판단을 세 군데에서 바꾼다. 첫째, &#x27;기한을 놓쳐서 자격을 잃는다&#x27;는 문제 정의가 우리 내부 가설이 아니라 시장이 독립적으로 도달한 결론임이 확인됐다 — 누적 집계에서 체류기한·자격 만료 리스크는 heat 21.25 로 16종 중 하위권이지만, 이는 그 문제가 작아서가 아니라 언론이 개별 사건으로만 다뤄 언급이 분산됐기 때문이라는 해석이 오늘 보강됐다. heat 는 시장 크기가 아니라 언급 밀도의 대리지표라는 원칙을 이 사례가 정확히 예시한다. 둘째, 지불 주체가 실증됐다 — 우리는 이 층에 대해 &#x27;겪는 사람과 내는 사람이 다르며 내는 쪽은 기관&#x27;이라고 반복해 써 왔는데, 대학이 유학생 이탈률과 행정비용을 이유로 실제 지불자가 될 수 있다는 것이 처음으로 상품 설계로 나타났다. 셋째, 그래서 Deadline Sentinel 의 판매면을 다시 봐야 한다. 우리 후보는 고용주(제조·건설·계절근로 농가)를 지불자로 잡고 있고 네스티아는 대학을 잡았다 — 지금은 대상이 갈리지만 &#x27;제도 개정과 개인 원장을 대조해 오늘 새로 예외가 된 사람을 찾는다&#x27;는 엔진은 동일하다. 같은 엔진이 두 채널로 갈라진 것뿐이며, 상대가 먼저 대학에서 규모를 만들면 우리 고용주 채널로 넘어오는 것은 제품 재작업이 아니라 영업 문제다. 한편 8월 29일 자체는 신호가 얇았다 — 금융 신규 발표가 없어 Field Schema Broker 에 새로 들어온 근거는 없고, 구현 점수 3 도 그대로다(고용주 급여 원장에 근로자 동의만으로 접근 가능한가라는 질문에 대한 새 정보가 오늘도 없었다). 근거가 늘었다고 점수를 올리지 않는다는 원칙을 네 회차째 지킨다. 영천시가 2027년 계절근로자 수요조사를 개시(접수 9/10)한 것은 Deadline Sentinel 의 MVP 관찰 대상이 실제로 열렸다는 뜻이므로 관찰 항목만 갱신한다.</span><b>3건</b></li><li><time>2026-08-29</time><span>어제 은행이 직접 손을 들었는데도 추천은 Deadline Sentinel 로 유지한다 — 막고 있는 것이 근거가 아니라 구현 가능성이기 때문이다. 광주은행은 8월 28일 서울 가산디지털단지에 &#x27;외국인금융센터서울&#x27;을 열고 계좌개설·해외송금·카드에 더해 외국인 전용 신용대출과 외국인 개인사업자 기업자금 대출까지 취급하겠다고 밝혔다. 지방은행이 연고지 밖 수도권 외국인 밀집지역에 전용 점포를 여는 것은 이례적이며, 열흘 전(8/18) 보도에서는 외국인 대출이 많은 지방은행을 중심으로 채무불이행자가 2년 반 만에 5배 넘게 급증한 것으로 나타났다. 확장 의지와 심사 역량이 정반대로 움직이는 이 간극은 Field Schema Broker 의 문제 정의를 그대로 재현하며, 어제 한패스·이나인페이가 &#x27;대출 입점&#x27;을 말한 데 이어 이제는 실제로 대출을 내주는 은행이 같은 자리에 섰다는 점에서 근거의 질이 한 단계 올라갔다. 그럼에도 Field Schema Broker 의 구현 점수는 3 그대로다 — 고용주 급여 원장에 근로자 동의만으로 접근할 수 있는지가 여전히 미검증이고, 이 질문에 대한 새 정보는 어제 하루에 하나도 나오지 않았다. 근거가 늘었다고 점수를 올리지 않는다는 원칙을 세 회차째 지킨다. 한편 어제 확인된 &#x27;외국인등록증 발급 전 계좌개설&#x27; 국회 논의(국회예산정책처 5.22 자료)는 identity-verification 페인포인트(heat 27.1)의 성격을 바꿀 수 있는 변수다 — 등록증이라는 단일 증빙이 빠지면 은행은 대체 근거를 조합해야 하고, 그것이 정확히 Field Schema Broker 가 파는 물건이다. 다만 &#x27;논의&#x27; 단계이므로 확정 제도로 취급하지 않는다.</span><b>3건</b></li><li><time>2026-08-28</time><span>어제 프런트엔드 경쟁이 끝났다는 사실이 세 회사에서 동시에 확인됐지만, 추천은 Deadline Sentinel 로 유지한다 — 새 근거를 가장 많이 얻은 후보와 지금 실행 가능한 후보가 갈렸기 때문이다. 8월 27일 하루에 토스는 15개 대학과 계좌 없이 쓰는 유학생 선불카드를 배포했고, 한패스는 시중은행·저축은행 대출상품을 자사 앱에 입점시키는 &#x27;외국인 금융 플랫폼&#x27; 전환을 선언했으며, 이나인페이는 2025년 매출 647억원·영업이익 237억원·영업이익률 36.7%로 코스닥 상장예비심사를 청구했다. 셋 다 트래픽을 모으는 층에서만 벌어진 일이고, 회원 100만·MAU 48만의 업계 1위 한패스조차 대출을 직접 하지 못하고 &#x27;입점&#x27;을 말했다는 점이 결정적이다 — 병목이 고객 획득이 아니라 여신 판단 근거임을 1위 사업자가 인정한 셈이다. 이 근거는 전부 Field Schema Broker 쪽에 쌓였고 구매자가 될 조직이 하루에 셋 늘었다. 그럼에도 추천을 바꾸지 않은 이유는 구현 점수 3 때문이다 — 고용주 급여 원장에 근로자 동의만으로 접근할 수 있는지가 아직 미검증이라 빌드 게이트(구현 4↑)를 통과하지 못한다. 점수를 근거에 맞춰 올리지 않고, 게이트가 막은 사실을 그대로 남긴다. 누적 45일·726건 집계에서 &#x27;신용평가 공백·여신 접근&#x27;은 heat 102.85(2위·상승), &#x27;계좌·송금·결제 인프라&#x27;는 71.4(상승)로 문제의 실재는 확인된다. 동시에 Exit Signal 을 이 랩에서 뺀다 — 신규진입 랩이 같은 문제를 ExitLedger 로 신설했고, 셋이 같은 아이템으로 수렴하면 한쪽에서 빼기로 한 규칙에 따른 것이다.</span><b>3건</b></li><li><time>2026-08-27</time><span>어제 임금체불 법정형이 5년·5,000만원으로 오르면서, 이 시장에서 처음으로 고용주가 자기 돈으로 증빙을 살 이유가 생겼다. 8월 26일 시행된 개정 노동법은 임금체불 법정형을 3년 이하 징역·3,000만원 이하 벌금에서 5년 이하 징역·5,000만원 이하 벌금으로 상향했고, 산업안전보건 기준 위반·산재 은폐·작업중지 명령 위반의 신고 주체를 국민 전체로 확대했다. 지금까지 이 영역의 모든 후보가 걸려 있던 문제는 &#x27;겪는 사람은 근로자인데 내는 사람은 누구인가&#x27;였는데, 벌금 상한이 오르면 고용주에게 방어 증빙의 값이 법령 숫자로 특정된다. 동시에 적발 파이프의 공백은 그대로다 — 국내 외국인 노동자는 100만 명을 넘었으나 노동감독관은 3,000명을 조금 넘고, 감독관들은 외국인 진정인과의 의사소통 자체를 실무상 큰 장벽으로 지목한다. 처벌은 강해졌는데 적발할 사람이 없다는 것은 증빙을 스스로 남기는 쪽이 유리해졌다는 뜻이다. 누적 44일·709건 집계에서 &#x27;고용주 준법·행정 부담&#x27;은 heat 42.15, &#x27;임금체불·근로조건 분쟁&#x27;은 54.0으로 둘 다 상승세이며, Deadline Sentinel 추천을 유지한다 — 제도 개정이 근로자별 예외를 즉시 만들어내고 그 예외를 사람이 손으로 못 찾는다는 이 후보의 문제 정의가 어제 다시 확인됐기 때문이다. 다만 이번 회차에서 경계선 하나를 명시한다. 신규진입 랩의 PayProof 가 같은 개정을 근거로 고용주 증빙 축으로 이동했으므로, 두 후보가 같은 아이템으로 수렴하지 않도록 Deadline Sentinel 은 &#x27;제도 개정 → 오늘 새로 예외가 된 사람 식별&#x27;로, PayProof 는 &#x27;급여 금액 검산과 지급 기록&#x27;으로 범위를 갈라 둔다.</span><b>4건</b></li><li><time>2026-08-26</time><span>누적 43일·691건 집계 위에서, 어제 이 시장의 구매자 지형이 바뀌었다 — 국민연금 추납 논란을 두고 이재명 대통령이 &#x27;국내에 단기 거주한 외국인이 추납 자격을 갖는 것 자체가 모순&#x27;이라며 실거주 기간 기준의 자격 요건 강화를 지시했고, 공단 안팎에서는 외국인의 과거 체류자격·배우자 가입 이력·무소득 배우자 여부를 국내 행정자료만으로 정밀 확인하기 어렵다는 점이 허점의 뿌리로 지목됐다. 지금까지 &#x27;외국인 체류 이력을 검증할 수단이 없다&#x27;는 명제는 우리 제안서의 가설이었는데, 어제 제도 운영 주체가 그것을 스스로 인정했다. 같은 날 행안부 집계로 외국인주민은 258만3,626명·총인구 5.0%가 되어 규모 논쟁이 끝났고, 창원상의 실태조사는 기업 86.6%가 외국인력을 3년 이상 활용 중임을 보여줬다 — 고용주가 이미 장기 인사 데이터를 상시 보유한다는 기업 원천 해자의 실증치다. 추천은 Deadline Sentinel 로 유지한다. 제도 개정이 근로자별 예외를 즉시 만들어내는 구조가 이번에는 사회보험 영역에서 재확인됐고, 계절근로 인권침해 경험자의 87.5%가 무대응이었다는 경기도 실태조사는 현재의 위반 통계가 &#x27;발생&#x27;이 아니라 &#x27;점검이 있었던 날&#x27;만 센다는 이 후보의 문제 정의를 다시 뒷받침한다.</span><b>4건</b></li><li><time>2026-08-25</time><span>누적 42일·673건 집계 위에서, 어제 카카오뱅크가 4분기 외국인 금융서비스 출시를 약관 수준까지 확정했다 — 8월 13일 예금상품 12종 특약의 가입 대상 표기를 &#x27;개인&#x27;에서 &#x27;내국인&#x27;으로 바꿨다. 문구 변경은 마케팅이 아니라 심사·상품·리스크 조직이 이미 움직였다는 증거이며, 국내 최대 인터넷은행이 외국인 신파일러를 실무로 심사해야 하는 시점이 10월로 못박혔다는 뜻이다. 같은 날 이 시장의 실패가 처음으로 정량화됐다 — 외국인 가상자산 계정 56만개의 활성률이 0.01%이고, 빗썸의 활성 외국인 계정은 0개다. 원인은 상품도 수요도 아니라 은행 실명계좌 개설 자체다. 추천은 Deadline Sentinel 로 유지한다 — 법무부가 계절근로 사업장 3,093곳 중 603곳에서 663건을 적발하고 벌점·배정제한을 실제 집행하기 시작했으며, 단양·고흥·임실이 같은 주에 관리 강화를 공표해 &#x27;제도가 바뀌면 우리 회사 누가 오늘 예외가 되는가&#x27;라는 문제가 집행 단계로 넘어갔기 때문이다.</span><b>4건</b></li><li><time>2026-08-24</time><span>누적 41일·655건 집계 위에서, 어제 처음으로 우리 정산 가설의 시장 크기가 외부 숫자로 계량됐다 — 고용허가제 근로자의 출국만기·귀국비용보험 미수령 휴면보험금이 300억원대이며, 자동환급을 도입했는데도 줄지 않는다. 미수령 원인으로 지목된 세 가지는 연락처 변경·주소 불명확·제도 미인지로, 전부 평가가 아니라 도달의 실패다. 추천은 Deadline Sentinel 로 유지한다 — 같은 날 건설업 E-9 고용제한 기준이 사업장에서 사업주 단위로 원복되며 &#x27;제도 텍스트가 바뀌면 우리 회사 누가 오늘 예외가 되는가&#x27;라는 문제가 한 번 더 발생했기 때문이다.</span><b>4건</b></li><li><time>2026-08-23</time><span>누적 40일·637건 집계 위에서, 어제 우리 기획의 전제 하나가 정책 층위에서 확인됐다 — 법무부가 33년간 유지해온 E계열 취업비자를 허용 직종 열거 방식에서 산업·숙련도·임금 기준으로 전면 개편한다. 지난주 현대백화점이 카드 발급 요건을 &#x27;잔여 체류기간&#x27;으로 바꾼 것이 민간 신호였다면, 이번은 같은 이동이 정부 층위에서 일어난 것이다. 추천은 바꾸지 않는다(Deadline Sentinel 유지) — 개편은 &#x27;제도 개정 × 근로자 원장 대조&#x27; 수요를 정확히 키우는 이벤트이기 때문이다.</span><b>4건</b></li><li><time>2026-08-22</time><span>누적 39일·619건 집계에서 어제 처음으로 &#x27;우리가 팔려던 필드를 시장이 실제로 심사에 쓴 사례&#x27;가 나왔다 — 현대백화점이 외국인 카드 발급 요건을 &#x27;F계열 비자 소지자&#x27;에서 &#x27;잔여 체류기간 6개월 이상&#x27;으로 30년 만에 교체했다. 착수 순서는 바꾸지 않는다(기한 파수꾼 우선). 다만 스키마 브로커의 논증 부담이 &#x27;왜 이 필드가 필요한가&#x27;에서 &#x27;그 값이 정확한가&#x27;로 내려갔다.</span><b>4건</b></li><li><time>2026-08-21</time><span>누적 38일 브리핑 600건이 가리키는 단일 구조는 &#x27;기록이 자격으로 환산되지 않는다&#x27;이며, 지금 돈이 나오는 지점은 근로자 쪽 불편이 아니라 고용주의 기한 관리 실패와 금융사의 심사 데이터 공백 두 곳이다. 첫 착수는 다현장 고용주용 기한 파수꾼 에이전트로 잡는다.</span><b>4건</b></li></ul>
+  </section>
+  <div class="notice"><strong>참고용 안내</strong>이 문서는 공개 보도와 누적 브리핑의 언급 밀도로 만든 내부 기획 자료이며 투자·법률·노무·금융 판단의 근거가 아니다. heat 는 매출이나 수요 규모가 아니라 어휘 출현 빈도의 대리지표이고, 인용 수치는 모두 보도 기준이다 — 유학생 53만557명·전북 출국률 61.2%는 법무부 출입국·외국인정책본부 발표의 언론 인용, 체류 외국인 278만·취업자 110만은 노동시장 브리프 인용이며 1차 원문 확인 전에는 확정값으로 쓰지 않는다. 그룹 자산 수치는 회사 공표치(2026.06 기준)이고 계열사 자산은 확보된 채널이 아니라 내부 협의가 선행돼야 한다. 우리는 신용점수를 산출하지 않으며 동의 기반 신호만 다루고, 전환·승인·환급·대출·체불의 결과를 확정해 표현하지 않는다. 최종 판단은 반드시 전문가와 최신 1차 출처로 확인해야 한다.</div>
+</div>
+</body></html>

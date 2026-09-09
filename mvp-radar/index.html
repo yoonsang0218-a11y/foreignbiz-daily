@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>PlugNX MVP Radar</title>
+<style>
+:root{--blue:#0066cc;--focus:#0071e3;--ink:#1d1d1f;--muted:#7a7a7a;--canvas:#fff;--paper:#f5f5f7;--dark:#272729;--line:#e0e0e0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--canvas);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,system-ui,sans-serif;letter-spacing:-.374px}a{color:inherit;text-decoration:none}
+.topbar{position:sticky;top:0;z-index:5;background:rgba(245,245,247,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(0,0,0,.08)}.topbar-inner{max-width:1120px;margin:auto;height:52px;padding:0 24px;display:flex;align-items:center;justify-content:space-between}.brand{font-size:17px;font-weight:700}.brand i{font-style:normal;color:var(--blue)}.meta{font-size:12px;color:var(--muted)}
+.hero{max-width:1120px;margin:auto;padding:88px 24px 78px}.eyebrow,.section-head p{font-size:12px;letter-spacing:.12em;color:var(--blue);font-weight:700}.hero h1{font-size:clamp(40px,6vw,64px);line-height:1.07;letter-spacing:-1.8px;margin:18px 0 22px;font-weight:600}.hero h1 em{font-style:normal;color:var(--blue)}.hero>p{font-size:21px;line-height:1.45;max-width:760px;color:#333;margin:0}.hero-actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}.primary,.secondary{display:inline-block;padding:11px 22px;border-radius:9999px;font-size:17px}.primary{background:var(--blue);color:#fff}.secondary{border:1px solid var(--blue);color:var(--blue)}.primary:active,.secondary:active{transform:scale(.95)}.primary:focus,.secondary:focus{outline:2px solid var(--focus);outline-offset:2px}
+.answer-grid{max-width:1120px;margin:0 auto 80px;padding:0 24px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}.answer-grid article{background:#fff;padding:24px}.answer-grid span{font-size:12px;color:var(--blue);font-weight:700}.answer-grid p{font-size:17px;line-height:1.47;margin:10px 0 0}
+.section{padding:80px max(24px,calc((100vw - 1072px)/2))}.section.light{background:var(--paper)}.section.dark{background:var(--dark);color:#fff}.section-head{max-width:720px;margin-bottom:36px}.section-head h2{font-size:40px;line-height:1.1;letter-spacing:-1px;font-weight:600;margin:12px 0 0}.dark .section-head p{color:#2997ff}
+.signal-grid,.candidate-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}.signal{background:#fff;padding:24px;min-height:220px}.signal-meta{display:flex;gap:8px;flex-wrap:wrap}.signal-meta span,.pill{font-size:12px;border:1px solid var(--line);border-radius:9999px;padding:5px 9px;color:var(--muted)}.signal h3{font-size:21px;line-height:1.25;font-weight:600;margin:24px 0 12px}.signal p{font-size:17px;line-height:1.47;margin:0 0 16px}.signal small{font-size:12px;line-height:1.45;color:var(--muted)}
+.candidate-grid{background:#3b3b3d}.candidate{background:var(--dark);padding:28px;min-height:460px;display:flex;flex-direction:column}.candidate.recommended{box-shadow:inset 0 3px 0 #2997ff}.candidate-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.candidate .pill{border-color:#555;color:#ccc}.candidate .recommend{color:#2997ff;border-color:#2997ff}.candidate h3{font-size:28px;line-height:1.15;margin:24px 0 10px;font-weight:600}.candidate .one{color:#ccc;font-size:17px;line-height:1.47;margin:0 0 20px}.candidate dl{margin:0}.candidate dt{font-size:12px;color:#999;margin-top:14px}.candidate dd{font-size:14px;line-height:1.5;margin:4px 0 0;color:#eee}.score{margin-top:auto;padding-top:22px;color:#2997ff;font-size:17px;font-weight:700}.why-not{margin-top:12px;color:#bbb;font-size:12px;line-height:1.45}
+.history{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}.history li{display:grid;grid-template-columns:120px 1fr auto;gap:18px;padding:18px 0;border-bottom:1px solid var(--line);font-size:14px}.history time,.history b{color:var(--muted);font-weight:400}.notice{max-width:1120px;margin:0 auto;padding:40px 24px 72px}.notice strong{font-size:14px}.notice p{font-size:12px;line-height:1.55;color:var(--muted)}.empty{padding:120px 24px;text-align:center}
+.candidate[data-detail]{cursor:pointer;transition:transform .12s}.candidate[data-detail]:hover{transform:translateY(-2px)}.pill.more{margin-left:auto;color:#2997ff;border-color:#2997ff}
+.mtab tr[data-detail]{cursor:pointer}.mtab tr[data-detail]:hover td{background:#f4f8ff}.mtab td.pname{color:var(--blue);font-weight:600}
+b.clickable{cursor:pointer;text-decoration:underline;text-decoration-color:rgba(0,102,204,.35);text-underline-offset:3px}
+dialog.detail{border:none;border-radius:16px;padding:0;max-width:680px;width:calc(100vw - 40px);max-height:86vh;box-shadow:0 24px 80px rgba(0,0,0,.35)}
+dialog.detail::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(3px)}
+.d-head{display:flex;align-items:flex-start;gap:14px;padding:24px 26px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff;z-index:1}
+.d-kicker{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--blue)}
+.d-head h2{margin:6px 0 6px;font-size:26px;letter-spacing:-.6px}
+.d-one{margin:0;font-size:14.5px;line-height:1.5;color:#555}
+.d-close{margin-left:auto;border:none;background:var(--paper);border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;flex:none}
+.d-body{padding:18px 26px 26px;overflow-y:auto}
+.d-body section{margin-bottom:18px}
+.d-body h4{font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--blue);margin:0 0 7px}
+.d-body p{font-size:14px;line-height:1.6;margin:0 0 7px;color:#333}
+.d-sub b,.d-body section>p>b{font-size:11.5px;color:#888;font-weight:700;margin-right:6px}
+.dv-row{display:grid;grid-template-columns:150px 1fr;gap:10px;padding:8px 0;border-bottom:1px dashed #eee}
+.dv-row b{font-size:12px;color:#0f6e56;line-height:1.45}
+.dv-row p{margin:0}
+.d-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;background:var(--paper);border-radius:10px;padding:14px 16px}
+.d-grid h5{margin:0 0 4px;font-size:10.5px;font-weight:800;letter-spacing:.06em;color:#888}
+.d-grid p{font-size:13px;margin:0}
+.d-warn{background:#fdf6f2;border-radius:10px;padding:12px 16px}
+.d-warn h4{color:#b4623a}
+@media(max-width:640px){.dv-row{grid-template-columns:1fr}.d-grid{grid-template-columns:1fr}}
+.mgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}.mcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px 24px}.mhead{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--line);padding-bottom:10px}.mhead h3{font-size:24px;margin:0;font-weight:600;letter-spacing:-.5px}.mdays{font-size:12px;color:var(--muted);margin-left:auto}.mpick{margin:14px 0 8px}.mtag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;background:var(--blue);color:#fff;padding:3px 9px;border-radius:9999px}.mpick b{display:block;font-size:21px;margin:8px 0 4px}.mpick p{margin:0;font-size:14px;line-height:1.5;color:#444}.mreason{font-size:13px;line-height:1.55;color:#555;margin:10px 0 8px;background:var(--paper);padding:10px 12px;border-radius:8px}.mq{font-size:12.5px;line-height:1.5;color:#555;margin:0 0 6px}.mq b{color:var(--blue);font-size:11px;letter-spacing:.04em;margin-right:5px}.mtab{width:100%;border-collapse:collapse;margin-top:12px;font-size:12.5px}.mtab th{text-align:left;font-weight:600;color:var(--muted);font-size:11px;border-bottom:1px solid var(--line);padding:5px 4px}.mtab td{padding:5px 4px;border-bottom:1px solid #f0f0f0}.mtab td.num{text-align:right;color:#555;width:46px}.mtab td.bar{position:relative;width:110px}.mtab td.bar i{display:block;height:6px;background:var(--blue);border-radius:3px;opacity:.75}.mtab td.bar span{font-size:10.5px;color:var(--muted)}.mini{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:9999px;background:#eee;color:#666}.mini.now{background:#e3f0ff;color:#0066cc}.mini.next{background:#fff3e0;color:#a4670a}.mini.later{background:#eee;color:#777}.mmethod{font-size:12px;line-height:1.55;color:var(--muted);margin-top:18px;max-width:820px}
+@media(max-width:820px){.mgrid{grid-template-columns:1fr}.answer-grid,.signal-grid,.candidate-grid{grid-template-columns:1fr}.section-head h2{font-size:32px}.history li{grid-template-columns:1fr;gap:6px}.meta{display:none}}
+</style></head><body>
+<nav class="topbar"><div class="topbar-inner"><a class="brand" href="../">Plug<i>NX</i></a><div class="meta">MVP RADAR · 2026-09-08 · 후보 3개</div></div></nav>
+
+<section class="hero">
+  <div class="eyebrow">DAILY OPPORTUNITY INTELLIGENCE</div>
+  <h1>뉴스를 읽고 끝내지 않고,<br><em>검증 가능한 MVP</em>로 바꿉니다.</h1>
+  <p>2026-09-08 신호는 &#x27;Settle Guide&#x27; 패턴을 가장 강하게 건드렸다 — 입국 30일 안에 처리해야 할 행정·생활 절차를 지자체별로 안내하는 다국어 온보딩 가이드</p>
+  <div class="hero-actions"><a class="primary" href="#candidates">오늘의 후보 보기</a><a class="secondary" href="../">뉴스룸으로</a></div>
+</section>
+<section class="answer-grid">
+  <article><span>SO WHAT</span><p>오늘 후보 3건 중 빌드 게이트를 통과한 것은 visa-fitcheck 하나다.</p></article>
+  <article><span>CONFIDENCE</span><p>중간 — 그날 카드와 누적 패턴을 대조한 결과다. 점수는 패턴 고정값이므로 신호 강도가 아니라 반복성의 대리지표로만 읽는다. 지불의사·단가는 미검증 [추정].</p></article>
+</section>
+<section class='section light' id='monthly'><div class='section-head'><p>00 · MONTHLY MVP</p><h2>매일의 신호를 달 단위로 접으면 무엇이 남는가.</h2></div><div class='mgrid'><article class='mcard'><div class='mhead'><h3>2026-09</h3><span class='mdays'>리포트 6일</span></div><div class='mpick'><span class='mtag'>이 달의 MVP</span><b data-detail='visa-fitcheck' class='clickable'>Visa FitCheck</b><p>학력·재직·소득·체류이력을 넣으면 갈 수 있는 체류 경로를 순위로 보여주는 사전 진단</p></div><p class='mreason'>2026-09 리포트 6일 중 2일(33.3%)에 신호가 잡혔고 그중 1일은 그날 1순위였다. decision=Now · 총점 30 · 규제 리스크 중간. 등장 빈도 1위는 Stay Info API(4일·66.7%)이지만 decision 이 Next라 빌드 게이트를 통과하지 못해 대표에서 제외했다 — 빈도가 곧 실행 순서는 아니다.</p><p class='mq'><b>첫 검증 질문</b> 대학은 상담 소요시간 절감에 예산을 배정하는가, 아니면 직원 업무로 흡수하는가?</p><p class='mq'><b>2주 범위</b> 프로필 문답 수집 · 4개 코드(E-7·E-7-4·D-10·F-2-R) 규칙 테이블 · 경로 순위 + 근거 조항 · 부족 요건 역산</p><table class='mtab'><thead><tr><th>패턴</th><th>등장</th><th>커버리지</th><th>1순위</th><th>판정</th></tr></thead><tbody><tr data-detail='stay-info-api' title='클릭하면 상세를 봅니다'><td class='pname'>Stay Info API</td><td class='num'>4일</td><td class='bar'><i style='width:67%'></i><span>66.7%</span></td><td class='num'>1</td><td><span class='mini next'>Next</span></td></tr><tr data-detail='settle-guide' title='클릭하면 상세를 봅니다'><td class='pname'>Settle Guide</td><td class='num'>3일</td><td class='bar'><i style='width:50%'></i><span>50.0%</span></td><td class='num'>2</td><td><span class='mini later'>Later</span></td></tr><tr data-detail='prekyc-fit' title='클릭하면 상세를 봅니다'><td class='pname'>PreKYC Fit</td><td class='num'>3일</td><td class='bar'><i style='width:50%'></i><span>50.0%</span></td><td class='num'>0</td><td><span class='mini now'>Now</span></td></tr><tr data-detail='field-schema' title='클릭하면 상세를 봅니다'><td class='pname'>Field Schema</td><td class='num'>2일</td><td class='bar'><i style='width:33%'></i><span>33.3%</span></td><td class='num'>1</td><td><span class='mini next'>Next</span></td></tr><tr data-detail='visa-fitcheck' title='클릭하면 상세를 봅니다'><td class='pname'>Visa FitCheck</td><td class='num'>2일</td><td class='bar'><i style='width:33%'></i><span>33.3%</span></td><td class='num'>1</td><td><span class='mini now'>Now</span></td></tr><tr data-detail='intern-proof' title='클릭하면 상세를 봅니다'><td class='pname'>Intern Proof</td><td class='num'>2일</td><td class='bar'><i style='width:33%'></i><span>33.3%</span></td><td class='num'>1</td><td><span class='mini next'>Next</span></td></tr></tbody></table></article><article class='mcard'><div class='mhead'><h3>2026-08</h3><span class='mdays'>리포트 29일</span></div><div class='mpick'><span class='mtag'>이 달의 MVP</span><b data-detail='prekyc-fit' class='clickable'>PreKYC Fit</b><p>체류·재직·소득 필드를 미리 정리해 어느 상품이 개설 가능한지 사전 판정하는 온보딩 도구</p></div><p class='mreason'>2026-08 리포트 29일 중 12일(41.4%)에 신호가 잡혔고 그중 5일은 그날 1순위였다. decision=Now · 총점 32 · 규제 리스크 중간. 등장 빈도 1위는 Field Schema(18일·62.1%)이지만 decision 이 Next라 빌드 게이트를 통과하지 못해 대표에서 제외했다 — 빈도가 곧 실행 순서는 아니다.</p><p class='mq'><b>첫 검증 질문</b> 은행은 외국인 건의 반려율과 반려 사유를 지표로 관리하는가?</p><p class='mq'><b>2주 범위</b> 체류·재직·소득 문답 수집 · 상품별 요건 매핑 · 보완 서류 체크리스트 · 반려 사유 코드 집계</p><table class='mtab'><thead><tr><th>패턴</th><th>등장</th><th>커버리지</th><th>1순위</th><th>판정</th></tr></thead><tbody><tr data-detail='field-schema' title='클릭하면 상세를 봅니다'><td class='pname'>Field Schema</td><td class='num'>18일</td><td class='bar'><i style='width:62%'></i><span>62.1%</span></td><td class='num'>9</td><td><span class='mini next'>Next</span></td></tr><tr data-detail='visa-fitcheck' title='클릭하면 상세를 봅니다'><td class='pname'>Visa FitCheck</td><td class='num'>13일</td><td class='bar'><i style='width:45%'></i><span>44.8%</span></td><td class='num'>4</td><td><span class='mini now'>Now</span></td></tr><tr data-detail='prekyc-fit' title='클릭하면 상세를 봅니다'><td class='pname'>PreKYC Fit</td><td class='num'>12일</td><td class='bar'><i style='width:41%'></i><span>41.4%</span></td><td class='num'>5</td><td><span class='mini now'>Now</span></td></tr><tr data-detail='rule-sentinel' title='클릭하면 상세를 봅니다'><td class='pname'>Rule Sentinel</td><td class='num'>8일</td><td class='bar'><i style='width:28%'></i><span>27.6%</span></td><td class='num'>4</td><td><span class='mini now'>Now</span></td></tr><tr data-detail='settle-guide' title='클릭하면 상세를 봅니다'><td class='pname'>Settle Guide</td><td class='num'>7일</td><td class='bar'><i style='width:24%'></i><span>24.1%</span></td><td class='num'>1</td><td><span class='mini later'>Later</span></td></tr><tr data-detail='stay-info-api' title='클릭하면 상세를 봅니다'><td class='pname'>Stay Info API</td><td class='num'>5일</td><td class='bar'><i style='width:17%'></i><span>17.2%</span></td><td class='num'>2</td><td><span class='mini next'>Next</span></td></tr></tbody></table></article><article class='mcard'><div class='mhead'><h3>2026-07</h3><span class='mdays'>리포트 20일</span></div><div class='mpick'><span class='mtag'>이 달의 MVP</span><b data-detail='seasonal-ledger' class='clickable'>SeasonLedger</b><p>입국-배치-근로-정산-출국을 한 장에 남기는 계절근로 최소 원장과 지자체 집계 대시보드</p></div><p class='mreason'>2026-07 리포트 20일 중 5일(25.0%)에 신호가 잡혔고 그중 4일은 그날 1순위였다. decision=Now · 총점 31 · 규제 리스크 중간. 등장 빈도 1위는 Intern Proof(9일·45.0%)이지만 decision 이 Next라 빌드 게이트를 통과하지 못해 대표에서 제외했다 — 빈도가 곧 실행 순서는 아니다.</p><p class='mq'><b>첫 검증 질문</b> 지자체는 배정 제한·벌점 대응을 위해 별도 도구에 예산을 쓰는가, 아니면 기존 공문으로 충분하다고 보는가?</p><p class='mq'><b>2주 범위</b> 농가용 다국어 체크 링크 · 위반 항목(소방·숙식비·근로시간) 사진 기반 자가 점검 · 지자체 집계 뷰 · CSV 내보내기</p><table class='mtab'><thead><tr><th>패턴</th><th>등장</th><th>커버리지</th><th>1순위</th><th>판정</th></tr></thead><tbody><tr data-detail='intern-proof' title='클릭하면 상세를 봅니다'><td class='pname'>Intern Proof</td><td class='num'>9일</td><td class='bar'><i style='width:45%'></i><span>45.0%</span></td><td class='num'>6</td><td><span class='mini next'>Next</span></td></tr><tr data-detail='settle-guide' title='클릭하면 상세를 봅니다'><td class='pname'>Settle Guide</td><td class='num'>9일</td><td class='bar'><i style='width:45%'></i><span>45.0%</span></td><td class='num'>1</td><td><span class='mini later'>Later</span></td></tr><tr data-detail='field-schema' title='클릭하면 상세를 봅니다'><td class='pname'>Field Schema</td><td class='num'>8일</td><td class='bar'><i style='width:40%'></i><span>40.0%</span></td><td class='num'>6</td><td><span class='mini next'>Next</span></td></tr><tr data-detail='grad-calendar' title='클릭하면 상세를 봅니다'><td class='pname'>Grad Calendar</td><td class='num'>7일</td><td class='bar'><i style='width:35%'></i><span>35.0%</span></td><td class='num'>1</td><td><span class='mini later'>Later</span></td></tr><tr data-detail='visa-fitcheck' title='클릭하면 상세를 봅니다'><td class='pname'>Visa FitCheck</td><td class='num'>6일</td><td class='bar'><i style='width:30%'></i><span>30.0%</span></td><td class='num'>0</td><td><span class='mini now'>Now</span></td></tr><tr data-detail='seasonal-ledger' title='클릭하면 상세를 봅니다'><td class='pname'>SeasonLedger</td><td class='num'>5일</td><td class='bar'><i style='width:25%'></i><span>25.0%</span></td><td class='num'>4</td><td><span class='mini now'>Now</span></td></tr></tbody></table></article></div><p class='mmethod'>월별 MVP 는 그달 일자별 리포트에서 각 패턴이 며칠이나 신호로 잡혔는지(days)와 1순위였던 날(top_days)로 정한다. 점수는 패턴 고정값이라 순위 결정에 쓰지 않고 동점 처리에만 쓴다. 반복 빈도는 언급의 대리지표이지 시장 크기가 아니다.</p></section>
+<section class="section light"><div class="section-head"><p>01 · SIGNALS</p><h2>신호는 정책 단계와 출처 상태까지 확인합니다.</h2></div><div class="signal-grid"><article class='signal'><div class='signal-meta'><span>Act now</span><span>공식 원문 확인 필요</span></div><h3>법무부가 유학생 53만명의 입학–졸업–취업–정주를 처음으로 끝까지 추적했다</h3><p>오늘 가장 중요한 신호이고, 우리에게는 기회이자 위협이다. 기회 쪽부터. 지금까지 대학·지자체가 유학생 사업을 평가받는 지표는 &#x27;몇 명 유치했는가&#x27;였고 그래서 우리가 StayPath 대학 제안서를 &#x27;정주율 실적 증빙&#x27;으로 다시 쓰기로 한 것은 아직 구매자에게 없는 언어를 먼저 만든 셈이었다. 오늘 법무부가 졸업–취업–정주–출국을 전수로 추적한 데이터를 공개하면서 그 언어가 국가 공식 지표가 됐다. 전북 61.2% 출국 같은 숫자가 지역 언론에 그대로 실리는 순간, 대학 담당자의 KPI 는 유치에서 잔류로 옮겨간다 — 우리가 8일 전</p><small>보도 기준 수치이며 1차 원문 확인 전에는 확정값으로 쓰지 않는다.</small></article><article class='signal'><div class='signal-meta'><span>Act now</span><span>공식 원문 확인 필요</span></div><h3>체류 외국인 증가분의 86%가 장기체류자다 — 정책 무게중심이 &#x27;유입&#x27;에서 &#x27;정주&#x27;로 넘어갔다</h3><p>어제 카드가 &#x27;외국인이 국가 고용통계의 부호를 결정한다&#x27;였다면 오늘은 그 층의 성격이 바뀌었다는 신호다. 증가분의 86%가 장기체류자라는 것은 우리 제품 설계에 직접 걸린다. 단기 순환 인구를 상대로는 어떤 서비스도 리텐션이 안 나오고 데이터도 쌓이지 않는다 — 우리가 &#x27;데이터 플라이휠&#x27;이라고 부른 구조가 성립하려면 같은 사람이 몇 년에 걸쳐 돌아와야 하는데, 오늘 숫자가 그 전제를 처음으로 뒷받침한다. 동시에 이 숫자는 StayPath 의 층(체류·비자전환)이 왜 14회차 연속 여백 1위인지를 설명해 준다 — 유학–구직–취업–거주</p><small>보도 기준 수치이며 1차 원문 확인 전에는 확정값으로 쓰지 않는다.</small></article><article class='signal'><div class='signal-meta'><span>Monitor</span><span>공식 원문 확인 필요</span></div><h3>한패스 주가가 공모가의 27% 수준이다 — 외국인 송금 프런트엔드에 시장이 매긴 값</h3><p>어제 이나인페이 카드에서 &#x27;외국인 금융은 이미 영업이익률 36.7%의 고이익 산업&#x27;이라고 썼는데, 오늘 같은 산업의 상장사가 공모가의 27%에 거래된다. 두 사실을 함께 놓아야 정확한 그림이 나온다. 이나인페이는 이익이 나고 한패스는 상반기 적자다 — 즉 이 시장은 이익이 나는 곳이 아니라 1등만 이익이 나는 곳이고, 그마저 1등이라는 인식과 주가가 따로 논다. 우리 전략 문서의 대전제 하나가 오늘 시장 데이터로 확인됐다: 프런트엔드 경쟁을 회피하고 데이터 백엔드로 차별화한다는 결정이다. 회원 100만·MAU 48만·소액송금 점유율</p><small>보도 기준 수치이며 1차 원문 확인 전에는 확정값으로 쓰지 않는다.</small></article></div></section>
+<section class="section dark" id="candidates"><div class="section-head"><p>02 · MVP CANDIDATES</p><h2>코드보다 지불 주체와 데이터 해자를 먼저 봅니다.</h2></div><div class="candidate-grid"><article class="candidate" data-detail="settle-guide" role="button" tabindex="0" title="클릭하면 상세를 봅니다">
+<div class="candidate-top"><span class="pill">Later · 낮음</span><span class="pill more">상세 ↗</span></div>
+<h3>Settle Guide</h3><p class="one">입국 30일 안에 처리해야 할 행정·생활 절차를 지자체별로 안내하는 다국어 온보딩 가이드</p>
+<dl><dt>지불 주체</dt><dd>지자체 외국인·인구정책 부서</dd><dt>해자</dt><dd>정책 · 채널</dd><dt>2주 MVP</dt><dd>지자체 3곳 절차 수집 · 다국어 체크리스트 · 진행 상태 저장</dd><dt>성공 기준</dt><dd>지자체 1곳이 자체 안내물 대체를 검토한다 [목표·가정]</dd></dl>
+<div class="score">26/35 · RTW 3/5</div>
+<p class="why-not"><b>반증:</b> 지자체가 이미 자체 안내물을 만들고 있고 예산이 인쇄물에 묶여 있을 수 있다.</p></article><article class="candidate recommended" data-detail="visa-fitcheck" role="button" tabindex="0" title="클릭하면 상세를 봅니다">
+<div class="candidate-top"><span class="pill">Now · 중간</span><span class='pill recommend'>추천</span><span class="pill more">상세 ↗</span></div>
+<h3>Visa FitCheck</h3><p class="one">학력·재직·소득·체류이력을 넣으면 갈 수 있는 체류 경로를 순위로 보여주는 사전 진단</p>
+<dl><dt>지불 주체</dt><dd>대학 국제교류센터·지자체 정착 담당(기관 예산)</dd><dt>해자</dt><dd>데이터 · 정책 · 채널</dd><dt>2주 MVP</dt><dd>프로필 문답 수집 · 4개 코드(E-7·E-7-4·D-10·F-2-R) 규칙 테이블 · 경로 순위 + 근거 조항 · 부족 요건 역산</dd><dt>성공 기준</dt><dd>대학 1곳 파일럿에서 상담 1건당 소요시간이 유의미하게 줄어든다 [목표·가정]</dd></dl>
+<div class="score">30/35 · RTW 4/5</div>
+<p class="why-not"><b>반증:</b> 제도 개편이 진행 중이라 규칙을 지금 고정하면 재작업 비용이 크고, 법무부가 공식 도구를 무료 배포하면 대체된다.</p></article><article class="candidate" data-detail="stay-info-api" role="button" tabindex="0" title="클릭하면 상세를 봅니다">
+<div class="candidate-top"><span class="pill">Next · 중간</span><span class="pill more">상세 ↗</span></div>
+<h3>Stay Info API</h3><p class="one">체류자격·잔여기간·근로가능 여부를 동의 기반으로 즉시 확인해 주는 조회 API와 다국어 안내 생성</p>
+<dl><dt>지불 주체</dt><dd>지방은행(창구 인건비 대체)</dd><dt>해자</dt><dd>데이터 · 채널 · 전환비용</dd><dt>2주 MVP</dt><dd>동의 취득 흐름 · 체류 항목 조회 규격 · 다국어 안내문 생성 · 감사 로그</dd><dt>성공 기준</dt><dd>지방은행 1곳이 창구 건당 처리시간을 데이터로 제시한다 [목표·가정]</dd></dl>
+<div class="score">28/35 · RTW 4/5</div>
+<p class="why-not"><b>반증:</b> 공적 확인 채널과 경합하고, 동의 취득 흐름이 창구 프로세스에 얹히지 않으면 쓰이지 않는다.</p></article></div></section>
+<section class="section light"><div class="section-head"><p>03 · HISTORY</p><h2>아이디어보다 검증 기록이 해자가 됩니다.</h2></div><ul class="history"><li><time>2026-09-08</time><span>2026-09-08 신호는 &#x27;Settle Guide&#x27; 패턴을 가장 강하게 건드렸다 — 입국 30일 안에 처리해야 할 행정·생활 절차를 지자체별로 안내하는 다국어 온보딩 가이드</span><b>3개 후보</b></li><li><time>2026-09-07</time><span>2026-09-07 신호는 &#x27;Settle Guide&#x27; 패턴을 가장 강하게 건드렸다 — 입국 30일 안에 처리해야 할 행정·생활 절차를 지자체별로 안내하는 다국어 온보딩 가이드</span><b>3개 후보</b></li><li><time>2026-09-06</time><span>2026-09-06 신호는 &#x27;Intern Proof&#x27; 패턴을 가장 강하게 건드렸다 — 현장실습·인턴 경력을 기업이 발급하고 체류자격 심사에 그대로 쓸 수 있게 남기는 증빙 레일</span><b>3개 후보</b></li><li><time>2026-09-03</time><span>2026-09-03 신호는 &#x27;Field Schema&#x27; 패턴을 가장 강하게 건드렸다 — 회사마다 다른 급여 원장을 재직·근속·급여지속성·실효체류 4필드로 정규화해 점수 없이 신호만 넘기는 규격</span><b>3개 후보</b></li><li><time>2026-09-02</time><span>2026-09-02 신호는 &#x27;Visa FitCheck&#x27; 패턴을 가장 강하게 건드렸다 — 학력·재직·소득·체류이력을 넣으면 갈 수 있는 체류 경로를 순위로 보여주는 사전 진단</span><b>3개 후보</b></li><li><time>2026-09-01</time><span>2026-09-01 신호는 &#x27;Stay Info API&#x27; 패턴을 가장 강하게 건드렸다 — 체류자격·잔여기간·근로가능 여부를 동의 기반으로 즉시 확인해 주는 조회 API와 다국어 안내 생성</span><b>3개 후보</b></li><li><time>2026-08-31</time><span>2026-08-31 신호는 &#x27;Visa FitCheck&#x27; 패턴을 가장 강하게 건드렸다 — 학력·재직·소득·체류이력을 넣으면 갈 수 있는 체류 경로를 순위로 보여주는 사전 진단</span><b>3개 후보</b></li><li><time>2026-08-30</time><span>2026-08-30 신호는 &#x27;Rule Sentinel&#x27; 패턴을 가장 강하게 건드렸다 — 제도 개정문을 매일 읽고 우리 회사 근로자 중 오늘 새로 예외가 된 사람만 골라 주는 기한 파수꾼</span><b>3개 후보</b></li><li><time>2026-08-29</time><span>2026-08-29 신호는 &#x27;Field Schema&#x27; 패턴을 가장 강하게 건드렸다 — 회사마다 다른 급여 원장을 재직·근속·급여지속성·실효체류 4필드로 정규화해 점수 없이 신호만 넘기는 규격</span><b>3개 후보</b></li><li><time>2026-08-28</time><span>2026-08-28 신호는 &#x27;Settle Guide&#x27; 패턴을 가장 강하게 건드렸다 — 입국 30일 안에 처리해야 할 행정·생활 절차를 지자체별로 안내하는 다국어 온보딩 가이드</span><b>3개 후보</b></li><li><time>2026-08-27</time><span>2026-08-27 신호는 &#x27;Field Schema&#x27; 패턴을 가장 강하게 건드렸다 — 회사마다 다른 급여 원장을 재직·근속·급여지속성·실효체류 4필드로 정규화해 점수 없이 신호만 넘기는 규격</span><b>3개 후보</b></li><li><time>2026-08-26</time><span>2026-08-26 신호는 &#x27;PreKYC Fit&#x27; 패턴을 가장 강하게 건드렸다 — 체류·재직·소득 필드를 미리 정리해 어느 상품이 개설 가능한지 사전 판정하는 온보딩 도구</span><b>3개 후보</b></li><li><time>2026-08-25</time><span>2026-08-25 신호는 &#x27;PreKYC Fit&#x27; 패턴을 가장 강하게 건드렸다 — 체류·재직·소득 필드를 미리 정리해 어느 상품이 개설 가능한지 사전 판정하는 온보딩 도구</span><b>3개 후보</b></li><li><time>2026-08-24</time><span>2026-08-24 신호는 &#x27;Stay Info API&#x27; 패턴을 가장 강하게 건드렸다 — 체류자격·잔여기간·근로가능 여부를 동의 기반으로 즉시 확인해 주는 조회 API와 다국어 안내 생성</span><b>3개 후보</b></li><li><time>2026-08-23</time><span>2026-08-23 신호는 &#x27;Visa FitCheck&#x27; 패턴을 가장 강하게 건드렸다 — 학력·재직·소득·체류이력을 넣으면 갈 수 있는 체류 경로를 순위로 보여주는 사전 진단</span><b>3개 후보</b></li><li><time>2026-08-22</time><span>2026-08-22 신호는 &#x27;Field Schema&#x27; 패턴을 가장 강하게 건드렸다 — 회사마다 다른 급여 원장을 재직·근속·급여지속성·실효체류 4필드로 정규화해 점수 없이 신호만 넘기는 규격</span><b>3개 후보</b></li><li><time>2026-08-21</time><span>2026-08-21 신호는 &#x27;Field Schema&#x27; 패턴을 가장 강하게 건드렸다 — 회사마다 다른 급여 원장을 재직·근속·급여지속성·실효체류 4필드로 정규화해 점수 없이 신호만 넘기는 규격</span><b>3개 후보</b></li><li><time>2026-08-20</time><span>2026-08-20 신호는 &#x27;Field Schema&#x27; 패턴을 가장 강하게 건드렸다 — 회사마다 다른 급여 원장을 재직·근속·급여지속성·실효체류 4필드로 정규화해 점수 없이 신호만 넘기는 규격</span><b>3개 후보</b></li><li><time>2026-08-19</time><span>2026-08-19 신호는 &#x27;Rule Sentinel&#x27; 패턴을 가장 강하게 건드렸다 — 제도 개정문을 매일 읽고 우리 회사 근로자 중 오늘 새로 예외가 된 사람만 골라 주는 기한 파수꾼</span><b>3개 후보</b></li><li><time>2026-08-18</time><span>2026-08-18 신호는 &#x27;PreKYC Fit&#x27; 패턴을 가장 강하게 건드렸다 — 체류·재직·소득 필드를 미리 정리해 어느 상품이 개설 가능한지 사전 판정하는 온보딩 도구</span><b>3개 후보</b></li><li><time>2026-08-17</time><span>2026-08-17 신호는 &#x27;Field Schema&#x27; 패턴을 가장 강하게 건드렸다 — 회사마다 다른 급여 원장을 재직·근속·급여지속성·실효체류 4필드로 정규화해 점수 없이 신호만 넘기는 규격</span><b>3개 후보</b></li><li><time>2026-08-16</time><span>2026-08-16 신호는 &#x27;Field Schema&#x27; 패턴을 가장 강하게 건드렸다 — 회사마다 다른 급여 원장을 재직·근속·급여지속성·실효체류 4필드로 정규화해 점수 없이 신호만 넘기는 규격</span><b>3개 후보</b></li><li><time>2026-08-15</time><span>2026-08-15 신호는 &#x27;PreKYC Fit&#x27; 패턴을 가장 강하게 건드렸다 — 체류·재직·소득 필드를 미리 정리해 어느 상품이 개설 가능한지 사전 판정하는 온보딩 도구</span><b>3개 후보</b></li><li><time>2026-08-14</time><span>2026-08-14 신호는 &#x27;Rule Sentinel&#x27; 패턴을 가장 강하게 건드렸다 — 제도 개정문을 매일 읽고 우리 회사 근로자 중 오늘 새로 예외가 된 사람만 골라 주는 기한 파수꾼</span><b>3개 후보</b></li><li><time>2026-08-13</time><span>2026-08-13 신호는 &#x27;Field Schema&#x27; 패턴을 가장 강하게 건드렸다 — 회사마다 다른 급여 원장을 재직·근속·급여지속성·실효체류 4필드로 정규화해 점수 없이 신호만 넘기는 규격</span><b>3개 후보</b></li><li><time>2026-08-12</time><span>2026-08-12 신호는 &#x27;Rule Sentinel&#x27; 패턴을 가장 강하게 건드렸다 — 제도 개정문을 매일 읽고 우리 회사 근로자 중 오늘 새로 예외가 된 사람만 골라 주는 기한 파수꾼</span><b>3개 후보</b></li><li><time>2026-08-11</time><span>2026-08-11 신호는 &#x27;PreKYC Fit&#x27; 패턴을 가장 강하게 건드렸다 — 체류·재직·소득 필드를 미리 정리해 어느 상품이 개설 가능한지 사전 판정하는 온보딩 도구</span><b>3개 후보</b></li><li><time>2026-08-10</time><span>2026-08-10 신호는 &#x27;Remit Risk&#x27; 패턴을 가장 강하게 건드렸다 — 외국인 송금·수취 패턴의 이상 신호를 유형화해 컴플라이언스 조직에 넘기는 탐지 모듈</span><b>3개 후보</b></li><li><time>2026-08-09</time><span>첫 별도 MVP는 다국어 교육 이수와 위험작업 배치 로그를 묶는 SafetyPass가 적합하다.</span><b>3개 후보</b></li><li><time>2026-08-06</time><span>2026-08-06 신호는 &#x27;SeasonLedger&#x27; 패턴을 가장 강하게 건드렸다 — 입국-배치-근로-정산-출국을 한 장에 남기는 계절근로 최소 원장과 지자체 집계 대시보드</span><b>3개 후보</b></li><li><time>2026-08-05</time><span>2026-08-05 신호는 &#x27;Field Schema&#x27; 패턴을 가장 강하게 건드렸다 — 회사마다 다른 급여 원장을 재직·근속·급여지속성·실효체류 4필드로 정규화해 점수 없이 신호만 넘기는 규격</span><b>3개 후보</b></li><li><time>2026-08-04</time><span>2026-08-04 신호는 &#x27;Visa FitCheck&#x27; 패턴을 가장 강하게 건드렸다 — 학력·재직·소득·체류이력을 넣으면 갈 수 있는 체류 경로를 순위로 보여주는 사전 진단</span><b>3개 후보</b></li><li><time>2026-08-03</time><span>2026-08-03 신호는 &#x27;Visa FitCheck&#x27; 패턴을 가장 강하게 건드렸다 — 학력·재직·소득·체류이력을 넣으면 갈 수 있는 체류 경로를 순위로 보여주는 사전 진단</span><b>3개 후보</b></li><li><time>2026-08-02</time><span>2026-08-02 신호는 &#x27;Stay Info API&#x27; 패턴을 가장 강하게 건드렸다 — 체류자격·잔여기간·근로가능 여부를 동의 기반으로 즉시 확인해 주는 조회 API와 다국어 안내 생성</span><b>3개 후보</b></li><li><time>2026-08-01</time><span>2026-08-01 신호는 &#x27;Intern Proof&#x27; 패턴을 가장 강하게 건드렸다 — 현장실습·인턴 경력을 기업이 발급하고 체류자격 심사에 그대로 쓸 수 있게 남기는 증빙 레일</span><b>3개 후보</b></li><li><time>2026-07-31</time><span>2026-07-31 신호는 &#x27;SeasonLedger&#x27; 패턴을 가장 강하게 건드렸다 — 입국-배치-근로-정산-출국을 한 장에 남기는 계절근로 최소 원장과 지자체 집계 대시보드</span><b>3개 후보</b></li><li><time>2026-07-30</time><span>2026-07-30 신호는 &#x27;Stay Info API&#x27; 패턴을 가장 강하게 건드렸다 — 체류자격·잔여기간·근로가능 여부를 동의 기반으로 즉시 확인해 주는 조회 API와 다국어 안내 생성</span><b>3개 후보</b></li><li><time>2026-07-29</time><span>2026-07-29 신호는 &#x27;Field Schema&#x27; 패턴을 가장 강하게 건드렸다 — 회사마다 다른 급여 원장을 재직·근속·급여지속성·실효체류 4필드로 정규화해 점수 없이 신호만 넘기는 규격</span><b>3개 후보</b></li><li><time>2026-07-28</time><span>2026-07-28 신호는 &#x27;Intern Proof&#x27; 패턴을 가장 강하게 건드렸다 — 현장실습·인턴 경력을 기업이 발급하고 체류자격 심사에 그대로 쓸 수 있게 남기는 증빙 레일</span><b>3개 후보</b></li><li><time>2026-07-27</time><span>2026-07-27 신호는 &#x27;Intern Proof&#x27; 패턴을 가장 강하게 건드렸다 — 현장실습·인턴 경력을 기업이 발급하고 체류자격 심사에 그대로 쓸 수 있게 남기는 증빙 레일</span><b>3개 후보</b></li><li><time>2026-07-26</time><span>2026-07-26 신호는 &#x27;SeasonLedger&#x27; 패턴을 가장 강하게 건드렸다 — 입국-배치-근로-정산-출국을 한 장에 남기는 계절근로 최소 원장과 지자체 집계 대시보드</span><b>3개 후보</b></li><li><time>2026-07-25</time><span>2026-07-25 신호는 &#x27;Field Schema&#x27; 패턴을 가장 강하게 건드렸다 — 회사마다 다른 급여 원장을 재직·근속·급여지속성·실효체류 4필드로 정규화해 점수 없이 신호만 넘기는 규격</span><b>3개 후보</b></li><li><time>2026-07-24</time><span>2026-07-24 신호는 &#x27;PaySlip Check&#x27; 패턴을 가장 강하게 건드렸다 — 급여명세서 사진 한 장으로 공제·최저임금·수당을 검산해 모국어로 설명하는 근로자용 도구</span><b>3개 후보</b></li><li><time>2026-07-23</time><span>2026-07-23 신호는 &#x27;Field Schema&#x27; 패턴을 가장 강하게 건드렸다 — 회사마다 다른 급여 원장을 재직·근속·급여지속성·실효체류 4필드로 정규화해 점수 없이 신호만 넘기는 규격</span><b>3개 후보</b></li><li><time>2026-07-22</time><span>2026-07-22 신호는 &#x27;Intern Proof&#x27; 패턴을 가장 강하게 건드렸다 — 현장실습·인턴 경력을 기업이 발급하고 체류자격 심사에 그대로 쓸 수 있게 남기는 증빙 레일</span><b>3개 후보</b></li><li><time>2026-07-21</time><span>2026-07-21 신호는 &#x27;Field Schema&#x27; 패턴을 가장 강하게 건드렸다 — 회사마다 다른 급여 원장을 재직·근속·급여지속성·실효체류 4필드로 정규화해 점수 없이 신호만 넘기는 규격</span><b>3개 후보</b></li><li><time>2026-07-20</time><span>2026-07-20 신호는 &#x27;Field Schema&#x27; 패턴을 가장 강하게 건드렸다 — 회사마다 다른 급여 원장을 재직·근속·급여지속성·실효체류 4필드로 정규화해 점수 없이 신호만 넘기는 규격</span><b>3개 후보</b></li><li><time>2026-07-19</time><span>2026-07-19 신호는 &#x27;Intern Proof&#x27; 패턴을 가장 강하게 건드렸다 — 현장실습·인턴 경력을 기업이 발급하고 체류자격 심사에 그대로 쓸 수 있게 남기는 증빙 레일</span><b>3개 후보</b></li><li><time>2026-07-18</time><span>2026-07-18 신호는 &#x27;Settle Guide&#x27; 패턴을 가장 강하게 건드렸다 — 입국 30일 안에 처리해야 할 행정·생활 절차를 지자체별로 안내하는 다국어 온보딩 가이드</span><b>3개 후보</b></li><li><time>2026-07-17</time><span>2026-07-17 신호는 &#x27;Intern Proof&#x27; 패턴을 가장 강하게 건드렸다 — 현장실습·인턴 경력을 기업이 발급하고 체류자격 심사에 그대로 쓸 수 있게 남기는 증빙 레일</span><b>3개 후보</b></li><li><time>2026-07-16</time><span>2026-07-16 신호는 &#x27;Intern Proof&#x27; 패턴을 가장 강하게 건드렸다 — 현장실습·인턴 경력을 기업이 발급하고 체류자격 심사에 그대로 쓸 수 있게 남기는 증빙 레일</span><b>3개 후보</b></li><li><time>2026-07-15</time><span>2026-07-15 신호는 &#x27;Grad Calendar&#x27; 패턴을 가장 강하게 건드렸다 — 대학·전공·졸업시점을 집계해 신파일러 유입 시점을 예측하는 캘린더 데이터</span><b>3개 후보</b></li><li><time>2026-07-14</time><span>2026-07-14 신호는 &#x27;SeasonLedger&#x27; 패턴을 가장 강하게 건드렸다 — 입국-배치-근로-정산-출국을 한 장에 남기는 계절근로 최소 원장과 지자체 집계 대시보드</span><b>3개 후보</b></li><li><time>2026-07-13</time><span>2026-07-13 신호는 &#x27;Field Schema&#x27; 패턴을 가장 강하게 건드렸다 — 회사마다 다른 급여 원장을 재직·근속·급여지속성·실효체류 4필드로 정규화해 점수 없이 신호만 넘기는 규격</span><b>3개 후보</b></li><li><time>2026-07-12</time><span>2026-07-12 신호는 &#x27;SeasonLedger&#x27; 패턴을 가장 강하게 건드렸다 — 입국-배치-근로-정산-출국을 한 장에 남기는 계절근로 최소 원장과 지자체 집계 대시보드</span><b>3개 후보</b></li></ul></section>
+<section class="notice"><strong>참고용 안내</strong><p>이 리포트는 누적 브리핑 신호와 검증된 MVP 패턴을 대조한 참고 정보이며 법적·재무적 효력이 없다. 점수와 수익 가정은 미검증값이고, 정책·비자·금융 판단은 반드시 전문가와 최신 1차 출처(하이코리아·법제처·고용노동부·금융위)로 확인해야 한다.</p></section>
+
+<dialog class="detail" id="d-dorm-compliance">
+  <div class="d-head"><div><span class="d-kicker">MVP 후보 상세</span><h2>Dorm Compliance</h2>
+  <p class="d-one">사업주 제공 숙소를 법무부 점검 항목대로 사진 기반 자가 점검하는 준법 체크</p></div>
+  <button class="d-close" onclick="this.closest('dialog').close()" aria-label="닫기">×</button></div>
+  <div class="d-body">
+    <section><h4>무엇인가</h4><p>사업주 제공 숙소를 법무부 점검 항목(소방시설·숙식비·냉난방) 그대로 사진 기반으로 자가 점검하고 시정 가이드를 주는 체크 도구다.</p>
+      <p class="d-sub"><b>반복되는 문제</b> 주거 위반이 점검 적발의 다수를 차지하는데 고용주는 무엇이 위반인지 사전에 확인할 수단이 없다.</p>
+      <p class="d-sub"><b>지금의 대체재</b> 점검 통보 후 사후 시정, 지자체 현장 방문</p></section>
+    <section><h4>누구에게 어떤 가치인가</h4><div class='dv-row'><b>직접 쓰는 사람이 얻는 것</b><p>고용주: 점검 통보 후 사후 시정이 아니라 사전에 확인해 벌점·배정 제한을 피한다.</p></div><div class='dv-row'><b>돈을 내는 쪽이 얻는 것</b><p>지자체: 관내 숙소 위반 리스크를 집계로 보고, 사증 발급 전 안전체크리스트 의무화(2026.04)에 대응한다.</p></div><div class='dv-row'><b>PlugNX 원장에 쌓이는 것</b><p>숙소·주소 데이터 — 도달가능성 원장의 물리 주소 축이 여기서 갱신된다.</p></div></section>
+    <section class="d-grid">
+      <div><h5>고객</h5><p>외국인 근로자에게 숙소를 제공하는 고용주와 배정 지자체</p></div>
+      <div><h5>지불 주체</h5><p>고용주(배정 제한 회피)와 지자체</p></div>
+      <div><h5>수익 모델</h5><p>고용주 건당 또는 지자체 구독 [목표·가정]</p></div>
+      <div><h5>해자 · 규제</h5><p>정책 · 전환비용 · 규제 낮음</p></div>
+    </section>
+    <section><h4>2주 MVP</h4><p><b>범위</b> 점검 항목 체크리스트 · 사진 업로드 · 시정 가이드 · 지자체 집계 뷰</p>
+      <p><b>성공 기준</b> 고용주 10곳 중 4곳이 점검 전 자가 확인을 완료한다 [목표·가정]</p>
+      <p><b>중단 기준</b> 사전 확인율이 20% 미만이면 독립 제품을 접고 SeasonLedger 모듈로 흡수한다 [목표·가정]</p>
+      <p><b>첫 검증 질문</b> 고용주는 점검 전에 스스로 확인하려 하는가, 아니면 통보를 받고 대응하는가?</p></section>
+    
+    <section class='d-warn'><h4>반증</h4><p>당사자 관심도가 장기 하락 중이고, 점검 주체가 직접 체크리스트를 배포하면 대체된다.</p></section>
+  </div>
+</dialog>
+<dialog class="detail" id="d-exit-reconnect">
+  <div class="d-head"><div><span class="d-kicker">MVP 후보 상세</span><h2>Exit Reconnect</h2>
+  <p class="d-one">출국 전 연락처·수취계좌를 갱신하고 출국 후 남은 정산 항목을 모국어로 알려 주는 도달 레일</p></div>
+  <button class="d-close" onclick="this.closest('dialog').close()" aria-label="닫기">×</button></div>
+  <div class="d-body">
+    <section><h4>무엇인가</h4><p>출국 전 연락처·수취계좌를 갱신받고, 출국 후 남은 정산 항목(보험금·퇴직금·연금)을 모국어로 알려 어디에 문의할지 안내하는 도달 레일이다.</p>
+      <p class="d-sub"><b>반복되는 문제</b> 자동환급 제도가 있어도 연락처 변경·주소 불명확 때문에 돈이 본인에게 도달하지 못한다.</p>
+      <p class="d-sub"><b>지금의 대체재</b> 공단 자동환급 대기, 은행 개별 안내, 사후 인지</p></section>
+    <section><h4>누구에게 어떤 가치인가</h4><div class='dv-row'><b>직접 쓰는 사람이 얻는 것</b><p>근로자: 자동환급 제도가 있어도 못 받던 돈(휴면보험금 300억대의 원인이 연락처 변경)을 받을 경로가 생긴다.</p></div><div class='dv-row'><b>돈을 내는 쪽이 얻는 것</b><p>기관·지방은행: 미수령 잔액이라는 부채성 항목을 줄이고, 환급 지원 실적을 만든다.</p></div><div class='dv-row'><b>PlugNX 원장에 쌓이는 것</b><p>도달가능성(reachability) + Exit Signal — 출국 이후에도 살아 있는 연락 채널은 국내 어떤 사업자도 갖지 못한 데이터다.</p></div></section>
+    <section class="d-grid">
+      <div><h5>고객</h5><p>체류 만료·귀국을 앞둔 외국인 근로자</p></div>
+      <div><h5>지불 주체</h5><p>미수령 잔액을 안고 있는 기관과 환급 지원에 나선 지방은행</p></div>
+      <div><h5>수익 모델</h5><p>기관 연간 구독 또는 도달 성공 건당 [목표·가정]</p></div>
+      <div><h5>해자 · 규제</h5><p>데이터 · 정책 · 규제 중간</p></div>
+    </section>
+    <section><h4>2주 MVP</h4><p><b>범위</b> 출국 예정 시점 추정 · 연락처·수취계좌 갱신 동의 · 모국어 정산 항목 안내 · 기관용 도달 로그</p>
+      <p><b>성공 기준</b> 파일럿 대상 중 40% 이상이 출국 전 연락처를 갱신한다 [목표·가정]</p>
+      <p><b>중단 기준</b> 갱신율이 20% 미만이거나 기관이 데이터 수신을 거부하면 중단한다 [목표·가정]</p>
+      <p><b>첫 검증 질문</b> 기관은 도달률 개선에 예산을 쓰는가, 아니면 미수령을 불가피한 잔액으로 보는가?</p></section>
+    
+    <section class='d-warn'><h4>반증</h4><p>지급 주체가 공단·보험사라 우리는 안내까지만 할 수 있고, 기관이 이미 자동환급으로 충분하다고 볼 수 있다.</p></section>
+  </div>
+</dialog>
+<dialog class="detail" id="d-field-schema">
+  <div class="d-head"><div><span class="d-kicker">MVP 후보 상세</span><h2>Field Schema</h2>
+  <p class="d-one">회사마다 다른 급여 원장을 재직·근속·급여지속성·실효체류 4필드로 정규화해 점수 없이 신호만 넘기는 규격</p></div>
+  <button class="d-close" onclick="this.closest('dialog').close()" aria-label="닫기">×</button></div>
+  <div class="d-body">
+    <section><h4>무엇인가</h4><p>회사마다 다른 급여 원장을 재직·근속·급여지속성·실효체류 4필드로 정규화해, 점수 없이 사실 신호만 금융기관에 넘기는 데이터 규격이다.</p>
+      <p class="d-sub"><b>반복되는 문제</b> 외국인 심사의 판별 변수가 체류기간 하나뿐이고, 재직증명서 사본은 계약임금만 보여준다.</p>
+      <p class="d-sub"><b>지금의 대체재</b> 체류기간 단일 변수 + 서류 사본 수취</p></section>
+    <section><h4>누구에게 어떤 가치인가</h4><div class='dv-row'><b>직접 쓰는 사람이 얻는 것</b><p>근로자(간접): 금융 이력이 없어도 재직·급여 사실이 심사에서 인정받을 길이 열린다. 조회 이력을 본인이 확인하고 철회할 수 있다.</p></div><div class='dv-row'><b>돈을 내는 쪽이 얻는 것</b><p>금융기관: 체류기간 하나뿐이던 판별 변수에 검증된 원천 신호가 추가된다 — 자행 데이터만으로 불가능한 외국인 심사의 공백을 메운다.</p></div><div class='dv-row'><b>PlugNX 원장에 쌓이는 것</b><p>표준 스키마 자체가 자산 — 공동검증 락인의 시작점이며, CB 인가 없이 팔 수 있는 &#x27;점수 없는 신호&#x27; 구조다.</p></div></section>
+    <section class="d-grid">
+      <div><h5>고객</h5><p>외국인 여신·카드 심사를 늘려야 하는 금융기관</p></div>
+      <div><h5>지불 주체</h5><p>금융기관 심사·리스크 조직</p></div>
+      <div><h5>수익 모델</h5><p>조회 건당 과금 [목표·가정]</p></div>
+      <div><h5>해자 · 규제</h5><p>데이터 · 채널 · 규제 중간</p></div>
+    </section>
+    <section><h4>2주 MVP</h4><p><b>범위</b> 4필드 표준 스키마 v0.1 · 익명 샘플 리포트 3종 · 실효 잔여기간 산정 근거 문서 · 감사 로그 설계</p>
+      <p><b>성공 기준</b> 금융·카드사 2곳이 필드 정의에 수정 요구를 낸다 [목표·가정]</p>
+      <p><b>중단 기준</b> 3곳 모두 &#x27;체류기간만으로 충분하다&#x27;고 답하면 고용주 과금으로 설계를 되돌린다 [목표·가정]</p>
+      <p><b>첫 검증 질문</b> 금융기관은 체류기간 외 변수에 조회료를 지불할 의사가 있는가?</p></section>
+    
+    <section class='d-warn'><h4>반증</h4><p>고용기업 원장 연동 동의를 얻는 것이 프로덕트가 아니라 영업의 문제이고, 대형 CB가 원천을 확보하면 정규화 계층이 사라진다.</p></section>
+  </div>
+</dialog>
+<dialog class="detail" id="d-grad-calendar">
+  <div class="d-head"><div><span class="d-kicker">MVP 후보 상세</span><h2>Grad Calendar</h2>
+  <p class="d-one">대학·전공·졸업시점을 집계해 신파일러 유입 시점을 예측하는 캘린더 데이터</p></div>
+  <button class="d-close" onclick="this.closest('dialog').close()" aria-label="닫기">×</button></div>
+  <div class="d-body">
+    <section><h4>무엇인가</h4><p>대학·전공·졸업시점을 집계해 외국인 신파일러가 언제 얼마나 배출되는지 예측하는 캘린더 데이터다.</p>
+      <p class="d-sub"><b>반복되는 문제</b> 유학생 배출은 2월·8월에 집중되는데 기업의 대응은 상시 모형이라 시점을 놓친다.</p>
+      <p class="d-sub"><b>지금의 대체재</b> 사후 집계, 대학별 개별 문의</p></section>
+    <section><h4>누구에게 어떤 가치인가</h4><div class='dv-row'><b>직접 쓰는 사람이 얻는 것</b><p>(당사자 직접 사용 없음 — 데이터 상품)</p></div><div class='dv-row'><b>돈을 내는 쪽이 얻는 것</b><p>금융·통신 마케팅: 2월·8월 집중 배출이라는 계절성을 아는 쪽이 상시 모형보다 유리한 게임을 한다.</p></div><div class='dv-row'><b>PlugNX 원장에 쌓이는 것</b><p>대학 채널(B2B2C) 관계 자산과 배출 예측 모델.</p></div></section>
+    <section class="d-grid">
+      <div><h5>고객</h5><p>외국인 고객 유입 시점을 알아야 하는 금융·통신 마케팅 조직</p></div>
+      <div><h5>지불 주체</h5><p>금융기관 마케팅·심사팀</p></div>
+      <div><h5>수익 모델</h5><p>연간 구독 [목표·가정]</p></div>
+      <div><h5>해자 · 규제</h5><p>데이터 · 채널 · 규제 낮음</p></div>
+    </section>
+    <section><h4>2주 MVP</h4><p><b>범위</b> 대학별 배출 집계 · 전공·시점 분해 · 월별 예측 뷰</p>
+      <p><b>성공 기준</b> 기업 1곳이 유료 파일럿 조건을 먼저 언급한다 [목표·가정]</p>
+      <p><b>중단 기준</b> 3곳 모두 공개 통계로 충분하다고 답하면 후보에서 내린다 [목표·가정]</p>
+      <p><b>첫 검증 질문</b> 기업은 유입 시점 예측에 별도 비용을 쓰는가?</p></section>
+    
+    <section class='d-warn'><h4>반증</h4><p>공개 통계로 상당 부분 대체 가능하고 단독 지불의사가 약하다.</p></section>
+  </div>
+</dialog>
+<dialog class="detail" id="d-housingready">
+  <div class="d-head"><div><span class="d-kicker">MVP 후보 상세</span><h2>housingready</h2>
+  <p class="d-one"></p></div>
+  <button class="d-close" onclick="this.closest('dialog').close()" aria-label="닫기">×</button></div>
+  <div class="d-body">
+    <section><h4>무엇인가</h4><p></p>
+      <p class="d-sub"><b>반복되는 문제</b> </p>
+      <p class="d-sub"><b>지금의 대체재</b> </p></section>
+    
+    <section class="d-grid">
+      <div><h5>고객</h5><p></p></div>
+      <div><h5>지불 주체</h5><p></p></div>
+      <div><h5>수익 모델</h5><p></p></div>
+      <div><h5>해자 · 규제</h5><p> · 규제 </p></div>
+    </section>
+    <section><h4>2주 MVP</h4><p><b>범위</b> </p>
+      <p><b>성공 기준</b> </p>
+      <p><b>중단 기준</b> </p>
+      </section>
+    
+    
+  </div>
+</dialog>
+<dialog class="detail" id="d-intern-proof">
+  <div class="d-head"><div><span class="d-kicker">MVP 후보 상세</span><h2>Intern Proof</h2>
+  <p class="d-one">현장실습·인턴 경력을 기업이 발급하고 체류자격 심사에 그대로 쓸 수 있게 남기는 증빙 레일</p></div>
+  <button class="d-close" onclick="this.closest('dialog').close()" aria-label="닫기">×</button></div>
+  <div class="d-body">
+    <section><h4>무엇인가</h4><p>현장실습·인턴 경력을 기업이 표준 항목으로 발급하고 학생이 보관해, 체류자격 심사에 그대로 쓸 수 있게 남기는 증빙 레일이다.</p>
+      <p class="d-sub"><b>반복되는 문제</b> 실습 경험이 검증 가능한 형태로 남지 않아 심사에서 경력으로 인정받지 못한다.</p>
+      <p class="d-sub"><b>지금의 대체재</b> 기업 임의 양식 확인서, 대학 자체 서식</p></section>
+    <section><h4>누구에게 어떤 가치인가</h4><div class='dv-row'><b>직접 쓰는 사람이 얻는 것</b><p>유학생: 흩어지던 실습 경험이 심사에서 인정 가능한 경력 증빙으로 쌓인다(74.5%가 기회 탐색조차 어려운 영역).</p></div><div class='dv-row'><b>돈을 내는 쪽이 얻는 것</b><p>대학: 취업률 KPI에 직접 기여하고, 기업은 발급 한 번으로 확인서 요청 대응을 끝낸다.</p></div><div class='dv-row'><b>PlugNX 원장에 쌓이는 것</b><p>검증된 경력 이벤트가 원장에 쌓인다 — E-7 심사 직접 증빙이자 신파일러 신호.</p></div></section>
+    <section class="d-grid">
+      <div><h5>고객</h5><p>졸업 후 취업 경로를 만들어야 하는 유학생과 수용 기업</p></div>
+      <div><h5>지불 주체</h5><p>대학(취업률 KPI)과 수용 기업</p></div>
+      <div><h5>수익 모델</h5><p>대학 구독 또는 발급 건당 [목표·가정]</p></div>
+      <div><h5>해자 · 규제</h5><p>데이터 · 채널 · 규제 낮음</p></div>
+    </section>
+    <section><h4>2주 MVP</h4><p><b>범위</b> 기업 발급 링크 · 표준 경력 항목 정의 · 학생 보관함 · 대학 집계</p>
+      <p><b>성공 기준</b> 대학 2곳이 실습 명단으로 발급을 시도한다 [목표·가정]</p>
+      <p><b>중단 기준</b> 발급된 증빙이 심사에서 활용되지 않으면 중단한다 [목표·가정]</p>
+      <p><b>첫 검증 질문</b> 심사 실무에서 표준화된 경력 증빙이 실제로 차이를 만드는가?</p></section>
+    
+    <section class='d-warn'><h4>반증</h4><p>대학이 자체 서식으로 충분하다고 보거나 심사에서 표준 서식을 인정하지 않으면 가치가 없다.</p></section>
+  </div>
+</dialog>
+<dialog class="detail" id="d-payslip-check">
+  <div class="d-head"><div><span class="d-kicker">MVP 후보 상세</span><h2>PaySlip Check</h2>
+  <p class="d-one">급여명세서 사진 한 장으로 공제·최저임금·수당을 검산해 모국어로 설명하는 근로자용 도구</p></div>
+  <button class="d-close" onclick="this.closest('dialog').close()" aria-label="닫기">×</button></div>
+  <div class="d-body">
+    <section><h4>무엇인가</h4><p>급여명세서를 사진으로 올리면 공제·최저임금·연장수당을 재계산해 모국어로 &#x27;이 항목이 왜 빠졌는지&#x27;를 설명해 주는 검산 도구다.</p>
+      <p class="d-sub"><b>반복되는 문제</b> 회사마다 명세서 양식과 공제 항목명이 달라 당사자가 맞는지 검산할 수 없고, 물어보면 재계약이 위태로워진다.</p>
+      <p class="d-sub"><b>지금의 대체재</b> 동료에게 묻기, 지원센터 방문, 번역 앱으로 부분 해독</p></section>
+    <section><h4>누구에게 어떤 가치인가</h4><div class='dv-row'><b>직접 쓰는 사람이 얻는 것</b><p>근로자: 물어보면 재계약이 위태로워지는 질문을 사람 대신 도구에 한다. 매달 실지급액 시계열이 쌓여 이직·전환·출국 때 본인 근로이력 요약본이 된다.</p></div><div class='dv-row'><b>돈을 내는 쪽이 얻는 것</b><p>기업: 우리가 근로자 쪽에서 보는 공제 이상 패턴을 사전에 잡아 12월 감독·공급망 실사에 대응한다 — 훅은 인권이 아니라 준법이다.</p></div><div class='dv-row'><b>PlugNX 원장에 쌓이는 것</b><p>실지급액 시계열 — 은행이 지금 돈 주고도 못 사는 데이터이며 동의 주체가 본인이라 신용정보법 리스크가 가장 낮은 획득 경로다.</p></div></section>
+    <section class="d-grid">
+      <div><h5>고객</h5><p>제조·조선·농축산 현장의 E-9·E-7-3·E-8 근로자</p></div>
+      <div><h5>지불 주체</h5><p>1차는 기업 준법 점검 구독(근로자는 무료)</p></div>
+      <div><h5>수익 모델</h5><p>근로자 무료 획득, 기업 준법 점검 좌석 구독 [목표·가정]</p></div>
+      <div><h5>해자 · 규제</h5><p>데이터 · 전환비용 · 규제 중간</p></div>
+    </section>
+    <section><h4>2주 MVP</h4><p><b>범위</b> 명세서 OCR · 공제 항목 표준 매핑 · 최저임금·연장수당 재계산 · 모국어 결과 설명</p>
+      <p><b>성공 기준</b> 100명 중 30% 이상이 2개월 연속 업로드한다 [목표·가정]</p>
+      <p><b>중단 기준</b> 이상 발견율이 5% 미만이거나 재업로드율이 30% 미만이면 중단한다 [목표·가정]</p>
+      <p><b>첫 검증 질문</b> 근로자는 검산 결과를 받아 실제로 회사에 문의하는가, 아니면 알고도 넘어가는가?</p></section>
+    
+    <section class='d-warn'><h4>반증</h4><p>근로자가 이상을 알아도 신고하지 못하는 구조라 검산 결과가 행동으로 이어지지 않을 수 있다.</p></section>
+  </div>
+</dialog>
+<dialog class="detail" id="d-prekyc-fit">
+  <div class="d-head"><div><span class="d-kicker">MVP 후보 상세</span><h2>PreKYC Fit</h2>
+  <p class="d-one">체류·재직·소득 필드를 미리 정리해 어느 상품이 개설 가능한지 사전 판정하는 온보딩 도구</p></div>
+  <button class="d-close" onclick="this.closest('dialog').close()" aria-label="닫기">×</button></div>
+  <div class="d-body">
+    <section><h4>무엇인가</h4><p>계좌·카드를 만들기 전에 체류자격·재직·소득 필드를 정리해 &#x27;이 은행 이 상품은 개설 가능/불가/보완 필요&#x27;를 미리 판정해 주는 온보딩 도구다.</p>
+      <p class="d-sub"><b>반복되는 문제</b> 서류가 무엇이 부족한지 모른 채 창구를 왕복하고, 반려 사유가 데이터로 남지 않아 개선되지 않는다.</p>
+      <p class="d-sub"><b>지금의 대체재</b> 창구 방문 후 반려, 커뮤니티 경험담, 지자체 협약 개별 처리</p></section>
+    <section><h4>누구에게 어떤 가치인가</h4><div class='dv-row'><b>직접 쓰는 사람이 얻는 것</b><p>외국인: 서류 하나 빠져서 창구를 왕복하는 일이 없어진다. 무엇을 보완하면 되는지 목록으로 받는다.</p></div><div class='dv-row'><b>돈을 내는 쪽이 얻는 것</b><p>은행: 반려율이 떨어지고 반려 사유가 코드로 쌓여 상품·심사 개선의 근거가 된다 — 가격 근거는 건당 원가가 아니라 개설 승인율 개선분이다.</p></div><div class='dv-row'><b>PlugNX 원장에 쌓이는 것</b><p>진단 입력값이 원장이 되고, 반려 사유 코드 집계는 국내 유일의 외국인 온보딩 실패 데이터셋이 된다.</p></div></section>
+    <section class="d-grid">
+      <div><h5>고객</h5><p>계좌·카드 개설을 시도하는 국내 거주 외국인</p></div>
+      <div><h5>지불 주체</h5><p>개설 반려율을 낮추려는 은행·인터넷은행 온보딩 조직</p></div>
+      <div><h5>수익 모델</h5><p>은행 건당 과금(개설 승인율 개선분 기준) [목표·가정]</p></div>
+      <div><h5>해자 · 규제</h5><p>데이터 · 채널 · 전환비용 · 규제 중간</p></div>
+    </section>
+    <section><h4>2주 MVP</h4><p><b>범위</b> 체류·재직·소득 문답 수집 · 상품별 요건 매핑 · 보완 서류 체크리스트 · 반려 사유 코드 집계</p>
+      <p><b>성공 기준</b> 은행 2곳이 반려 사유 필드 정의에 구체적 수정 요구를 낸다 [목표·가정]</p>
+      <p><b>중단 기준</b> 2곳 이상이 &#x27;내부 데이터로 자체 확보 예정&#x27;이라고 답하면 중단한다 [목표·가정]</p>
+      <p><b>첫 검증 질문</b> 은행은 외국인 건의 반려율과 반려 사유를 지표로 관리하는가?</p></section>
+    
+    <section class='d-warn'><h4>반증</h4><p>반려 사유가 데이터 부족이 아니라 AML·규제 회피 판단이면 데이터를 줘도 문이 열리지 않는다.</p></section>
+  </div>
+</dialog>
+<dialog class="detail" id="d-remit-risk">
+  <div class="d-head"><div><span class="d-kicker">MVP 후보 상세</span><h2>Remit Risk</h2>
+  <p class="d-one">외국인 송금·수취 패턴의 이상 신호를 유형화해 컴플라이언스 조직에 넘기는 탐지 모듈</p></div>
+  <button class="d-close" onclick="this.closest('dialog').close()" aria-label="닫기">×</button></div>
+  <div class="d-body">
+    <section><h4>무엇인가</h4><p>외국인 송금·수취 패턴의 이상 신호를 유형화해 송금사·은행 컴플라이언스 조직에 넘기는 탐지 모듈이다.</p>
+      <p class="d-sub"><b>반복되는 문제</b> 송금 요율 경쟁은 끝났는데 국경 간 거래 리스크 관리 역량은 회사마다 편차가 크다.</p>
+      <p class="d-sub"><b>지금의 대체재</b> 룰 기반 내부 필터, 사후 보고</p></section>
+    <section><h4>누구에게 어떤 가치인가</h4><div class='dv-row'><b>직접 쓰는 사람이 얻는 것</b><p>(당사자 직접 사용 없음 — 컴플라이언스 상품. 대외 표현은 &#x27;외국인 대상 탐지&#x27;가 아니라 &#x27;국경 간 거래 리스크 관리&#x27;로 고정)</p></div><div class='dv-row'><b>돈을 내는 쪽이 얻는 것</b><p>송금사·은행·규제기관: 요율 경쟁이 끝난 시장에서 남은 차별화 축인 리스크 관리 역량을 산다.</p></div><div class='dv-row'><b>PlugNX 원장에 쌓이는 것</b><p>트라버스 AML·KYT 역량의 외국인 금융 확장 — 그룹 G4 자산의 직접 재사용.</p></div></section>
+    <section class="d-grid">
+      <div><h5>고객</h5><p>외국인 송금 비중이 큰 송금사·은행 컴플라이언스 조직</p></div>
+      <div><h5>지불 주체</h5><p>금융사 컴플라이언스 예산</p></div>
+      <div><h5>수익 모델</h5><p>연간 라이선스 [목표·가정]</p></div>
+      <div><h5>해자 · 규제</h5><p>데이터 · 정책 · 규제 중간</p></div>
+    </section>
+    <section><h4>2주 MVP</h4><p><b>범위</b> 이상 패턴 가설 목록 · 룰셋 초안 · 케이스 리뷰 뷰</p>
+      <p><b>성공 기준</b> 기존 납품처 1곳이 수요 존재를 확인해 준다 [목표·가정]</p>
+      <p><b>중단 기준</b> 주목도 하락이 이어지고 예산 라인이 확인되지 않으면 보류를 유지한다 [목표·가정]</p>
+      <p><b>첫 검증 질문</b> 송금사는 국경 간 거래 리스크 관리에 별도 라이선스를 구매하는가?</p></section>
+    
+    <section class='d-warn'><h4>반증</h4><p>사회적 주목도가 하락 국면이고 조달 주기가 길다. 외국인을 잠재 범죄자로 프레이밍하면 다른 제품의 유저 신뢰를 훼손한다.</p></section>
+  </div>
+</dialog>
+<dialog class="detail" id="d-rule-sentinel">
+  <div class="d-head"><div><span class="d-kicker">MVP 후보 상세</span><h2>Rule Sentinel</h2>
+  <p class="d-one">제도 개정문을 매일 읽고 우리 회사 근로자 중 오늘 새로 예외가 된 사람만 골라 주는 기한 파수꾼</p></div>
+  <button class="d-close" onclick="this.closest('dialog').close()" aria-label="닫기">×</button></div>
+  <div class="d-body">
+    <section><h4>무엇인가</h4><p>제도 개정문을 매일 읽고 사내 근로자 원장과 대조해 &#x27;어제는 정상, 오늘은 예외&#x27;가 된 사람만 골라 대응 문서 초안까지 만들어 두는 파수꾼이다.</p>
+      <p class="d-sub"><b>반복되는 문제</b> 제도가 자주 바뀌는데 사내 원장과 대조할 방법이 없어 개정 때마다 사람이 표를 다시 짠다.</p>
+      <p class="d-sub"><b>지금의 대체재</b> 엑셀 만기표 + 행정사 전화 확인 + 고시 눈으로 훑기</p></section>
+    <section><h4>누구에게 어떤 가치인가</h4><div class='dv-row'><b>직접 쓰는 사람이 얻는 것</b><p>노무 담당자: 개정 때마다 엑셀 표를 다시 짜던 일이 아침 메일 확인으로 바뀐다.</p></div><div class='dv-row'><b>돈을 내는 쪽이 얻는 것</b><p>고용주: 행정 착오 한 번이 체류자격 상실·사업주 단위 처분으로 직결되는 구조에서, 놓친 건 하나의 비용이 구독료를 넘는다.</p></div><div class='dv-row'><b>PlugNX 원장에 쌓이는 것</b><p>기업 원장과 제도 텍스트의 교차 데이터 — VisaDesk 준법 모듈의 선행 검증이 된다.</p></div></section>
+    <section class="d-grid">
+      <div><h5>고객</h5><p>외국인을 여러 사업장에 두고 노무 담당이 1~2명인 기업</p></div>
+      <div><h5>지불 주체</h5><p>고용주(시공사·제조사)</p></div>
+      <div><h5>수익 모델</h5><p>사업장 월 구독 [목표·가정]</p></div>
+      <div><h5>해자 · 규제</h5><p>데이터 · 정책 · 전환비용 · 규제 중간</p></div>
+    </section>
+    <section><h4>2주 MVP</h4><p><b>범위</b> 엑셀 원장 수신 · 개정 조항 추출 · 예외 근로자 판정 · 일일 메일 발송</p>
+      <p><b>성공 기준</b> 시공사 5곳 중 3곳이 &#x27;이 목록이 없었으면 놓쳤을 건&#x27;을 구체적으로 지목한다 [목표·가정]</p>
+      <p><b>중단 기준</b> 2주간 새로 발생한 예외가 0건이면 중단한다 [목표·가정]</p>
+      <p><b>첫 검증 질문</b> 담당자는 개정 때문에 놓친 건을 실제로 경험했는가?</p></section>
+    
+    <section class='d-warn'><h4>반증</h4><p>대형 노무법인이 자문 상품으로 흡수하기 쉽고, 개정이 잦아드는 국면에는 긴급성이 떨어진다.</p></section>
+  </div>
+</dialog>
+<dialog class="detail" id="d-safetypass">
+  <div class="d-head"><div><span class="d-kicker">MVP 후보 상세</span><h2>safetypass</h2>
+  <p class="d-one"></p></div>
+  <button class="d-close" onclick="this.closest('dialog').close()" aria-label="닫기">×</button></div>
+  <div class="d-body">
+    <section><h4>무엇인가</h4><p></p>
+      <p class="d-sub"><b>반복되는 문제</b> </p>
+      <p class="d-sub"><b>지금의 대체재</b> </p></section>
+    
+    <section class="d-grid">
+      <div><h5>고객</h5><p></p></div>
+      <div><h5>지불 주체</h5><p></p></div>
+      <div><h5>수익 모델</h5><p></p></div>
+      <div><h5>해자 · 규제</h5><p> · 규제 </p></div>
+    </section>
+    <section><h4>2주 MVP</h4><p><b>범위</b> </p>
+      <p><b>성공 기준</b> </p>
+      <p><b>중단 기준</b> </p>
+      </section>
+    
+    
+  </div>
+</dialog>
+<dialog class="detail" id="d-seasonal-ledger">
+  <div class="d-head"><div><span class="d-kicker">MVP 후보 상세</span><h2>SeasonLedger</h2>
+  <p class="d-one">입국-배치-근로-정산-출국을 한 장에 남기는 계절근로 최소 원장과 지자체 집계 대시보드</p></div>
+  <button class="d-close" onclick="this.closest('dialog').close()" aria-label="닫기">×</button></div>
+  <div class="d-body">
+    <section><h4>무엇인가</h4><p>농가 스마트폰으로 계절근로자의 입국-배치-근로-정산-출국을 사진과 체크로 남기면, 지자체가 전체 농가 현황을 한 화면으로 보는 도구다.</p>
+      <p class="d-sub"><b>반복되는 문제</b> E-9는 사업장이 전수 파악되지만 계절근로(C-4·E-8)는 관리 밖이라, 근로장소·시간·숙식비·정산이 종이와 개별 엑셀에 흩어진다.</p>
+      <p class="d-sub"><b>지금의 대체재</b> 농가 수기 장부, 지자체 개별 엑셀, 출입국 통보 공문</p></section>
+    <section><h4>누구에게 어떤 가치인가</h4><div class='dv-row'><b>직접 쓰는 사람이 얻는 것</b><p>농가: 법무부 점검(소방·숙식비·근로시간)에서 뭘 보는지 미리 알고 사진 한 장으로 증빙을 끝낸다 — 배정 제한을 당하지 않는 것이 농가에겐 다음 해 일손이다.</p></div><div class='dv-row'><b>돈을 내는 쪽이 얻는 것</b><p>지자체: 관내 수백 농가의 위반 리스크를 점검 전에 파악하고, 법무부 통보에 대응하는 근거 자료가 자동으로 쌓인다. 담당자 현장 방문을 줄인다.</p></div><div class='dv-row'><b>PlugNX 원장에 쌓이는 것</b><p>계절근로(C-4·E-8) 표준 원장 스키마 선점 — E-9 밖에 있는 관리 공백 지대의 데이터 표준을 우리가 정의하게 된다.</p></div></section>
+    <section class="d-grid">
+      <div><h5>고객</h5><p>계절근로자를 배정받는 농가와 운영 지자체</p></div>
+      <div><h5>지불 주체</h5><p>지자체 계절근로 담당 부서(운영 예산)</p></div>
+      <div><h5>수익 모델</h5><p>농가 무료 배포, 지자체 연간 구독 [목표·가정]</p></div>
+      <div><h5>해자 · 규제</h5><p>데이터 · 정책 · 전환비용 · 규제 중간</p></div>
+    </section>
+    <section><h4>2주 MVP</h4><p><b>범위</b> 농가용 다국어 체크 링크 · 위반 항목(소방·숙식비·근로시간) 사진 기반 자가 점검 · 지자체 집계 뷰 · CSV 내보내기</p>
+      <p><b>성공 기준</b> 지자체 3곳 중 2곳이 실제 배정 명단으로 파일럿에 동의한다 [목표·가정]</p>
+      <p><b>중단 기준</b> 벌점·배정제한이 실제 집행되지 않거나 담당자가 현재 공문으로 충분하다고 답하면 중단한다 [목표·가정]</p>
+      <p><b>첫 검증 질문</b> 지자체는 배정 제한·벌점 대응을 위해 별도 도구에 예산을 쓰는가, 아니면 기존 공문으로 충분하다고 보는가?</p></section>
+    
+    <section class='d-warn'><h4>반증</h4><p>지자체가 자체 서식으로 충분하다고 보거나, 법무부가 표준 서식을 직접 배포하면 중간 계층이 사라진다.</p></section>
+  </div>
+</dialog>
+<dialog class="detail" id="d-settle-guide">
+  <div class="d-head"><div><span class="d-kicker">MVP 후보 상세</span><h2>Settle Guide</h2>
+  <p class="d-one">입국 30일 안에 처리해야 할 행정·생활 절차를 지자체별로 안내하는 다국어 온보딩 가이드</p></div>
+  <button class="d-close" onclick="this.closest('dialog').close()" aria-label="닫기">×</button></div>
+  <div class="d-body">
+    <section><h4>무엇인가</h4><p>입국 30일 안에 처리해야 할 행정·생활 절차(등록·계좌·통신·의료)를 지자체별로 안내하는 다국어 온보딩 가이드다.</p>
+      <p class="d-sub"><b>반복되는 문제</b> 계좌·통신·등록·의료 절차가 지자체마다 다르고 안내는 담당자 개인 역량에 의존한다.</p>
+      <p class="d-sub"><b>지금의 대체재</b> 지자체 출장 서비스, 기관 개별 협약, 커뮤니티 구전</p></section>
+    <section><h4>누구에게 어떤 가치인가</h4><div class='dv-row'><b>직접 쓰는 사람이 얻는 것</b><p>입국 초기 외국인: 담당자 개인 역량에 의존하던 정착 절차를 체크리스트로 받는다.</p></div><div class='dv-row'><b>돈을 내는 쪽이 얻는 것</b><p>지자체: 외국인주민 비중 5% 이상 142개 시·군·구의 정주 지원 실적이 데이터로 남는다.</p></div><div class='dv-row'><b>PlugNX 원장에 쌓이는 것</b><p>입국 시점 최초 접점 — 생애주기 원장의 시작점을 잡는다.</p></div></section>
+    <section class="d-grid">
+      <div><h5>고객</h5><p>입국 초기 외국인 주민과 정주 지원 지자체</p></div>
+      <div><h5>지불 주체</h5><p>지자체 외국인·인구정책 부서</p></div>
+      <div><h5>수익 모델</h5><p>지자체 구독 [목표·가정]</p></div>
+      <div><h5>해자 · 규제</h5><p>정책 · 채널 · 규제 낮음</p></div>
+    </section>
+    <section><h4>2주 MVP</h4><p><b>범위</b> 지자체 3곳 절차 수집 · 다국어 체크리스트 · 진행 상태 저장</p>
+      <p><b>성공 기준</b> 지자체 1곳이 자체 안내물 대체를 검토한다 [목표·가정]</p>
+      <p><b>중단 기준</b> 3곳 모두 인쇄물로 충분하다고 답하면 후보에서 내린다 [목표·가정]</p>
+      <p><b>첫 검증 질문</b> 지자체는 안내 절차를 데이터로 관리하려 하는가, 인쇄물로 충분하다고 보는가?</p></section>
+    <section><h4>왜 지금 (그날 신호)</h4><p>2026-09-08 신호 &#x27;법무부가 유학생 53만명의 입학–졸업–취업–정주를 처음으로 끝까지 추적했다&#x27;(53만명)에서 이 패턴의 문제가 다시 관측됐다(그날 카드 6건 · 키워드 적중 15회).</p></section>
+    <section class='d-warn'><h4>반증</h4><p>지자체가 이미 자체 안내물을 만들고 있고 예산이 인쇄물에 묶여 있을 수 있다.</p></section>
+  </div>
+</dialog>
+<dialog class="detail" id="d-stay-info-api">
+  <div class="d-head"><div><span class="d-kicker">MVP 후보 상세</span><h2>Stay Info API</h2>
+  <p class="d-one">체류자격·잔여기간·근로가능 여부를 동의 기반으로 즉시 확인해 주는 조회 API와 다국어 안내 생성</p></div>
+  <button class="d-close" onclick="this.closest('dialog').close()" aria-label="닫기">×</button></div>
+  <div class="d-body">
+    <section><h4>무엇인가</h4><p>체류자격·잔여기간·근로가능 여부를 동의 기반으로 즉시 확인해 주고 다국어 안내문을 자동 생성하는 조회 API다.</p>
+      <p class="d-sub"><b>반복되는 문제</b> 설명과 확인이 필요한 업무라 대면 창구에 사람이 붙어 있고, 그 비용이 계속 늘어난다.</p>
+      <p class="d-sub"><b>지금의 대체재</b> 전담 창구 직원, 통역 인력, 서류 육안 확인</p></section>
+    <section><h4>누구에게 어떤 가치인가</h4><div class='dv-row'><b>직접 쓰는 사람이 얻는 것</b><p>외국인: 창구 대기 없이 자기 체류 상태와 가능한 업무를 모국어로 확인한다.</p></div><div class='dv-row'><b>돈을 내는 쪽이 얻는 것</b><p>지방은행·통신사: &#x27;설명과 확인이 필요한 업무&#x27;에 붙어 있던 전담 인건비가 API 콜로 대체된다 — 가격 상한이 곧 창구 인건비다.</p></div><div class='dv-row'><b>PlugNX 원장에 쌓이는 것</b><p>조회 로그와 동의 이력 — 공동검증 락인이 실제로 작동하는 첫 접점.</p></div></section>
+    <section class="d-grid">
+      <div><h5>고객</h5><p>외국인 응대에 전담 인력을 쓰는 지방은행·통신사 창구</p></div>
+      <div><h5>지불 주체</h5><p>지방은행(창구 인건비 대체)</p></div>
+      <div><h5>수익 모델</h5><p>조회 건당 과금(상한은 창구 인건비) [목표·가정]</p></div>
+      <div><h5>해자 · 규제</h5><p>데이터 · 채널 · 전환비용 · 규제 중간</p></div>
+    </section>
+    <section><h4>2주 MVP</h4><p><b>범위</b> 동의 취득 흐름 · 체류 항목 조회 규격 · 다국어 안내문 생성 · 감사 로그</p>
+      <p><b>성공 기준</b> 지방은행 1곳이 창구 건당 처리시간을 데이터로 제시한다 [목표·가정]</p>
+      <p><b>중단 기준</b> 창구 비용을 계량하지 않는다는 답이 2곳 이상이면 중단한다 [목표·가정]</p>
+      <p><b>첫 검증 질문</b> 지방은행은 창구 처리 건수를 비용으로 계량하고 있는가?</p></section>
+    <section><h4>왜 지금 (그날 신호)</h4><p>2026-09-08 신호 &#x27;법무부가 유학생 53만명의 입학–졸업–취업–정주를 처음으로 끝까지 추적했다&#x27;(53만명)에서 이 패턴의 문제가 다시 관측됐다(그날 카드 6건 · 키워드 적중 10회).</p></section>
+    <section class='d-warn'><h4>반증</h4><p>공적 확인 채널과 경합하고, 동의 취득 흐름이 창구 프로세스에 얹히지 않으면 쓰이지 않는다.</p></section>
+  </div>
+</dialog>
+<dialog class="detail" id="d-visa-fitcheck">
+  <div class="d-head"><div><span class="d-kicker">MVP 후보 상세</span><h2>Visa FitCheck</h2>
+  <p class="d-one">학력·재직·소득·체류이력을 넣으면 갈 수 있는 체류 경로를 순위로 보여주는 사전 진단</p></div>
+  <button class="d-close" onclick="this.closest('dialog').close()" aria-label="닫기">×</button></div>
+  <div class="d-body">
+    <section><h4>무엇인가</h4><p>학력·전공·재직·소득·체류이력을 대화형으로 넣으면 39개 비자코드를 대조해 &#x27;지금 갈 수 있는 경로/조건 충족 시 가능/불가&#x27;를 순위로 보여주는 진단 도구다.</p>
+      <p class="d-sub"><b>반복되는 문제</b> 비자 코드가 39개로 흩어져 있고 기준이 계속 바뀌어 당사자도 대학 직원도 갈 수 있는 경로를 모른다.</p>
+      <p class="d-sub"><b>지금의 대체재</b> 대학 직원 수작업 상담, 행정사 유료 상담, 커뮤니티 경험담</p></section>
+    <section><h4>누구에게 어떤 가치인가</h4><div class='dv-row'><b>직접 쓰는 사람이 얻는 것</b><p>유학생·근로자: 행정사 상담 전에 자기 위치를 안다. 부족한 요건(TOPIK 등급·연봉 갭·경력 개월)이 역산돼 캘린더에 꽂히므로 &#x27;무엇을 준비할지&#x27;가 구체화된다.</p></div><div class='dv-row'><b>돈을 내는 쪽이 얻는 것</b><p>대학·지자체: 국제교류센터 상담 1건당 소요시간이 줄고, 유학생 이탈률(약 50%)이라는 KPI에 직접 개입할 도구가 생긴다.</p></div><div class='dv-row'><b>PlugNX 원장에 쌓이는 것</b><p>진단 입력값(학력·전공·재직·소득·체류이력)이 그대로 원장이 된다 — 본인이 전환 성공을 위해 스스로 정확히 입력하고 갱신하는 구조.</p></div></section>
+    <section class="d-grid">
+      <div><h5>고객</h5><p>졸업을 앞둔 유학생과 숙련전환을 노리는 E-9 근로자</p></div>
+      <div><h5>지불 주체</h5><p>대학 국제교류센터·지자체 정착 담당(기관 예산)</p></div>
+      <div><h5>수익 모델</h5><p>당사자 무료, 대학·지자체 연간 구독 [목표·가정]</p></div>
+      <div><h5>해자 · 규제</h5><p>데이터 · 정책 · 채널 · 규제 중간</p></div>
+    </section>
+    <section><h4>2주 MVP</h4><p><b>범위</b> 프로필 문답 수집 · 4개 코드(E-7·E-7-4·D-10·F-2-R) 규칙 테이블 · 경로 순위 + 근거 조항 · 부족 요건 역산</p>
+      <p><b>성공 기준</b> 대학 1곳 파일럿에서 상담 1건당 소요시간이 유의미하게 줄어든다 [목표·가정]</p>
+      <p><b>중단 기준</b> 유학생 30명 중 절반이 &#x27;학교에 물어보면 된다&#x27;고 답하면 B2C 축을 접는다 [목표·가정]</p>
+      <p><b>첫 검증 질문</b> 대학은 상담 소요시간 절감에 예산을 배정하는가, 아니면 직원 업무로 흡수하는가?</p></section>
+    <section><h4>왜 지금 (그날 신호)</h4><p>2026-09-08 신호 &#x27;법무부가 유학생 53만명의 입학–졸업–취업–정주를 처음으로 끝까지 추적했다&#x27;(53만명)에서 이 패턴의 문제가 다시 관측됐다(그날 카드 4건 · 키워드 적중 12회).</p></section>
+    <section class='d-warn'><h4>반증</h4><p>제도 개편이 진행 중이라 규칙을 지금 고정하면 재작업 비용이 크고, 법무부가 공식 도구를 무료 배포하면 대체된다.</p></section>
+  </div>
+</dialog>
+<dialog class="detail" id="d-workcredential">
+  <div class="d-head"><div><span class="d-kicker">MVP 후보 상세</span><h2>workcredential</h2>
+  <p class="d-one"></p></div>
+  <button class="d-close" onclick="this.closest('dialog').close()" aria-label="닫기">×</button></div>
+  <div class="d-body">
+    <section><h4>무엇인가</h4><p></p>
+      <p class="d-sub"><b>반복되는 문제</b> </p>
+      <p class="d-sub"><b>지금의 대체재</b> </p></section>
+    
+    <section class="d-grid">
+      <div><h5>고객</h5><p></p></div>
+      <div><h5>지불 주체</h5><p></p></div>
+      <div><h5>수익 모델</h5><p></p></div>
+      <div><h5>해자 · 규제</h5><p> · 규제 </p></div>
+    </section>
+    <section><h4>2주 MVP</h4><p><b>범위</b> </p>
+      <p><b>성공 기준</b> </p>
+      <p><b>중단 기준</b> </p>
+      </section>
+    
+    
+  </div>
+</dialog><script>
+document.addEventListener('click',function(e){
+  var t=e.target.closest('[data-detail]');
+  if(!t)return;
+  var d=document.getElementById('d-'+t.getAttribute('data-detail'));
+  if(d){d.showModal();}
+});
+document.addEventListener('click',function(e){
+  var d=e.target.closest('dialog.detail');
+  if(d&&e.target===d)d.close();
+});
+</script>
+
+</body></html>
