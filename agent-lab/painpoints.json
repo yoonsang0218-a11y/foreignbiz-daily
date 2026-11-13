@@ -1,0 +1,1521 @@
+{
+  "schema_version": "1.0",
+  "as_of": "2026-11-12",
+  "generated_at": "2026-11-13T00:31:04",
+  "window": {
+    "start": "2026-07-12",
+    "end": "2026-11-12",
+    "briefing_days": 114,
+    "recent_days": 30,
+    "last30_briefing_days": 25,
+    "prev30_briefing_days": 30,
+    "weights": {
+      "recent": 1.0,
+      "mid": 0.45,
+      "old": 0.2
+    }
+  },
+  "signal_count": 1653,
+  "uncategorized": 1,
+  "method": "카드·인사이트 전문을 고정 택소노미 키워드로 매칭(2회 이상 적중 우선), 최근 30일 1.0 / 31~60일 0.45 / 그 이전 0.2 가중 합계를 heat 로 쓴다. heat 는 언급 빈도의 대리지표이며 시장 규모나 수익성의 증거가 아니다. [추정] 모멘텀은 브리핑 발행일수로 정규화한 일평균 언급 비교이며, 이전 창의 발행일이 5일 미만이면 '비교불가'로 표시한다.",
+  "painpoints": [
+    {
+      "id": "credit-access",
+      "label": "신용평가 공백·여신 접근",
+      "stage": "금융",
+      "who": "근로자·금융사",
+      "mentions": 324,
+      "heat": 157.35,
+      "distinct_days": 94,
+      "first_seen": "2026-07-12",
+      "last_seen": "2026-11-10",
+      "last30": 96,
+      "prev30": 63,
+      "momentum": "상승",
+      "momentum_ratio": 1.83,
+      "last30_per_day": 3.84,
+      "prev30_per_day": 2.1,
+      "desk_mix": {
+        "금융": 108,
+        "경쟁·기업": 30,
+        "시장": 14,
+        "정책": 12,
+        "산업": 1
+      },
+      "rank": 1,
+      "evidence": [
+        {
+          "date": "2026-11-10",
+          "title": "온투업 중금리 비중 94.8% — 6개사에 한패스파이낸셜 포함, 누적 8,114억·5만3,038명",
+          "desk": "금융",
+          "sources": [
+            {
+              "name": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261110088600002?input=1195m"
+            },
+            {
+              "name": "전자신문",
+              "url": "https://www.etnews.com/20261110000347"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-08",
+          "title": "아시아투데이가 \"국민은행이 외국인 고객을 대상으로 적금과 신용대출을 출시하는 등 전용 상품도 늘리고 있다\"고 적었다 — 11-05 에 상시 지표로 신설한 '오늘 확인된 외국인 여신 상품 건수'가 두 달 만에 처음 0 에서 1 로 바뀌었다",
+          "desk": "금융",
+          "sources": [
+            {
+              "name": "아시아투데이",
+              "url": "https://www.asiatoday.co.kr/kn/view.php?key=20261106010002594"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-08",
+          "title": "카카오뱅크의 외국인 전략이 10월에 실제로 가동됐다 — 영업점 방문 없이 통장 개설, 모임통장·세이프박스 개방, 수신 72조원. 10-12 에 '전용 앱을 만들지 않고 기존 앱을 연다'로 읽은 노선이 두 달 만에 상품 목록으로 확인됐다",
+          "desk": "금융",
+          "sources": [
+            {
+              "name": "쿠키뉴스",
+              "url": "https://www.kukinews.com/article/view/kuk202611060165"
+            },
+            {
+              "name": "팍스경제TV",
+              "url": "http://www.paxetv.com/news/articleView.html?idxno=286300"
+            },
+            {
+              "name": "매일경제",
+              "url": "https://www.mk.co.kr/article/12200320"
+            },
+            {
+              "name": "위키트리",
+              "url": "https://www.wikitree.co.kr/articles/1172867"
+            },
+            {
+              "name": "테크M",
+              "url": "https://www.techm.kr/news/articleView.html?idxno=157008"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "account-remittance",
+      "label": "계좌·송금·결제 인프라",
+      "stage": "금융",
+      "who": "근로자·금융사",
+      "mentions": 278,
+      "heat": 152.95,
+      "distinct_days": 92,
+      "first_seen": "2026-07-12",
+      "last_seen": "2026-11-12",
+      "last30": 107,
+      "prev30": 47,
+      "momentum": "상승",
+      "momentum_ratio": 2.73,
+      "last30_per_day": 4.28,
+      "prev30_per_day": 1.57,
+      "desk_mix": {
+        "금융": 99,
+        "경쟁·기업": 55,
+        "시장": 15,
+        "정책": 8,
+        "글로벌": 2
+      },
+      "rank": 2,
+      "evidence": [
+        {
+          "date": "2026-11-12",
+          "title": "카카오뱅크 '외국인통장' 출시 한 달 만에 2만좌 — 전용 앱을 만들지 않은 쪽이 먼저 숫자를 냈다",
+          "desk": "금융",
+          "sources": [
+            {
+              "name": "동아일보",
+              "url": "https://www.donga.com/news/Economy/article/all/20261112/135015016/1"
+            },
+            {
+              "name": "머니투데이",
+              "url": "https://www.mt.co.kr/finance/2026/11/12/2026111209000441639"
+            },
+            {
+              "name": "FETV",
+              "url": "https://www.fetv.co.kr/news/articleView.html?idxno=313600"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-12",
+          "title": "\"단순 송금·결제 넘어 배달·대출까지\" — 금융권 외국인 락인 경쟁, 같은 날 신한은행은 유학생 취업 접점으로 들어왔다",
+          "desk": "금융",
+          "sources": [
+            {
+              "name": "조선일보",
+              "url": "https://www.chosun.com/economy/stock-finance/2026/11/12/EYQ5BOKTIJAS7ACX2X2NVHXEEI/"
+            },
+            {
+              "name": "폴리뉴스",
+              "url": "https://www.polinews.co.kr/news/articleView.html?idxno=748309"
+            },
+            {
+              "name": "뉴스로드",
+              "url": "http://www.newsroad.co.kr/news/articleView.html?idxno=67611"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-12",
+          "title": "LH, 건설현장 2곳서 임금 50~70% 선지급 시범 — 생체인식 출역기록에 핀테크를 붙였고, 막는 요인으로 '불법체류 외국인 고용'을 지목했다",
+          "desk": "금융",
+          "sources": [
+            {
+              "name": "사(4th)",
+              "url": "http://www.4th.kr/news/articleView.html?idxno=2121714"
+            },
+            {
+              "name": "로이슈",
+              "url": "https://www.lawissue.co.kr/view.php?ud=202611121650396244b50722e900_12"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "social-integration",
+      "label": "정주·가족·교육 통합",
+      "stage": "사회통합",
+      "who": "근로자·가족·지자체",
+      "mentions": 331,
+      "heat": 147.45,
+      "distinct_days": 95,
+      "first_seen": "2026-07-14",
+      "last_seen": "2026-11-12",
+      "last30": 90,
+      "prev30": 37,
+      "momentum": "상승",
+      "momentum_ratio": 2.92,
+      "last30_per_day": 3.6,
+      "prev30_per_day": 1.23,
+      "desk_mix": {
+        "정책": 69,
+        "시장": 64,
+        "경쟁·기업": 13,
+        "금융": 13,
+        "글로벌": 2
+      },
+      "rank": 3,
+      "evidence": [
+        {
+          "date": "2026-11-12",
+          "title": "\"단순 송금·결제 넘어 배달·대출까지\" — 금융권 외국인 락인 경쟁, 같은 날 신한은행은 유학생 취업 접점으로 들어왔다",
+          "desk": "금융",
+          "sources": [
+            {
+              "name": "조선일보",
+              "url": "https://www.chosun.com/economy/stock-finance/2026/11/12/EYQ5BOKTIJAS7ACX2X2NVHXEEI/"
+            },
+            {
+              "name": "폴리뉴스",
+              "url": "https://www.polinews.co.kr/news/articleView.html?idxno=748309"
+            },
+            {
+              "name": "뉴스로드",
+              "url": "http://www.newsroad.co.kr/news/articleView.html?idxno=67611"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-12",
+          "title": "노동부, 올해 마지막 E-9 고용허가 6699명 11/23~27 접수 — 제조업 67%, 그리고 점수제에 '인권·노동법 교육 이수' 가점이 처음 붙었다",
+          "desk": "정책",
+          "sources": [
+            {
+              "name": "뉴시스",
+              "url": "https://www.newsis.com/view/NISX20261112_0003864696"
+            },
+            {
+              "name": "헤럴드경제",
+              "url": "https://biz.heraldcorp.com/article/10934496"
+            },
+            {
+              "name": "매일일보",
+              "url": "https://www.m-i.kr/news/articleView.html?idxno=2017710"
+            },
+            {
+              "name": "굿모닝충청",
+              "url": "https://www.goodmorningcc.com/news/articleView.html?idxno=455719"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-12",
+          "title": "계절근로 층, 같은 날 양쪽으로 갈렸다 — 안성시는 베트남 라오까이성과 유치 협약, 다른 한편에선 \"근무태만 신고 두 번에 강제출국\"",
+          "desk": "정책",
+          "sources": [
+            {
+              "name": "뉴스핌",
+              "url": "https://www.newspim.com/news/view/20261112001083"
+            },
+            {
+              "name": "뉴스참",
+              "url": "https://newscham.net/130168/"
+            },
+            {
+              "name": "뉴스메이커",
+              "url": "http://www.newsmaker.or.kr/news/articleView.html?idxno=185767"
+            },
+            {
+              "name": "신아일보",
+              "url": "https://www.shinailbo.co.kr/news/articleView.html?idxno=5082715"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "identity-verification",
+      "label": "신원확인·KYC 공백",
+      "stage": "정착",
+      "who": "근로자·금융사·플랫폼",
+      "mentions": 146,
+      "heat": 93.6,
+      "distinct_days": 63,
+      "first_seen": "2026-07-12",
+      "last_seen": "2026-11-12",
+      "last30": 73,
+      "prev30": 24,
+      "momentum": "상승",
+      "momentum_ratio": 3.65,
+      "last30_per_day": 2.92,
+      "prev30_per_day": 0.8,
+      "desk_mix": {
+        "금융": 40,
+        "경쟁·기업": 14,
+        "정책": 10,
+        "시장": 7,
+        "글로벌": 1
+      },
+      "rank": 4,
+      "evidence": [
+        {
+          "date": "2026-11-12",
+          "title": "카카오뱅크 '외국인통장' 출시 한 달 만에 2만좌 — 전용 앱을 만들지 않은 쪽이 먼저 숫자를 냈다",
+          "desk": "금융",
+          "sources": [
+            {
+              "name": "동아일보",
+              "url": "https://www.donga.com/news/Economy/article/all/20261112/135015016/1"
+            },
+            {
+              "name": "머니투데이",
+              "url": "https://www.mt.co.kr/finance/2026/11/12/2026111209000441639"
+            },
+            {
+              "name": "FETV",
+              "url": "https://www.fetv.co.kr/news/articleView.html?idxno=313600"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-11",
+          "title": "재정경제부 \"스테이블코인 국경 간 이전은 외국환거래법으로 규율\" — 업계 1위가 먼저 \"라스트마일은 못 푼다\"고 선을 그었다",
+          "desk": "금융",
+          "sources": [
+            {
+              "name": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261111156900002?input=1195m"
+            },
+            {
+              "name": "이데일리",
+              "url": "https://www.edaily.co.kr/News/Read?newsId=05185686645644736&mediaCodeNo=257"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-11",
+          "title": "두나무 김형년 부회장 \"거주 외국인에 원화마켓 개방\" — 어제의 '해외 거주'가 하루 만에 '거주 외국인'으로 좁혀졌다",
+          "desk": "금융",
+          "sources": [
+            {
+              "name": "이투데이",
+              "url": "https://www.etoday.co.kr/news/view/2646432"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wage-arrears",
+      "label": "임금체불·근로조건 분쟁",
+      "stage": "근로",
+      "who": "근로자",
+      "mentions": 174,
+      "heat": 80.4,
+      "distinct_days": 81,
+      "first_seen": "2026-07-14",
+      "last_seen": "2026-11-12",
+      "last30": 47,
+      "prev30": 32,
+      "momentum": "상승",
+      "momentum_ratio": 1.76,
+      "last30_per_day": 1.88,
+      "prev30_per_day": 1.07,
+      "desk_mix": {
+        "정책": 35,
+        "시장": 14,
+        "금융": 9,
+        "경쟁·기업": 1,
+        "글로벌": 1
+      },
+      "rank": 5,
+      "evidence": [
+        {
+          "date": "2026-11-08",
+          "title": "스테이블코인 송금·정산 제휴가 사흘 동안 세 건 나오고, 같은 자리에서 \"강남 성형외과에 방문한 외국인들이 실장 개인 지갑으로 테더를 보낸다\"는 현장 관찰이 공개됐다 — 11-05 에 리스크로 등록한 '임금·송금 레일의 은행 밖 이동'이 제도화 쪽과 음성 쪽에서 동시에 진행된다",
+          "desk": "금융",
+          "sources": [
+            {
+              "name": "헤럴드경제",
+              "url": "https://biz.heraldcorp.com/article/10928758"
+            },
+            {
+              "name": "토큰포스트",
+              "url": "https://www.tokenpost.kr/news/blockchain/433015"
+            },
+            {
+              "name": "헤럴드경제",
+              "url": "https://biz.heraldcorp.com/article/10928435"
+            },
+            {
+              "name": "더구루",
+              "url": "https://www.theguru.co.kr/news/article.html?no=109415"
+            },
+            {
+              "name": "스마트비즈엔",
+              "url": "https://www.smartbizn.com/news/articleView.html?idxno=158613"
+            },
+            {
+              "name": "서울경제",
+              "url": "https://www.sedaily.com/article/20111327"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-02",
+          "title": "국책연구기관이 \"지난해 외국인 임금체불 피해자 3만684명·체불액 1,548억원, 산업재해자 9,872명\"을 내놨다 — PayProof 가 두 달 동안 '반복 페인포인트'라고만 적어 온 자리에 처음 전국 집계가 들어왔다",
+          "desk": "정책",
+          "sources": [
+            {
+              "name": "대한경제",
+              "url": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202611021301496590169"
+            },
+            {
+              "name": "MBC 뉴스데스크",
+              "url": "https://imnews.imbc.com/replay/2026/nwdesk/article/6862610_37004.html"
+            },
+            {
+              "name": "서울신문",
+              "url": "https://www.seoul.co.kr/news/editOpinion/column/journalist-viewpoint/2026/11/02/20261102027009?wlog_tag3=naver"
+            },
+            {
+              "name": "오마이뉴스",
+              "url": "https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003280405&CMPT_CD=P0010&utm_source=naver&utm_medium=newsearch&utm_campaign=naver_news"
+            },
+            {
+              "name": "KBS",
+              "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8701194&ref=A"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-29",
+          "title": "경기도가 외국인주민 86만 시대에 전국 최초 '이민사회국'을 축소한다 — 어제 등록한 예산 세목 추적이 지자체 조직 단위에서 먼저 발동했다",
+          "desk": "정책",
+          "sources": [
+            {
+              "name": "한겨레",
+              "url": "https://n.news.naver.com/mnews/article/032/0003479568?sid=102"
+            },
+            {
+              "name": "중부일보",
+              "url": "https://www.joongboo.com/news/articleView.html?idxno=363740936"
+            },
+            {
+              "name": "인천일보",
+              "url": "https://www.incheonilbo.com/news/articleView.html?idxno=1335475"
+            },
+            {
+              "name": "한국일보",
+              "url": "https://n.news.naver.com/mnews/article/021/0002828940?sid=100"
+            },
+            {
+              "name": "충청뉴스",
+              "url": "https://www.cwn.kr/news/articleView.html?idxno=60537"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "employer-compliance",
+      "label": "고용주 준법·행정 부담",
+      "stage": "근로",
+      "who": "고용주",
+      "mentions": 153,
+      "heat": 79.25,
+      "distinct_days": 75,
+      "first_seen": "2026-07-14",
+      "last_seen": "2026-11-12",
+      "last30": 53,
+      "prev30": 25,
+      "momentum": "상승",
+      "momentum_ratio": 2.54,
+      "last30_per_day": 2.12,
+      "prev30_per_day": 0.83,
+      "desk_mix": {
+        "정책": 58,
+        "금융": 18,
+        "시장": 14,
+        "경쟁·기업": 9
+      },
+      "rank": 6,
+      "evidence": [
+        {
+          "date": "2026-11-12",
+          "title": "노동부, 올해 마지막 E-9 고용허가 6699명 11/23~27 접수 — 제조업 67%, 그리고 점수제에 '인권·노동법 교육 이수' 가점이 처음 붙었다",
+          "desk": "정책",
+          "sources": [
+            {
+              "name": "뉴시스",
+              "url": "https://www.newsis.com/view/NISX20261112_0003864696"
+            },
+            {
+              "name": "헤럴드경제",
+              "url": "https://biz.heraldcorp.com/article/10934496"
+            },
+            {
+              "name": "매일일보",
+              "url": "https://www.m-i.kr/news/articleView.html?idxno=2017710"
+            },
+            {
+              "name": "굿모닝충청",
+              "url": "https://www.goodmorningcc.com/news/articleView.html?idxno=455719"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-12",
+          "title": "계절근로 층, 같은 날 양쪽으로 갈렸다 — 안성시는 베트남 라오까이성과 유치 협약, 다른 한편에선 \"근무태만 신고 두 번에 강제출국\"",
+          "desk": "정책",
+          "sources": [
+            {
+              "name": "뉴스핌",
+              "url": "https://www.newspim.com/news/view/20261112001083"
+            },
+            {
+              "name": "뉴스참",
+              "url": "https://newscham.net/130168/"
+            },
+            {
+              "name": "뉴스메이커",
+              "url": "http://www.newsmaker.or.kr/news/articleView.html?idxno=185767"
+            },
+            {
+              "name": "신아일보",
+              "url": "https://www.shinailbo.co.kr/news/articleView.html?idxno=5082715"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-11",
+          "title": "Kevi AI, 외국인 비자 질문 블라인드 평가 결과 공개 — StayPath 가 설계한 기능 둘이 이미 상용으로 서 있다",
+          "desk": "경쟁·기업",
+          "sources": [
+            {
+              "name": "ITBizNews",
+              "url": "https://www.itbiznews.com/news/articleView.html?idxno=231008"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "refund-exit",
+      "label": "출국·정산·환급 공백",
+      "stage": "출국·정산",
+      "who": "근로자·지자체·금융사",
+      "mentions": 131,
+      "heat": 70.15,
+      "distinct_days": 64,
+      "first_seen": "2026-07-12",
+      "last_seen": "2026-11-09",
+      "last30": 49,
+      "prev30": 19,
+      "momentum": "상승",
+      "momentum_ratio": 3.09,
+      "last30_per_day": 1.96,
+      "prev30_per_day": 0.63,
+      "desk_mix": {
+        "정책": 25,
+        "금융": 12,
+        "경쟁·기업": 3,
+        "시장": 3
+      },
+      "rank": 7,
+      "evidence": [
+        {
+          "date": "2026-11-08",
+          "title": "E-10 외국인 선원이 산재로 다쳐 본국에 돌아간 뒤 \"산재 보상금으로 이탈 보증금과 그 보증금 때문에 낸 대출 이자를\" 갚았다는 현장 증언이 나왔다 — ClaimBack 이 두 달 동안 찾던 것은 '미수급'이었는데, 오늘 들어온 것은 '수급했는데 당사자에게 남지 않았다'는 제4 유형이다",
+          "desk": "시장",
+          "sources": [
+            {
+              "name": "전북소리",
+              "url": "http://www.jbsori.com/news/articleView.html?idxno=18147"
+            },
+            {
+              "name": "현대해양",
+              "url": "https://www.hdhy.co.kr/news/articleView.html?idxno=35602"
+            },
+            {
+              "name": "이로운넷",
+              "url": "https://www.eroun.net/news/articleView.html?idxno=90909"
+            },
+            {
+              "name": "머니투데이",
+              "url": "https://www.mt.co.kr/society/2026/11/08/2026110717411582422"
+            },
+            {
+              "name": "헤럴드경제",
+              "url": "https://biz.heraldcorp.com/article/10929640"
+            },
+            {
+              "name": "뉴시스",
+              "url": "https://www.newsis.com/view/NISX20261106_0003857755"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-05",
+          "title": "정부가 다문화가족 자녀 교육활동비 143억원을 내년부터 없애고, 법무부가 지자체의 '다문화 혜택'을 전수 취합했으며, 경기도는 이민사회국 폐지를 추진해 이주민 1,000여명이 인권위에 진정한다 — 11-04 에 '예산 총액 0.5'로 올린 칸의 반대쪽에서 예산이 사라지고 있다",
+          "desk": "정책",
+          "sources": [
+            {
+              "name": "뉴스1",
+              "url": "https://www.news1.kr/society/women-family/6343231"
+            },
+            {
+              "name": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261104161500004"
+            },
+            {
+              "name": "뉴시스",
+              "url": "https://www.newsis.com/view/NISX20261105_0003856484"
+            },
+            {
+              "name": "경향신문",
+              "url": "https://www.khan.co.kr/article/202611051643001"
+            },
+            {
+              "name": "오마이뉴스",
+              "url": "https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003281545"
+            },
+            {
+              "name": "통일뉴스",
+              "url": "http://www.tongilnews.com/news/articleView.html?idxno=218087"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-04",
+          "title": "태안군이 계절근로자를 2027년 574명(올해보다 28%↑)·2030년 700명으로 늘리며 사업비 12억4,800만원과 '외국인지원팀' 신설·공공기숙사를 함께 걸었다 — PayProof 가 두 달 동안 0건이라고 적어 온 '기관 예산 항목'이 처음 숫자로 보이지만, 우리 품목의 예산은 아니다",
+          "desk": "정책",
+          "sources": [
+            {
+              "name": "프라임경제",
+              "url": "http://www.newsprime.co.kr/news/article.html?no=753720"
+            },
+            {
+              "name": "충청남도뉴스",
+              "url": "http://www.ccnnews.co.kr/news/articleView.html?idxno=417256"
+            },
+            {
+              "name": "충청일보",
+              "url": "https://www.ccdailynews.com/news/articleView.html?idxno=2449755"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quota-policy",
+      "label": "도입규모·쿼터·거버넌스",
+      "stage": "입국·모집",
+      "who": "정부·산업",
+      "mentions": 132,
+      "heat": 66.05,
+      "distinct_days": 67,
+      "first_seen": "2026-07-20",
+      "last_seen": "2026-11-12",
+      "last30": 43,
+      "prev30": 21,
+      "momentum": "상승",
+      "momentum_ratio": 2.46,
+      "last30_per_day": 1.72,
+      "prev30_per_day": 0.7,
+      "desk_mix": {
+        "정책": 44,
+        "금융": 28,
+        "시장": 14,
+        "경쟁·기업": 10,
+        "산업": 1,
+        "글로벌": 1
+      },
+      "rank": 8,
+      "evidence": [
+        {
+          "date": "2026-11-12",
+          "title": "노동부, 올해 마지막 E-9 고용허가 6699명 11/23~27 접수 — 제조업 67%, 그리고 점수제에 '인권·노동법 교육 이수' 가점이 처음 붙었다",
+          "desk": "정책",
+          "sources": [
+            {
+              "name": "뉴시스",
+              "url": "https://www.newsis.com/view/NISX20261112_0003864696"
+            },
+            {
+              "name": "헤럴드경제",
+              "url": "https://biz.heraldcorp.com/article/10934496"
+            },
+            {
+              "name": "매일일보",
+              "url": "https://www.m-i.kr/news/articleView.html?idxno=2017710"
+            },
+            {
+              "name": "굿모닝충청",
+              "url": "https://www.goodmorningcc.com/news/articleView.html?idxno=455719"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-12",
+          "title": "방한 외국인 2000만 첫 돌파(관광소비 +47.7%) — 같은 날 티머니는 공항버스 400여 대에 글로벌 카드·QR 결제를 10년 계약으로 깔았다",
+          "desk": "시장",
+          "sources": [
+            {
+              "name": "뉴시스",
+              "url": "https://www.newsis.com/view/NISX20261112_0003865705"
+            },
+            {
+              "name": "서울경제",
+              "url": "https://www.sedaily.com/article/20113560"
+            },
+            {
+              "name": "이데일리",
+              "url": "https://www.edaily.co.kr/News/Read?newsId=02899526645645064&mediaCodeNo=257"
+            },
+            {
+              "name": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261111169600371?input=1195m"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-11",
+          "title": "울산시, 광역형 비자 정식사업에 조선업 외국인력 100명 '숙련전환'으로 신청 — 새로 데려오는 대신 있는 사람의 자격을 올린다",
+          "desk": "정책",
+          "sources": [
+            {
+              "name": "울산프레스",
+              "url": "https://www.ulsanpress.net/news/articleView.html?idxno=586671"
+            },
+            {
+              "name": "경기신문",
+              "url": "https://www.kgnews.co.kr/news/article.html?no=918259"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "language-admin",
+      "label": "언어·행정정보 접근",
+      "stage": "정착",
+      "who": "근로자·지자체",
+      "mentions": 105,
+      "heat": 58.45,
+      "distinct_days": 62,
+      "first_seen": "2026-07-13",
+      "last_seen": "2026-11-12",
+      "last30": 39,
+      "prev30": 25,
+      "momentum": "상승",
+      "momentum_ratio": 1.87,
+      "last30_per_day": 1.56,
+      "prev30_per_day": 0.83,
+      "desk_mix": {
+        "경쟁·기업": 16,
+        "시장": 15,
+        "금융": 15,
+        "정책": 13
+      },
+      "rank": 9,
+      "evidence": [
+        {
+          "date": "2026-11-12",
+          "title": "\"단순 송금·결제 넘어 배달·대출까지\" — 금융권 외국인 락인 경쟁, 같은 날 신한은행은 유학생 취업 접점으로 들어왔다",
+          "desk": "금융",
+          "sources": [
+            {
+              "name": "조선일보",
+              "url": "https://www.chosun.com/economy/stock-finance/2026/11/12/EYQ5BOKTIJAS7ACX2X2NVHXEEI/"
+            },
+            {
+              "name": "폴리뉴스",
+              "url": "https://www.polinews.co.kr/news/articleView.html?idxno=748309"
+            },
+            {
+              "name": "뉴스로드",
+              "url": "http://www.newsroad.co.kr/news/articleView.html?idxno=67611"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-10",
+          "title": "모국어 제보→한국어 번역, 외국인 근로자 리스크 제보가 B2B 상품의 입력이 됐다",
+          "desk": "경쟁·기업",
+          "sources": [
+            {
+              "name": "머니투데이",
+              "url": "https://www.mt.co.kr/future/2026/11/10/2026110400361041302"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-09",
+          "title": "하나은행, 광주에 외국인 복합 커뮤니티 '하나 EZ라운지' 개소 — 일요영업점 17개·16개국 앱",
+          "desk": "경쟁·기업",
+          "sources": [
+            {
+              "name": "아시아타임즈",
+              "url": "https://www.asiatime.co.kr/article/20261109500415"
+            },
+            {
+              "name": "메가경제",
+              "url": "https://www.megaeconomy.co.kr/news/newsview.php?ncode=1065576313730209"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "visa-transition",
+      "label": "비자 전환·숙련인력 승급 병목",
+      "stage": "체류·자격",
+      "who": "근로자·고용주",
+      "mentions": 135,
+      "heat": 57.8,
+      "distinct_days": 66,
+      "first_seen": "2026-07-13",
+      "last_seen": "2026-11-12",
+      "last30": 31,
+      "prev30": 24,
+      "momentum": "상승",
+      "momentum_ratio": 1.55,
+      "last30_per_day": 1.24,
+      "prev30_per_day": 0.8,
+      "desk_mix": {
+        "정책": 34,
+        "시장": 18,
+        "경쟁·기업": 6,
+        "금융": 5,
+        "글로벌": 1
+      },
+      "rank": 10,
+      "evidence": [
+        {
+          "date": "2026-11-11",
+          "title": "울산시, 광역형 비자 정식사업에 조선업 외국인력 100명 '숙련전환'으로 신청 — 새로 데려오는 대신 있는 사람의 자격을 올린다",
+          "desk": "정책",
+          "sources": [
+            {
+              "name": "울산프레스",
+              "url": "https://www.ulsanpress.net/news/articleView.html?idxno=586671"
+            },
+            {
+              "name": "경기신문",
+              "url": "https://www.kgnews.co.kr/news/article.html?no=918259"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-11",
+          "title": "외국인 유학생 신규 입학 11만7,333명(2025) — 2019년 대비 +75%, 그러나 졸업자 취업률은 34.3%",
+          "desk": "시장",
+          "sources": [
+            {
+              "name": "고코리아",
+              "url": "https://www.gokorea.kr/news/articleView.html?idxno=885167"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-05",
+          "title": "이민정책연구원 집계로 돌봄 분야 외국인 자격 취득자는 22,766명인데 실제 종사자는 6,644명(종사율 약 29%)이고, 같은 날 대구시는 E-9 의 장기체류 전환과 지역 잔류 현황을 '별도로 파악하지 않는다'고 확인됐다 — 자격은 세어지고 종사는 세어지는데 그 사이의 이탈만 세어지지 않는다",
+          "desk": "시장",
+          "sources": [
+            {
+              "name": "강원도민일보",
+              "url": "https://www.kado.net/news/articleView.html?idxno=2082927"
+            },
+            {
+              "name": "SBS Biz",
+              "url": "https://biz.sbs.co.kr/article_hub/20000344560"
+            },
+            {
+              "name": "데일리안",
+              "url": "https://www.dailian.co.kr/news/view/1711489/"
+            },
+            {
+              "name": "매일신문",
+              "url": "https://www.imaeil.com/page/view/2026110216250858724"
+            },
+            {
+              "name": "매일신문",
+              "url": "https://www.imaeil.com/page/view/2026110216375446467"
+            },
+            {
+              "name": "경남매일",
+              "url": "http://www.gnmaeil.com/news/articleView.html?idxno=598175"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "recruitment-brokerage",
+      "label": "모집·송출·브로커 투명성",
+      "stage": "입국·모집",
+      "who": "근로자·지자체·송출기관",
+      "mentions": 107,
+      "heat": 52.1,
+      "distinct_days": 59,
+      "first_seen": "2026-07-12",
+      "last_seen": "2026-11-12",
+      "last30": 34,
+      "prev30": 14,
+      "momentum": "상승",
+      "momentum_ratio": 2.91,
+      "last30_per_day": 1.36,
+      "prev30_per_day": 0.47,
+      "desk_mix": {
+        "정책": 35,
+        "시장": 13,
+        "경쟁·기업": 12,
+        "금융": 9
+      },
+      "rank": 11,
+      "evidence": [
+        {
+          "date": "2026-11-12",
+          "title": "계절근로 층, 같은 날 양쪽으로 갈렸다 — 안성시는 베트남 라오까이성과 유치 협약, 다른 한편에선 \"근무태만 신고 두 번에 강제출국\"",
+          "desk": "정책",
+          "sources": [
+            {
+              "name": "뉴스핌",
+              "url": "https://www.newspim.com/news/view/20261112001083"
+            },
+            {
+              "name": "뉴스참",
+              "url": "https://newscham.net/130168/"
+            },
+            {
+              "name": "뉴스메이커",
+              "url": "http://www.newsmaker.or.kr/news/articleView.html?idxno=185767"
+            },
+            {
+              "name": "신아일보",
+              "url": "https://www.shinailbo.co.kr/news/articleView.html?idxno=5082715"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-08",
+          "title": "E-10 외국인 선원이 산재로 다쳐 본국에 돌아간 뒤 \"산재 보상금으로 이탈 보증금과 그 보증금 때문에 낸 대출 이자를\" 갚았다는 현장 증언이 나왔다 — ClaimBack 이 두 달 동안 찾던 것은 '미수급'이었는데, 오늘 들어온 것은 '수급했는데 당사자에게 남지 않았다'는 제4 유형이다",
+          "desk": "시장",
+          "sources": [
+            {
+              "name": "전북소리",
+              "url": "http://www.jbsori.com/news/articleView.html?idxno=18147"
+            },
+            {
+              "name": "현대해양",
+              "url": "https://www.hdhy.co.kr/news/articleView.html?idxno=35602"
+            },
+            {
+              "name": "이로운넷",
+              "url": "https://www.eroun.net/news/articleView.html?idxno=90909"
+            },
+            {
+              "name": "머니투데이",
+              "url": "https://www.mt.co.kr/society/2026/11/08/2026110717411582422"
+            },
+            {
+              "name": "헤럴드경제",
+              "url": "https://biz.heraldcorp.com/article/10929640"
+            },
+            {
+              "name": "뉴시스",
+              "url": "https://www.newsis.com/view/NISX20261106_0003857755"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-05",
+          "title": "진안군이 계절근로자에게 제공하는 행정서비스 목록에 '통장 개설'과 '산업재해보험 가입'이 공항 인솔·외국인 등록·고충 처리와 나란히 적혔다 — 두 달 동안 찾던 '지자체가 사는 품목'의 목록이 처음 문장으로 나왔고, 금융이 그 목록 안에 있다",
+          "desk": "시장",
+          "sources": [
+            {
+              "name": "스포츠서울",
+              "url": "https://www.sportsseoul.com/news/read/1647398"
+            },
+            {
+              "name": "경북도민일보",
+              "url": "https://www.hidomin.com/news/articleView.html?idxno=728179"
+            },
+            {
+              "name": "KBS",
+              "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8705240"
+            },
+            {
+              "name": "G1방송",
+              "url": "https://www.g1tv.co.kr/news?mid=1_207_6&newsid=350677"
+            },
+            {
+              "name": "아주경제",
+              "url": "https://www.ajunews.com/view/20261105183623339"
+            },
+            {
+              "name": "동양일보",
+              "url": "https://www.dynews.co.kr/news/articleView.html?idxno=872652"
+            },
+            {
+              "name": "새전북신문",
+              "url": "https://sjbnews.com/news/news.php?number=891566"
+            },
+            {
+              "name": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261105152400054"
+            },
+            {
+              "name": "경기신문",
+              "url": "https://www.kyeongin.com/article/1774192"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "industrial-safety",
+      "label": "산재·안전·의료 접근",
+      "stage": "근로",
+      "who": "근로자·고용주",
+      "mentions": 97,
+      "heat": 45.25,
+      "distinct_days": 60,
+      "first_seen": "2026-07-13",
+      "last_seen": "2026-11-12",
+      "last30": 27,
+      "prev30": 17,
+      "momentum": "상승",
+      "momentum_ratio": 1.91,
+      "last30_per_day": 1.08,
+      "prev30_per_day": 0.57,
+      "desk_mix": {
+        "시장": 28,
+        "정책": 22,
+        "금융": 9,
+        "경쟁·기업": 4
+      },
+      "rank": 12,
+      "evidence": [
+        {
+          "date": "2026-11-12",
+          "title": "LH, 건설현장 2곳서 임금 50~70% 선지급 시범 — 생체인식 출역기록에 핀테크를 붙였고, 막는 요인으로 '불법체류 외국인 고용'을 지목했다",
+          "desk": "금융",
+          "sources": [
+            {
+              "name": "사(4th)",
+              "url": "http://www.4th.kr/news/articleView.html?idxno=2121714"
+            },
+            {
+              "name": "로이슈",
+              "url": "https://www.lawissue.co.kr/view.php?ud=202611121650396244b50722e900_12"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-05",
+          "title": "여당이 발의한 초광역권특구법이 특구 안에 '외국인전용약국'과 외국의료기관 개설을 허용하고 그 약국을 국민건강보험·의료급여 기관으로 보지 않는다 — 금융이 '전용 트랙을 만들지 않는 쪽'을 택한 바로 그 달에, 의료는 법으로 전용 트랙을 열려 한다",
+          "desk": "정책",
+          "sources": [
+            {
+              "name": "데일리팜",
+              "url": "https://www.dailypharm.com/user/news/344232"
+            },
+            {
+              "name": "광주드림",
+              "url": "http://www.gjdream.com/news/articleView.html?idxno=674106"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-05",
+          "title": "진안군이 계절근로자에게 제공하는 행정서비스 목록에 '통장 개설'과 '산업재해보험 가입'이 공항 인솔·외국인 등록·고충 처리와 나란히 적혔다 — 두 달 동안 찾던 '지자체가 사는 품목'의 목록이 처음 문장으로 나왔고, 금융이 그 목록 안에 있다",
+          "desk": "시장",
+          "sources": [
+            {
+              "name": "스포츠서울",
+              "url": "https://www.sportsseoul.com/news/read/1647398"
+            },
+            {
+              "name": "경북도민일보",
+              "url": "https://www.hidomin.com/news/articleView.html?idxno=728179"
+            },
+            {
+              "name": "KBS",
+              "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8705240"
+            },
+            {
+              "name": "G1방송",
+              "url": "https://www.g1tv.co.kr/news?mid=1_207_6&newsid=350677"
+            },
+            {
+              "name": "아주경제",
+              "url": "https://www.ajunews.com/view/20261105183623339"
+            },
+            {
+              "name": "동양일보",
+              "url": "https://www.dynews.co.kr/news/articleView.html?idxno=872652"
+            },
+            {
+              "name": "새전북신문",
+              "url": "https://sjbnews.com/news/news.php?number=891566"
+            },
+            {
+              "name": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261105152400054"
+            },
+            {
+              "name": "경기신문",
+              "url": "https://www.kyeongin.com/article/1774192"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stay-expiry",
+      "label": "체류기한·자격 만료 리스크",
+      "stage": "체류·자격",
+      "who": "근로자·고용주",
+      "mentions": 69,
+      "heat": 33.1,
+      "distinct_days": 43,
+      "first_seen": "2026-07-14",
+      "last_seen": "2026-11-12",
+      "last30": 21,
+      "prev30": 10,
+      "momentum": "상승",
+      "momentum_ratio": 2.52,
+      "last30_per_day": 0.84,
+      "prev30_per_day": 0.33,
+      "desk_mix": {
+        "정책": 23,
+        "시장": 5,
+        "금융": 4,
+        "경쟁·기업": 3
+      },
+      "rank": 13,
+      "evidence": [
+        {
+          "date": "2026-11-12",
+          "title": "LH, 건설현장 2곳서 임금 50~70% 선지급 시범 — 생체인식 출역기록에 핀테크를 붙였고, 막는 요인으로 '불법체류 외국인 고용'을 지목했다",
+          "desk": "금융",
+          "sources": [
+            {
+              "name": "사(4th)",
+              "url": "http://www.4th.kr/news/articleView.html?idxno=2121714"
+            },
+            {
+              "name": "로이슈",
+              "url": "https://www.lawissue.co.kr/view.php?ud=202611121650396244b50722e900_12"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-02",
+          "title": "우리은행이 은행권 처음으로 역외 원화거래(RFI-K)를 성사시켰다 — 해외에서 원화계좌를 열고 국내 증권사로 송금해 투자한 첫 실거래이고, '외국인 금융'이라는 같은 단어가 가리키는 두 세계가 오늘 가장 멀어졌다",
+          "desk": "금융",
+          "sources": [
+            {
+              "name": "한겨레",
+              "url": "https://www.hani.co.kr/arti/economy/finance/1285357.html"
+            },
+            {
+              "name": "한국경제",
+              "url": "https://www.hankyung.com/article/202611021249i"
+            },
+            {
+              "name": "파이낸셜뉴스",
+              "url": "https://www.fnnews.com/news/202611021826380827"
+            },
+            {
+              "name": "아주경제",
+              "url": "https://www.ajunews.com/view/20261102163557134"
+            },
+            {
+              "name": "경향신문",
+              "url": "https://www.khan.co.kr/article/202611022047005"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-01",
+          "title": "영주시 계절근로자 107명이 8개월 영농을 마치고 첫 단체 귀국했고, 같은 주에 부산은행은 김해공항 '외국인 근로자 보험금 지급 창구'를 계속 맡게 됐다 — 정산 창구는 공항에 있고 당사자는 비행기를 탄다",
+          "desk": "정책",
+          "sources": [
+            {
+              "name": "대구일보",
+              "url": "https://www.dkilbo.com/news/articleView.html?idxno=559097"
+            },
+            {
+              "name": "아주경제",
+              "url": "https://www.ajunews.com/view/20261101100912242"
+            },
+            {
+              "name": "이로운넷",
+              "url": "https://www.eroun.net/news/articleView.html?idxno=93981"
+            },
+            {
+              "name": "대구신문",
+              "url": "https://www.idaegu.co.kr/news/articleView.html?idxno=564007"
+            },
+            {
+              "name": "국제신문",
+              "url": "http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0200&key=20261102.22003000081"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "housing",
+      "label": "주거·기숙사 확보",
+      "stage": "정착",
+      "who": "근로자·지자체",
+      "mentions": 55,
+      "heat": 22.3,
+      "distinct_days": 33,
+      "first_seen": "2026-07-13",
+      "last_seen": "2026-11-04",
+      "last30": 11,
+      "prev30": 10,
+      "momentum": "상승",
+      "momentum_ratio": 1.32,
+      "last30_per_day": 0.44,
+      "prev30_per_day": 0.33,
+      "desk_mix": {
+        "시장": 12,
+        "금융": 7,
+        "정책": 5,
+        "경쟁·기업": 2
+      },
+      "rank": 14,
+      "evidence": [
+        {
+          "date": "2026-11-04",
+          "title": "경향신문이 신파일러를 약 1,200만명으로 집계하고 그 명단에 '국내 거주 외국인'을 명시했다 — 그런데 같은 칼럼이 열거한 대안 데이터 다섯 항목은 외국인이 쌓을 수 없는 것들이다",
+          "desk": "금융",
+          "sources": [
+            {
+              "name": "경향신문",
+              "url": "https://www.khan.co.kr/article/202611041919001"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-04",
+          "title": "삼삼엠투는 영어 서비스를 하나도 제공하지 않았을 때도 이미 계약의 10%가 외국인이었고, 거래액은 2년 만에 7.2배가 됐다 — 주거 층의 여백이 실명 주체에게 먼저 발견됐고, 우리는 그 층에 들어가지 않기로 한 상태다",
+          "desk": "시장",
+          "sources": [
+            {
+              "name": "서울경제",
+              "url": "https://www.sedaily.com/article/20110299"
+            },
+            {
+              "name": "서울경제",
+              "url": "https://www.sedaily.com/article/20110294"
+            },
+            {
+              "name": "매일경제",
+              "url": "https://www.mk.co.kr/article/12196591"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-22",
+          "title": "외국인 유학생 36만명 돌파 — 정부가 비자 심사를 '한 곳에서 일관성 있게' 처리하는 센터 5곳을 추진하고 출입국 보유 유학생 데이터 활용을 넓힌다",
+          "desk": "정책",
+          "sources": [
+            {
+              "name": "한국대학신문",
+              "url": "https://news.unn.net/news/articleView.html?idxno=599099"
+            },
+            {
+              "name": "서울신문",
+              "url": "https://n.news.naver.com/mnews/article/081/0003691383?sid=101"
+            },
+            {
+              "name": "충청일보",
+              "url": "https://www.ccdn.co.kr/news/articleView.html?idxno=1106538"
+            },
+            {
+              "name": "인더뉴스",
+              "url": "https://www.inthenews.co.kr/news/article.html?no=93424"
+            },
+            {
+              "name": "뉴시스",
+              "url": "https://n.news.naver.com/mnews/article/003/0014272702?sid=102"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mobility-turnover",
+      "label": "사업장 이동·이탈 관리",
+      "stage": "근로",
+      "who": "고용주",
+      "mentions": 53,
+      "heat": 15.3,
+      "distinct_days": 33,
+      "first_seen": "2026-07-14",
+      "last_seen": "2026-11-05",
+      "last30": 4,
+      "prev30": 6,
+      "momentum": "하락",
+      "momentum_ratio": 0.8,
+      "last30_per_day": 0.16,
+      "prev30_per_day": 0.2,
+      "desk_mix": {
+        "정책": 11,
+        "시장": 5,
+        "금융": 2
+      },
+      "rank": 15,
+      "evidence": [
+        {
+          "date": "2026-10-25",
+          "title": "외국인이 한국에서 못 하는 것의 목록이 국감 자료로 나왔다 — 한국 휴대전화번호 필수, 해외 카드 승인 실패, 해외 IP 차단. 불만 비율은 일본의 1.5배다",
+          "desk": "시장",
+          "sources": [
+            {
+              "name": "아시아경제",
+              "url": "https://view.asiae.co.kr/article/2026102514052809104"
+            },
+            {
+              "name": "세계일보",
+              "url": "https://www.segye.com/newsView/20261025505079?OutUrl=naver"
+            },
+            {
+              "name": "새전북신문",
+              "url": "https://sjbnews.com/news/news.php?number=890731"
+            },
+            {
+              "name": "스트레이트뉴스",
+              "url": "https://www.straightnews.co.kr/news/articleView.html?idxno=313888"
+            },
+            {
+              "name": "전자신문",
+              "url": "https://n.news.naver.com/mnews/article/030/0003478365?sid=101"
+            },
+            {
+              "name": "국제신문",
+              "url": "http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0200&key=20261026.22014006989"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-17",
+          "title": "유학생은 남고 싶어 하는데 남지 못한다 — 강원 심층취재와 대학 취업박람회가 같은 날 나왔고, 호주는 반대로 문을 닫았다",
+          "desk": "시장",
+          "sources": [
+            {
+              "name": "KBS",
+              "url": "https://n.news.naver.com/mnews/article/056/0012259854?sid=101"
+            },
+            {
+              "name": "뉴스프리존",
+              "url": "https://www.newsfreezone.co.kr/news/articleView.html?idxno=710034"
+            },
+            {
+              "name": "충청리뷰",
+              "url": "https://www.ccreview.co.kr/news/articleView.html?idxno=357943"
+            },
+            {
+              "name": "서울신문",
+              "url": "https://n.news.naver.com/mnews/article/081/0003681446?sid=102"
+            },
+            {
+              "name": "서울경제",
+              "url": "https://n.news.naver.com/mnews/article/011/0004662914?sid=101"
+            },
+            {
+              "name": "조선비즈",
+              "url": "https://n.news.naver.com/mnews/article/366/0001193023?sid=101"
+            },
+            {
+              "name": "뉴스1",
+              "url": "https://n.news.naver.com/mnews/article/421/0009177694?sid=104"
+            },
+            {
+              "name": "한국일보",
+              "url": "https://n.news.naver.com/mnews/article/469/0000954721?sid=102"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-15",
+          "title": "체류 외국인은 역대 최대인데 기업의 신규 고용 신청은 줄고 있다 — 제조업 4차 배정 1년 새 31% 감소",
+          "desk": "정책",
+          "sources": [
+            {
+              "name": "헤럴드경제",
+              "url": "https://n.news.naver.com/mnews/article/016/0002697478?sid=101"
+            },
+            {
+              "name": "뉴스1",
+              "url": "https://n.news.naver.com/mnews/article/421/0009167663?sid=101"
+            },
+            {
+              "name": "울산매일",
+              "url": "https://www.iusm.co.kr/news/articleView.html?idxno=1067769"
+            },
+            {
+              "name": "충청투데이",
+              "url": "https://www.cctoday.co.kr/news/articleView.html?idxno=2236584"
+            },
+            {
+              "name": "법률신문",
+              "url": "https://www.lawtimes.co.kr/news/articleView.html?idxno=226437"
+            },
+            {
+              "name": "이로운넷",
+              "url": "https://www.eroun.net/news/articleView.html?idxno=89473"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "care-labor",
+      "label": "돌봄·간병 인력 수급",
+      "stage": "근로",
+      "who": "가구·요양기관",
+      "mentions": 7,
+      "heat": 2.95,
+      "distinct_days": 5,
+      "first_seen": "2026-07-30",
+      "last_seen": "2026-11-03",
+      "last30": 1,
+      "prev30": 3,
+      "momentum": "하락",
+      "momentum_ratio": 0.4,
+      "last30_per_day": 0.04,
+      "prev30_per_day": 0.1,
+      "desk_mix": {
+        "시장": 2,
+        "금융": 2,
+        "정책": 1
+      },
+      "rank": 16,
+      "evidence": [
+        {
+          "date": "2026-11-03",
+          "title": "경기도가 2년 준비한 외국인 간병제 시범사업이 \"애초에 추진 불가\"로 확인됐다 — 현행 체류자격으로는 간병 목적 입국·취업이 불가능했고, 제도 판정이 선행되지 않은 사업이 2년을 쓴 사례다",
+          "desk": "정책",
+          "sources": [
+            {
+              "name": "경기일보",
+              "url": "https://www.kyeonggi.com/article/20261103580485"
+            },
+            {
+              "name": "뉴스토마토",
+              "url": "http://www.newstomato.com/ReadNews.aspx?no=1319168&inflow=N"
+            },
+            {
+              "name": "서울신문",
+              "url": "https://www.seoul.co.kr/news/politics/2026/11/03/20261103500326?wlog_tag3=naver"
+            },
+            {
+              "name": "머니투데이",
+              "url": "https://www.mt.co.kr/policy/2026/11/04/2026110320040636876"
+            },
+            {
+              "name": "경향신문",
+              "url": "https://www.khan.co.kr/article/202611031825001"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-20",
+          "title": "외국인 실업급여가 처음 1,100억을 넘었다 — 2025년 1,133억9,900만원·수급자 1만6,789명, 79%가 중국계",
+          "desk": "금융",
+          "sources": [
+            {
+              "name": "한국경제",
+              "url": "https://n.news.naver.com/mnews/article/015/0005334345?sid=102"
+            },
+            {
+              "name": "중앙일보",
+              "url": "https://n.news.naver.com/mnews/article/025/0003552600?sid=102"
+            },
+            {
+              "name": "이데일리",
+              "url": "https://n.news.naver.com/mnews/article/018/0006373309?sid=102"
+            },
+            {
+              "name": "MBN",
+              "url": "https://n.news.naver.com/mnews/article/057/0001969916?sid=101"
+            },
+            {
+              "name": "디지털타임스",
+              "url": "https://n.news.naver.com/mnews/article/029/0003049055?sid=110"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-19",
+          "title": "외국인이 받은 육아휴직 급여가 1년 만에 2배 — 작년 364억원, 수급자 2,031명",
+          "desk": "금융",
+          "sources": [
+            {
+              "name": "연합뉴스",
+              "url": "https://n.news.naver.com/mnews/article/001/0016322971?sid=103"
+            },
+            {
+              "name": "한경비즈니스",
+              "url": "https://n.news.naver.com/mnews/article/050/0000111138?sid=101"
+            },
+            {
+              "name": "경기매일",
+              "url": "https://www.kmaeil.com/news/articleView.html?idxno=647945"
+            },
+            {
+              "name": "이데일리",
+              "url": "https://n.news.naver.com/mnews/article/018/0006371853?sid=102"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
